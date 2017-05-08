@@ -1,0 +1,335 @@
+﻿<UserControl x:Class="Niscon.Raynok.Controls.AxisColumnValueIndicator"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Niscon.Raynok.Controls"
+             xmlns:mock="clr-namespace:Niscon.Raynok.Models.Mock"
+             xmlns:converters="clr-namespace:Niscon.Raynok.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="120" Width="99">
+    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:AxisColumnValueIndicator}}" d:DataContext ="{d:DesignInstance {x:Type mock:AxisValueIndicatorMock}, IsDesignTimeCreatable=True}">
+        <Grid x:Name="InnerGrid" DataContext="{Binding Profile}">
+            <Grid.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding State}" Value="Disabled">
+                            <Setter Property="Control.Effect" Value="{StaticResource DisabledItemBlurEffect}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border BorderBrush="{StaticResource WidgetBorderBrush}" BorderThickness="2" CornerRadius="2">
+                <Border.Style>
+                    <Style>
+                        <Setter Property="Control.Background" Value="{StaticResource RatioWidgetLightBackgroundBrush}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding State}" Value="Active">
+                                <!--<Setter Property="Control.Background" Value="{StaticResource ContainerItemActiveBackgroundBrush}"/>-->
+                                <Setter Property="Control.Effect" Value="{StaticResource HighlightedItemDropShadowEffect}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding State}" Value="Error">
+                                <Setter Property="Control.Background" Value="{StaticResource ContainerItemColumnErrorBackgroundBrush}"/>
+                                <Setter Property="Control.Effect" Value="{StaticResource HighlightedItemDropShadowEffect}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding State}" Value="Disabled">
+                                <Setter Property="Control.Background" Value="{StaticResource ContainerItemDisabledBackgroundBrush}"/>
+                                <Setter Property="Control.Effect" Value="{StaticResource HighlightedItemDropShadowEffect}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Axis.Selected}" Value="True">
+                                <Setter Property="Control.Background" Value="{StaticResource ContainerItemColumnSelectedBackgroundBrush}"/>
+                                <Setter Property="Control.Effect" Value="{StaticResource HighlightedItemDropShadowEffect}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <!--<RowDefinition Height="Auto"></RowDefinition>-->
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="60"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="{Binding Axis.Name}" Style="{StaticResource RatioWidgetHeader}" FontSize="22" FontWeight="Bold" TextWrapping="Wrap" Margin="3 10 3 10" TextTrimming="CharacterEllipsis"/>
+
+                    <Border Grid.Row="1">
+                        <Border.Style>
+                            <Style>
+                                <Setter Property="Control.Background" Value="#71BF44"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding State}" Value="Error">
+                                        <Setter Property="Control.Background" Value="{StaticResource BlackBorderBrush}"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding State}" Value="Active">
+                                        <Setter Property="Control.Background" Value="{StaticResource BlackBorderBrush}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <Grid>
+                            <TextBlock Text="{Binding Status}" VerticalAlignment="Center" FontSize="22" Visibility="Visible"/>
+                        </Grid>
+                    </Border>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" FlowDirection="LeftToRight" HorizontalAlignment="Center" Margin="0 10">
+                        <TextBlock Text="{Binding Load, StringFormat={}{0}}" TextAlignment="Left" Style="{StaticResource RatioWidgetText}"/>
+                        <TextBlock Text="/" TextAlignment="Left" Style="{StaticResource RatioWidgetText}"/>
+                        <TextBlock Text="{Binding Axis.MaxLoad, StringFormat={}{0} lbs}" TextAlignment="Left" Style="{StaticResource RatioWidgetText}"/>
+                    </StackPanel>
+
+                    <Rectangle Grid.Row="3" Height="2" Fill="#FFFFFF">
+                        <Rectangle.Effect>
+                            <BlurEffect KernelType="Box" Radius="1" />
+                        </Rectangle.Effect>
+                    </Rectangle>
+
+                    <Grid Grid.Row="4" VerticalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="{Binding Converter={StaticResource CueAxisValueIndicatorConverter}, ConverterParameter={x:Static converters:CueAxisValueIndicatorConverterParameter.Top}}"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="{Binding Converter={StaticResource CueAxisValueIndicatorConverter}, ConverterParameter={x:Static converters:CueAxisValueIndicatorConverterParameter.TopMiddle}}"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="{Binding Converter={StaticResource CueAxisValueIndicatorConverter}, ConverterParameter={x:Static converters:CueAxisValueIndicatorConverterParameter.BottomMiddle}}"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="{Binding Converter={StaticResource CueAxisValueIndicatorConverter}, ConverterParameter={x:Static converters:CueAxisValueIndicatorConverterParameter.Bottom}}"/>
+                        </Grid.RowDefinitions>
+
+                        <Rectangle Grid.Row="2" Grid.RowSpan="3" Fill="#25AAE1">
+                            <Rectangle.Style>
+                                <Style>
+                                    <Setter Property="Control.Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding State}" Value="Active">
+                                            <Setter Property="Control.Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Rectangle.Style>
+                        </Rectangle>
+                        <Rectangle Grid.Row="2" Grid.RowSpan="3" Fill="{StaticResource AxisColumnValueIndicatorUpDirectionBrush}" Width="30" Opacity="0.2">
+                            <Rectangle.Style>
+                                <Style>
+                                    <Setter Property="Control.Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding State}" Value="Active"/>
+                                                <Condition Binding="{Binding Direction}" Value="Up"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Control.Visibility" Value="Visible"/>
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Rectangle.Style>
+                        </Rectangle>
+                        <Rectangle Grid.Row="2" Grid.RowSpan="3" Fill="{StaticResource AxisColumnValueIndicatorDownDirectionBrush}" Width="30" Opacity="0.2">
+                            <Rectangle.Style>
+                                <Style>
+                                    <Setter Property="Control.Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding State}" Value="Active"/>
+                                                <Condition Binding="{Binding Direction}" Value="Down"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Control.Visibility" Value="Visible"/>
+                                        </MultiDataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Rectangle.Style>
+                        </Rectangle>
+
+                        <Border x:Name="TargetValueTop" Grid.Row="1" Height="40">
+                            <Border.Style>
+                                <Style>
+                                    <Setter Property="Control.Visibility" Value="Collapsed"/>
+                                    <Setter Property="Control.Background" Value="{StaticResource WidgetTargetValueLabelBrush}"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Direction}" Value="Up">
+                                            <Setter Property="Control.Visibility" Value="Visible"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding State}" Value="Error">
+                                            <Setter Property="Control.Background" Value="{StaticResource WidgetAnyValueErrorLabelBrush}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" Opacity="1" Direction="-90" BlurRadius="20"></DropShadowEffect>
+                            </Border.Effect>
+                            <TextBlock FontSize="28" FontWeight="Bold" VerticalAlignment="Center">
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource InchesToFeetMultiConverter}" ConverterParameter="True">
+                                        <Binding Path="TargetValue"/>
+                                        <Binding Path="AppSettings.Units" RelativeSource="{RelativeSource FindAncestor, AncestorType=local:AxisColumnValueIndicator}"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </Border>
+                        <Border x:Name="StartValueTop" Grid.Row="1" Height="40">
+                            <Border.Style>
+                                <Style>
+                                    <Setter Property="Control.Visibility" Value="Collapsed"/>
+                                    <Setter Property="Control.Background" Value="{StaticResource WidgetTargetValueLabelBrush}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Direction}" Value="Down">
+                                            <Setter Property="Control.Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding State}" Value="Error">
+                                            <Setter Property="Control.Background" Value="{StaticResource WidgetAnyValueErrorLabelBrush}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" Opacity="1" Direction="-90" BlurRadius="20"></DropShadowEffect>
+                            </Border.Effect>
+                            <TextBlock FontSize="28" VerticalAlignment="Center" FontWeight="Bold">
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource InchesToFeetMultiConverter}" ConverterParameter="True">
+                                        <Binding Path="StartValue"/>
+                                        <Binding Path="AppSettings.Units" RelativeSource="{RelativeSource FindAncestor, AncestorType=local:AxisColumnValueIndicator}"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </Border>
+
+                        <Border x:Name="CurrentValue" Grid.Row="3" Height="40" Visibility="{Binding Converter={StaticResource CurrentValueIndicatorVisibilityConverter}}">
+                            <Border.Style>
+                                <Style>
+                                    <Setter Property="Control.Background" Value="{StaticResource WidgetCurrentValueLabelBrush}"/>
+                                </Style>
+                            </Border.Style>
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" Opacity="1" Direction="-90" BlurRadius="20"></DropShadowEffect>
+                            </Border.Effect>
+                            <TextBlock FontSize="28" FontWeight="Bold" VerticalAlignment="Center" Foreground="Black">
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource InchesToFeetMultiConverter}" ConverterParameter="True">
+                                        <Binding Path="Axis.CurrentValue"/>
+                                        <Binding Path="AppSettings.Units" RelativeSource="{RelativeSource FindAncestor, AncestorType=local:AxisColumnValueIndicator}"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </Border>
+
+                        <Border x:Name="TargetValueBottom" Grid.Row="5" Height="40">
+                            <Border.Style>
+                                <Style>
+                                    <Setter Property="Control.Background" Value="{StaticResource WidgetTargetValueLabelBrush}"/>
+                                    <Setter Property="Control.Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Direction}" Value="Down">
+                                            <Setter Property="Control.Visibility" Value="Visible"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding State}" Value="Error">
+                                            <Setter Property="Control.Background" Value="{StaticResource WidgetAnyValueErrorLabelBrush}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" Opacity="1" Direction="-90" BlurRadius="20"></DropShadowEffect>
+                            </Border.Effect>
+                            <TextBlock FontSize="28" FontWeight="Bold" VerticalAlignment="Center">
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource InchesToFeetMultiConverter}" ConverterParameter="True">
+                                        <Binding Path="TargetValue"/>
+                                        <Binding Path="AppSettings.Units" RelativeSource="{RelativeSource FindAncestor, AncestorType=local:AxisColumnValueIndicator}"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </Border>
+                        <Border x:Name="StartValueBottom" Grid.Row="5" Height="40">
+                            <Border.Style>
+                                <Style>
+                                    <Setter Property="Control.Visibility" Value="Collapsed"/>
+                                    <Setter Property="Control.Background" Value="{StaticResource WidgetTargetValueLabelBrush}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Direction}" Value="Up">
+                                            <Setter Property="Control.Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding State}" Value="Error">
+                                            <Setter Property="Control.Background" Value="{StaticResource WidgetAnyValueErrorLabelBrush}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" Opacity="1" Direction="-90" BlurRadius="20"></DropShadowEffect>
+                            </Border.Effect>
+                            <TextBlock FontSize="28" FontWeight="Bold" VerticalAlignment="Center">
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource InchesToFeetMultiConverter}" ConverterParameter="True">
+                                        <Binding Path="StartValue"/>
+                                        <Binding Path="AppSettings.Units" RelativeSource="{RelativeSource FindAncestor, AncestorType=local:AxisColumnValueIndicator}"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </Border>
+                    </Grid>
+
+
+                    <Border Grid.Row="5" BorderThickness="0 2 0 0" BorderBrush="White" Margin="0 10 0 0">
+                        <Border.Style>
+                            <Style>
+                                <Setter Property="Control.Visibility" Value="Collapsed"/>
+                                <Setter Property="Control.Background" Value="{StaticResource RatioWidgetHatchingBrush}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding State}" Value="Active">
+                                        <Setter Property="Control.Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding State}" Value="Error">
+                                        <Setter Property="Control.Visibility" Value="Visible"/>
+                                        <Setter Property="Control.Background" Value="{StaticResource RatioWidgetErrorHatchingBrush}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <TextBlock Grid.Row="1" Text="{Binding Velocity, StringFormat={}{0}FPM}" DataContext="{Binding}" Margin="0 5">
+                <TextBlock.Style>
+                    <Style>
+                        <Setter Property="TextBlock.Foreground" Value="White"/>
+                        <Setter Property="TextBlock.FontWeight" Value="Bold"/>
+                        <Setter Property="TextBlock.FontSize" Value="24"/>
+                        <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                        <Setter Property="TextBlock.FontFamily" Value="Lucida Sans"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding State}" Value="Error">
+                                <Setter Property="TextBlock.Foreground" Value="#FB1520"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+        </Grid>
+        
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="LockImage" PreviewMouseUp="LockImage_OnPreviewMouseUp">
+            <Grid.Style>
+                <Style>
+                    <Setter Property="Control.Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Profile.State}" Value="Disabled">
+                            <Setter Property="Control.Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Rectangle Fill="Transparent"/>
+            <Image  Source="../Resources/img/lock_icon_white.png" Opacity="0.8" Margin="10"/>
+        </Grid>
+    </Grid>
+</UserControl>

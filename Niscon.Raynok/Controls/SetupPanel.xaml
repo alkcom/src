@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="Niscon.Raynok.Controls.SetupPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Niscon.Raynok.Controls"
+             xmlns:mdls="clr-namespace:Niscon.Raynok.Models"
+             xmlns:ctrl="clr-namespace:Niscon.Raynok.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="510" d:DesignWidth="390">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resources/Converters.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ctrl:SetupPanel}}">
+        <Grid.Effect>
+            <DropShadowEffect BlurRadius="10" Opacity="0.5"></DropShadowEffect>
+        </Grid.Effect>
+       <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <ctrl:PanelHeader Icon="{StaticResource SetupMenuIconWhite}" Text="Setup"></ctrl:PanelHeader>
+
+        <Grid Grid.Row="1" Background="{StaticResource PanelContentBrush}" VerticalAlignment="Stretch">
+            <TabControl  Background="Transparent" BorderThickness="0">
+                <TabItem Header="Tab 1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="20 20 20 15">
+                            <RadioButton Content="Inches" IsChecked="{Binding AppSettings.Units, Mode=TwoWay, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=Inches}"/>
+                            <RadioButton Content="Feet &amp; Inches" IsChecked="{Binding AppSettings.Units, Mode=TwoWay, Converter={StaticResource EnumBooleanConverter}, ConverterParameter=FeetInches}" Margin="20 0"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="20 10 20 10">
+                            <CheckBox Content="First item" IsChecked="True"/>
+                            <CheckBox Content="Second item" Margin="20 0"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Margin="20 10 20 10">
+                            <RadioButton Content="Setting" HorizontalAlignment="Left" IsChecked="True" Margin="0 0 0 5"></RadioButton>
+                            <RadioButton Content="Setting" HorizontalAlignment="Left" Margin="0 0 0 5"></RadioButton>
+                            <RadioButton Content="Setting" HorizontalAlignment="Left" Margin="0 0 0 5"></RadioButton>
+                            <RadioButton Content="Setting" HorizontalAlignment="Left" Margin="0 0 0 5"></RadioButton>
+                            <RadioButton Content="Setting" HorizontalAlignment="Left" Margin="0 0 0 5"></RadioButton>
+                            <RadioButton Content="Setting" HorizontalAlignment="Left"></RadioButton>
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="3" Margin="20 5 20 10">
+                            <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
+                                <TextBlock Text="Text field: " FontSize="14" VerticalAlignment="Center"></TextBlock>
+                                <TextBox Width="50"></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
+                                <TextBlock Text="Text field: " FontSize="14" VerticalAlignment="Center"></TextBlock>
+                                <TextBox Width="50"></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
+                                <TextBlock Text="Text field: " FontSize="14" VerticalAlignment="Center"></TextBlock>
+                                <TextBox Width="50"></TextBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Text field: " FontSize="14" VerticalAlignment="Center"></TextBlock>
+                                <TextBox Width="50"></TextBox>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Tab 2"></TabItem>
+                <TabItem Header="Tab 3"></TabItem>
+                <TabItem Header="Tab 4"></TabItem>
+                <TabItem Header="Tab 5"></TabItem>
+                <TabItem Header="Tab 6"></TabItem>
+            </TabControl>
+        </Grid>
+
+        <Border Grid.Row="2"  Background="{StaticResource PanelContentBrush}" CornerRadius="0 0 3 3"/>
+        <Grid Grid.Row="2" Height="75">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Margin="30 15 15 15" Content="Transparent" x:Name="MakeTransparentButton" Click="MakeTransparentButton_Click" />
+            <Button Grid.Column="1" Margin="15 15 30 15" Content="Visible" x:Name="MakeVisibleButton" Click="MakeVisibleButton_Click"/>
+        </Grid>
+    </Grid>
+</UserControl>

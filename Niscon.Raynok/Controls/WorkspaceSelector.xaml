@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="Niscon.Raynok.Controls.WorkspaceSelector"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Niscon.Raynok.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="200">
+    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:WorkspaceSelector}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <local:PanelHeader Icon="{StaticResource MenuIconWhite}" Text="View selector"></local:PanelHeader>
+
+        <Border Background="{StaticResource PanelContentBrush}" Grid.Row="1" CornerRadius="0 0 3 3"></Border>
+
+        <Grid Grid.Row="1" ShowGridLines="False">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <ListBox x:Name="StatesListBox" Style="{StaticResource RadioButtonListBox}" ItemsSource="{Binding States}" IsSynchronizedWithCurrentItem="True" 
+                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalAlignment="Stretch" />
+        </Grid>
+    </Grid>
+</UserControl>
+

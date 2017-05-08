@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Niscon.Raynok.Resources"
+                    xmlns:converters="clr-namespace:Niscon.Raynok.Converters">
+
+    <BooleanToVisibilityConverter x:Key="BoolToVisConverter"/>
+    <converters:EqualParameterVisibilityConverter x:Key="EqualParameterVisibilityConverter"/>
+    <converters:EqualParameterVisibilityConverter x:Key="UnqualParameterVisibilityConverter" Reverse="True"/>
+    <converters:AdminMenuItemVisibilityConverter x:Key="AdminMenuItemVisibilityConverter"/>
+    <converters:CustomBooleanVisibilityConverter x:Key="ReverseBoolToVisConverter" True="Hidden" False="Visible" />
+    <converters:TabItemIndexConverter x:Key="ReverseTabItemIndexConverter" Reverse="True" />
+    <converters:AdminMenuItemRaynokModeConverter x:Key="AdminMenuItemRaynokModeConverter"/>
+    <converters:InchesToFeetConverter x:Key="InchesToFeetConverter"/>
+    <converters:InchesToFeetMultiConverter x:Key="InchesToFeetMultiConverter"/>
+    <converters:CueAxisValueIndicatorConverter x:Key="CueAxisValueIndicatorConverter"/>
+    <converters:BackgroundLogoVisibilityConverter x:Key="BackgroundLogoVisibilityConverter"/>
+    <converters:EnumBooleanConverter x:Key="EnumBooleanConverter"/>
+    <converters:NamedItemConverter x:Key="NamedItemConverter"/>
+    <converters:CurrentValueIndicatorVisibilityConverter x:Key="CurrentValueIndicatorVisibilityConverter"/>
+    <converters:NotNullVisibilityConverter x:Key="NotNullVisibilityConverter"/>
+    <converters:NotNullBooleanConverter x:Key="NotNullBooleanConverter"/>
+    <converters:ViewMenuItemConverter x:Key="ViewMenuItemConverter"/>
+    <converters:ViewsMenuItemsConverter x:Key="ViewsMenuItemsConverter"/>
+    <converters:ViewsWorkspaceVisibilityConverter x:Key="ViewsWorkspaceVisibilityConverter"/>
+    <converters:AxesViewAxesConverter x:Key="AxesViewAxesConverter"/>
+</ResourceDictionary>

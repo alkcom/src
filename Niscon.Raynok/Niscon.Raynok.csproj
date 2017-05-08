@@ -1,0 +1,447 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{759AC0FA-1071-4FCC-A471-90ADF7BF1193}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Niscon.Raynok</RootNamespace>
+    <AssemblyName>Niscon.Raynok</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.5.0\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoMapper, Version=6.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.0.2\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="JetBrains.Annotations, Version=10.4.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.10.4.0\lib\net\JetBrains.Annotations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpGL, Version=2.4.0.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpGL.2.4.0.0\lib\net40\SharpGL.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpGL.SceneGraph, Version=2.4.0.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpGL.2.4.0.0\lib\net40\SharpGL.SceneGraph.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpGL.WPF, Version=2.4.0.0, Culture=neutral, PublicKeyToken=27fc851303210b27, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpGL.WPF.2.4.0.0\lib\net40\SharpGL.WPF.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UnitsNet, Version=3.54.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UnitsNet.3.54.0\lib\net35\UnitsNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Commands\CueCommands.cs" />
+    <Compile Include="Commands\ShowCommands.cs" />
+    <Compile Include="Commands\ViewCommands.cs" />
+    <Compile Include="Controls\AdminMenuContainer.xaml.cs">
+      <DependentUpon>AdminMenuContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CurrentValueDialog.xaml.cs">
+      <DependentUpon>CurrentValueDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FluidItemScroller.cs" />
+    <Compile Include="Controls\AxesColumns.xaml.cs">
+      <DependentUpon>AxesColumns.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AxesDisplayControl.cs" />
+    <Compile Include="Controls\AxesGrid.xaml.cs">
+      <DependentUpon>AxesGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AxesPresets.xaml.cs">
+      <DependentUpon>AxesPresets.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AxisColumnValueIndicator.xaml.cs">
+      <DependentUpon>AxisColumnValueIndicator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AxisValueIndicator.xaml.cs">
+      <DependentUpon>AxisValueIndicator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LockPanel.xaml.cs">
+      <DependentUpon>LockPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MenuItemExtensions.cs" />
+    <Compile Include="Controls\OnScreenKeyboardButton.cs" />
+    <Compile Include="Controls\ViewsMenuItem.cs" />
+    <Compile Include="Controls\WorkspaceContainer.xaml.cs">
+      <DependentUpon>WorkspaceContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkspaceSelector.xaml.cs">
+      <DependentUpon>WorkspaceSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\AdminMenuItemVisibilityConverter.cs" />
+    <Compile Include="Converters\AxesProfilesMatchingConverter.cs" />
+    <Compile Include="Converters\AxesViewAxesConverter.cs" />
+    <Compile Include="Converters\BackgroundLogoVisibilityConverter.cs" />
+    <Compile Include="Converters\CueAxisValueIndicatorConverter.cs" />
+    <Compile Include="Converters\CurrentValueIndicatorVisibilityConverter.cs" />
+    <Compile Include="Converters\EnumBooleanConverter.cs" />
+    <Compile Include="Converters\InchesToFeetConverter.cs" />
+    <Compile Include="Converters\NamedItemConverter.cs" />
+    <Compile Include="Converters\NotNullBooleanConverter.cs" />
+    <Compile Include="Converters\NotNullVisibilityConverter.cs" />
+    <Compile Include="Converters\ViewMenuItemConverter.cs" />
+    <Compile Include="Converters\ViewsSelectedViewConverter.cs" />
+    <Compile Include="Converters\ViewsWorkspaceVisibilityConverter.cs" />
+    <Compile Include="Extensions\ModelExtensions.cs" />
+    <Compile Include="Helpers\CurrentValueDialogRequestedEventArgs.cs" />
+    <Compile Include="Helpers\EventHandlers.cs" />
+    <Compile Include="Helpers\ExtendedTreeView.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="Helpers\LockOptionsRequesetedEventArgs.cs" />
+    <Compile Include="Helpers\ValueConfirmedEventArgs.cs" />
+    <Compile Include="Models\AppSettings.cs" />
+    <Compile Include="Models\CueParent.cs" />
+    <Compile Include="Models\Mock\ProfilesMock.cs" />
+    <Compile Include="Models\Mock\AxisValueIndicatorMock.cs" />
+    <Compile Include="Models\Mock\CueTreeMock.cs" />
+    <Compile Include="Models\Mock\FooterMock.cs" />
+    <Compile Include="Models\Mock\WorkspaceContainerMock.cs" />
+    <Compile Include="Models\NamedItem.cs" />
+    <Compile Include="Models\Profile.cs" />
+    <Compile Include="Models\Show.cs" />
+    <Compile Include="Models\ShowFile.cs" />
+    <Compile Include="Models\View.cs" />
+    <Compile Include="Services\ShowsService.cs" />
+    <Compile Include="Services\ViewsService.cs" />
+    <Compile Include="ViewModels\AdminMenuContainerViewModel.cs" />
+    <Compile Include="ViewModels\WorkSpaceViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="Windows\ConfirmationWindow.xaml.cs">
+      <DependentUpon>ConfirmationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EditViewWindow.xaml.cs">
+      <DependentUpon>EditViewWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ItemNameWindow.xaml.cs">
+      <DependentUpon>ItemNameWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Controls\CurrentValueDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\LockPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ToolMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\AdminMenuContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\AxesColumns.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\AxesGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\AxesPresets.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\AxisColumnValueIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\AxisValueIndicator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\CueTree.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\FilePanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Footer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Header.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PanelHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SetupPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\WorkspaceContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\WorkspaceSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\ToolMenu.xaml.cs">
+      <DependentUpon>ToolMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CueTree.xaml.cs">
+      <DependentUpon>CueTree.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FilePanel.xaml.cs">
+      <DependentUpon>FilePanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Footer.xaml.cs">
+      <DependentUpon>Footer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Header.xaml.cs">
+      <DependentUpon>Header.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PanelHeader.xaml.cs">
+      <DependentUpon>PanelHeader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SetupPanel.xaml.cs">
+      <DependentUpon>SetupPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\BooleanConverter.cs" />
+    <Compile Include="Converters\CustomBooleanVisibilityConverter.cs" />
+    <Compile Include="Converters\EqualParameterVisibilityConverter.cs" />
+    <Compile Include="Converters\AdminMenuItemRaynokModeConverter.cs" />
+    <Compile Include="Converters\TabItemIndexConverter.cs" />
+    <Compile Include="Helpers\ArcPolygon.cs" />
+    <Compile Include="Helpers\RaynokStateControl.cs" />
+    <Compile Include="Helpers\RoundedCornersPolygon.cs" />
+    <Compile Include="Helpers\TimeTicker.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Resources\Animations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Brushes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Containers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Converters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\DataGrids.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\DesignTimeData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Effects.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Icons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\CheckBoxes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Menus.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ProgressBars.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\StaticElements.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Text.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\TextBoxes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ConfirmationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EditViewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ItemNameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Axis.cs" />
+    <Compile Include="Models\Cue.cs" />
+    <Compile Include="Models\AdminMenuItem.cs" />
+    <Compile Include="Models\RaynokStates.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+    <None Include="Shows\0ee63dc35d354a7fbddf3f3c92ff283f-show1_1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Shows\8c70c362408b4064b34e2983c124e03c-show2_1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Shows\a466d7b01ef2407a88061fa8bca68624-show3_1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Shows\axes.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\img\user_group_black.png" />
+    <Resource Include="Resources\img\user_group_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\img\disk_icon_black.png" />
+    <Resource Include="Resources\img\disk_icon_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\img\menu_icon_black.png" />
+    <Resource Include="Resources\img\menu_icon_white.png" />
+    <Resource Include="Resources\img\settings_icon_black.png" />
+    <Resource Include="Resources\img\settings_icon_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\img\alarm_icon_black.png" />
+    <Resource Include="Resources\img\alarm_icon_white.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\img\setup_icon_black.png" />
+    <Resource Include="Resources\img\setup_icon_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\img\niscon_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\img\lock_icon_black.png" />
+    <Resource Include="Resources\img\lock_icon_white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nyscon.Raynok.Data\Nyscon.Raynok.Data.csproj">
+      <Project>{dd66357a-a0ac-4f2f-8270-880d3a509efb}</Project>
+      <Name>Nyscon.Raynok.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

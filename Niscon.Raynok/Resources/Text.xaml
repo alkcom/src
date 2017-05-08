@@ -1,0 +1,87 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Niscon.Raynok.Styles">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Brushes.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+     
+    <Style TargetType="Control">
+        <Setter Property="FontFamily" Value="Lucida Sans"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    
+    <Style TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Lucida Sans"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+    </Style>
+
+    <Style TargetType="Label">
+        <Setter Property="FontFamily" Value="Lucida Sans"/>
+        <Setter Property="FontSize" Value="18"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="0"/>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="BoldText" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="LargeUnderlinedText" BasedOn="{StaticResource BoldText}">
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="TextDecorations" Value="Underline"/>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="LargeItalicText" BasedOn="{StaticResource BoldText}">
+        <Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontStyle" Value="Italic"/>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="GreyedText" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Foreground" Value="#8E9093"/>
+    </Style>
+    
+    <Style TargetType="TextBlock" x:Key="BackgroundText">
+        <Setter Property="FontFamily" Value="Bauhaus 93"></Setter>
+        <Setter Property="FontSize" Value="150"></Setter>
+        <Setter Property="Foreground" Value="{StaticResource BackgroundTextBrush}"/>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="BackgroundTextShadow">
+        <Setter Property="FontFamily" Value="Bauhaus 93"></Setter>
+        <Setter Property="FontSize" Value="150"></Setter>
+        <Setter Property="Foreground" Value="#000000"/>
+        <Setter Property="Opacity" Value="0.7"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <!--<DropShadowEffect Color="Black" BlurRadius="3" Opacity="0.6" Direction="0" ShadowDepth="3" />-->
+                <BlurEffect Radius="8" KernelType="Box"></BlurEffect>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="CueTreeHeader" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="FontSize" Value="36"/>
+    </Style>
+    
+    <Style TargetType="TextBlock" x:Key="CueTreeItem" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="TextAlignment" Value="Left"/>
+        <Setter Property="Opacity" Value="1"/>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="GridItem" BasedOn="{StaticResource CueTreeItem}"/>
+
+    <Style TargetType="TextBlock" x:Key="RatioWidgetHeader" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="FontSize" Value="20"/>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="RatioWidgetText" BasedOn="{StaticResource {x:Type TextBlock}}">
+        <Setter Property="FontSize" Value="14"/>
+    </Style>
+
+</ResourceDictionary>

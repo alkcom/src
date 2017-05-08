@@ -1,0 +1,325 @@
+﻿<UserControl x:Class="Niscon.Raynok.Controls.AxisValueIndicator"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Niscon.Raynok.Controls"
+             xmlns:mock="clr-namespace:Niscon.Raynok.Models.Mock"
+             xmlns:mdls="clr-namespace:Niscon.Raynok.Models"
+             xmlns:converters="clr-namespace:Niscon.Raynok.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="150">
+    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:AxisValueIndicator}}" d:DataContext ="{d:DesignInstance {x:Type mock:AxisValueIndicatorMock}, IsDesignTimeCreatable=True}">
+        <Border MinHeight="14" MinWidth="80"  DataContext="{Binding Profile}">
+            <Grid Margin="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <!-- Using convereters and cue axis target/current values to control rows height -->
+                    <RowDefinition Height="{Binding Converter={StaticResource CueAxisValueIndicatorConverter}, ConverterParameter={x:Static converters:CueAxisValueIndicatorConverterParameter.Top}}"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="{Binding Converter={StaticResource CueAxisValueIndicatorConverter}, ConverterParameter={x:Static converters:CueAxisValueIndicatorConverterParameter.TopMiddle}}"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="{Binding Converter={StaticResource CueAxisValueIndicatorConverter}, ConverterParameter={x:Static converters:CueAxisValueIndicatorConverterParameter.BottomMiddle}}"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="{Binding Converter={StaticResource CueAxisValueIndicatorConverter}, ConverterParameter={x:Static converters:CueAxisValueIndicatorConverterParameter.Bottom}}"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" VerticalAlignment="Top" FontWeight="Bold" Margin="0 -5 10 0">
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{StaticResource InchesToFeetMultiConverter}" ConverterParameter="False">
+                            <Binding Path="TargetValue"/>
+                            <Binding Path="AppSettings.Units" RelativeSource="{RelativeSource FindAncestor, AncestorType=local:AxisValueIndicator}"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                    <TextBlock.Style>
+                        <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
+                            <Setter Property="Control.Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding State}" Value="Active"/>
+                                        <Condition Binding="{Binding Direction}" Value="Up"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Control.Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding State}" Value="Inactive"/>
+                                        <Condition Binding="{Binding Direction}" Value="Up"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Control.Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding State}" Value="Error"/>
+                                        <Condition Binding="{Binding Direction}" Value="Up"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Control.Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" VerticalAlignment="Top" FontWeight="Bold" Margin="0 -5 10 0">
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{StaticResource InchesToFeetMultiConverter}" ConverterParameter="False">
+                            <Binding Path="StartValue"/>
+                            <Binding Path="AppSettings.Units" RelativeSource="{RelativeSource FindAncestor, AncestorType=local:AxisValueIndicator}"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                    <TextBlock.Style>
+                        <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
+                            <Setter Property="Control.Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding State}" Value="Active"/>
+                                        <Condition Binding="{Binding Direction}" Value="Down"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Control.Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding State}" Value="Error"/>
+                                        <Condition Binding="{Binding Direction}" Value="Down"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Control.Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding State}" Value="Inactive"/>
+                                        <Condition Binding="{Binding Direction}" Value="Down"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Control.Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
+                <TextBlock Grid.Row="3" Grid.Column="0" Grid.RowSpan="2" VerticalAlignment="Top" FontWeight="Bold" Margin="0 -5 10 0"
+                           Visibility="{Binding Converter={StaticResource CurrentValueIndicatorVisibilityConverter}}">
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{StaticResource InchesToFeetMultiConverter}" ConverterParameter="False">
+                            <Binding Path="Axis.CurrentValue"/>
+                            <Binding Path="AppSettings.Units" RelativeSource="{RelativeSource FindAncestor, AncestorType=local:AxisValueIndicator}"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                    <TextBlock.Style>
+                        <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
+                            <!--<Setter Property="Control.Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding State}" Value="Active">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>-->
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                
+                <TextBlock Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" VerticalAlignment="Bottom" FontWeight="Bold" Margin="0 0 10 -5">
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{StaticResource InchesToFeetMultiConverter}" ConverterParameter="False">
+                            <Binding Path="TargetValue"/>
+                            <Binding Path="AppSettings.Units" RelativeSource="{RelativeSource FindAncestor, AncestorType=local:AxisValueIndicator}"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                    <TextBlock.Style>
+                        <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
+                            <Setter Property="Control.Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding State}" Value="Active"/>
+                                        <Condition Binding="{Binding Direction}" Value="Down"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Control.Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding State}" Value="Inactive"/>
+                                        <Condition Binding="{Binding Direction}" Value="Down"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Control.Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding State}" Value="Error"/>
+                                        <Condition Binding="{Binding Direction}" Value="Down"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Control.Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TextBlock Grid.Row="4" Grid.Column="0" Grid.RowSpan="2" VerticalAlignment="Bottom" FontWeight="Bold" Margin="0 0 10 -5">
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{StaticResource InchesToFeetMultiConverter}" ConverterParameter="False">
+                            <Binding Path="StartValue"/>
+                            <Binding Path="AppSettings.Units" RelativeSource="{RelativeSource FindAncestor, AncestorType=local:AxisValueIndicator}"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                    <TextBlock.Style>
+                        <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="TextBlock">
+                            <Setter Property="Control.Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding State}" Value="Active"/>
+                                        <Condition Binding="{Binding Direction}" Value="Up"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Control.Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding State}" Value="Error"/>
+                                        <Condition Binding="{Binding Direction}" Value="Up"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Control.Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding State}" Value="Inactive"/>
+                                        <Condition Binding="{Binding Direction}" Value="Up"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Control.Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+
+                <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="7" Background="#000000" BorderBrush="{StaticResource TopBorderBrush}" BorderThickness="1" HorizontalAlignment="Stretch" />
+
+                <Rectangle Margin="2 2 2 0" Grid.Column="1" x:Name="TopRect" Grid.Row="1" Fill="{StaticResource TargetRectBackgroundBrush}" Height="10">
+                    <Rectangle.Style>
+                        <Style>
+                            <Setter Property="Control.Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding State}" Value="Active">
+                                    <Setter Property="Control.Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding State}" Value="Inactive">
+                                    <Setter Property="Control.Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Rectangle.Style>
+                </Rectangle>
+                <Rectangle Margin="2 2 2 0" Grid.Column="1" x:Name="TopErrorRect" Grid.Row="1" Fill="{StaticResource ErrorRectBackgroundBrush}" Height="10">
+                    <Rectangle.Style>
+                        <Style>
+                            <Setter Property="Control.Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding State}" Value="Error">
+                                    <Setter Property="Control.Visibility" Value="Visible"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Rectangle.Style>
+                </Rectangle>
+
+                <Rectangle Margin="2 0" Grid.Column="1" Grid.Row="2" Grid.RowSpan="3" Fill="{StaticResource AxisProgressBarIndicatorBrush}">
+                    <Rectangle.Style>
+                        <Style>
+                            <Setter Property="Control.Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition  Binding="{Binding State}" Value="Active"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Control.Visibility" Value="Visible"></Setter>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Rectangle.Style>
+                </Rectangle>
+                <Rectangle Margin="2 0" Grid.Column="1" Grid.Row="2" Grid.RowSpan="3" Fill="{StaticResource AxisValueIndicatorUpDirectionBrush}" Width="10" Opacity="0.2">
+                    <Rectangle.Style>
+                        <Style>
+                            <Setter Property="Control.Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding State}" Value="Active"/>
+                                        <Condition Binding="{Binding Direction}" Value="Up"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Control.Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Rectangle.Style>
+                </Rectangle>
+                <Rectangle Margin="2 0" Grid.Column="1" Grid.Row="2" Grid.RowSpan="3" Fill="{StaticResource AxisValueIndicatorDownDirectionBrush}" Width="10" Opacity="0.2">
+                    <Rectangle.Style>
+                        <Style>
+                            <Setter Property="Control.Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding State}" Value="Active"/>
+                                        <Condition Binding="{Binding Direction}" Value="Down"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Control.Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Rectangle.Style>
+                </Rectangle>
+                <Rectangle Margin="2 0" Grid.Column="1" Grid.Row="2" Grid.RowSpan="3" Fill="{StaticResource AxisProgressBarErrorIndicatorBrush}">
+                    <Rectangle.Style>
+                        <Style>
+                            <Setter Property="Control.Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding State}" Value="Error">
+                                    <Setter Property="Control.Visibility" Value="Visible"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Rectangle.Style>
+                </Rectangle>
+
+                <Rectangle Margin="2 0 2 2" Grid.Column="1" x:Name="CurrentRect" Grid.Row="3" Fill="{StaticResource CurrentRectBackgroundBrush}" Height="10"
+                           Visibility="{Binding Converter={StaticResource CurrentValueIndicatorVisibilityConverter}}">
+                    <Rectangle.Style>
+                        <Style>
+                            <Setter Property="Control.Visibility" Value="Collapsed"/>
+                        </Style>
+                    </Rectangle.Style>
+                </Rectangle>
+
+                <Rectangle Margin="2 0 2 2" Grid.Column="1" x:Name="BottomRect" Grid.Row="5" Fill="{StaticResource TargetRectBackgroundBrush}" Height="10">
+                    <Rectangle.Style>
+                        <Style>
+                            <Setter Property="Control.Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding State}" Value="Active">
+                                    <Setter Property="Control.Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding State}" Value="Inactive">
+                                    <Setter Property="Control.Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Rectangle.Style>
+                </Rectangle>
+                <Rectangle Margin="2 0 2 2" Grid.Column="1" x:Name="BottomErrorRect" Grid.Row="5" Fill="{StaticResource ErrorRectBackgroundBrush}" Height="10" >
+                    <Rectangle.Style>
+                        <Style>
+                            <Setter Property="Control.Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding State}" Value="Error">
+                                    <Setter Property="Control.Visibility" Value="Visible"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Rectangle.Style>
+                </Rectangle>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

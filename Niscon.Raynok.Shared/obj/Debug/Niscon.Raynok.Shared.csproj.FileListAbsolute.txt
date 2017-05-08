@@ -1,0 +1,5 @@
+D:\Niscon\Application\Niscon.Nancy.Poc_complete_v10\Niscon.Nancy.Poc_complete_v10\src\Niscon.Raynok.Shared\bin\Debug\Niscon.Raynok.Shared.dll
+D:\Niscon\Application\Niscon.Nancy.Poc_complete_v10\Niscon.Nancy.Poc_complete_v10\src\Niscon.Raynok.Shared\bin\Debug\Niscon.Raynok.Shared.pdb
+D:\Niscon\Application\Niscon.Nancy.Poc_complete_v10\Niscon.Nancy.Poc_complete_v10\src\Niscon.Raynok.Shared\obj\Debug\Niscon.Raynok.Shared.csprojResolveAssemblyReference.cache
+D:\Niscon\Application\Niscon.Nancy.Poc_complete_v10\Niscon.Nancy.Poc_complete_v10\src\Niscon.Raynok.Shared\obj\Debug\Niscon.Raynok.Shared.dll
+D:\Niscon\Application\Niscon.Nancy.Poc_complete_v10\Niscon.Nancy.Poc_complete_v10\src\Niscon.Raynok.Shared\obj\Debug\Niscon.Raynok.Shared.pdb

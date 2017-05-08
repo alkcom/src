@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Niscon.Raynok.Styles">
+    
+    <Image x:Key="UserGroupIconWhite" Source="img/user_group_white.png"/>
+    <Image x:Key="UserGroupIconBlack" Source="img/user_group_black.png"/>
+
+    <Image x:Key="UserGroupMenuIconWhite" Source="img/user_group_white.png" Margin="10 5"/>
+
+    <Image x:Key="DiskIconWhite" Source="img/disk_icon_white.png"/>
+    <Image x:Key="DiskIconBlack" Source="img/disk_icon_black.png"/>
+
+    <Image x:Key="DiskMenuIconWhite" Source="img/disk_icon_white.png" Margin="10 5"/>
+
+    <Image x:Key="SettingsIconWhite" Source="img/settings_icon_white.png" Margin="3"/>
+    <Image x:Key="SettingsIconBlack" Source="img/settings_icon_black.png" Margin="3"/>
+    
+    <Image x:Key="MenuIconWhite" Source="img/menu_icon_white.png" Margin="8"/>
+    <Image x:Key="MenuIconBlack" Source="img/menu_icon_black.png" Margin="8"/>
+    
+    <Image x:Key="AlarmIconWhite" Source="img/alarm_icon_white.png" Opacity="0.45" Margin="0 2"/>
+    <Image x:Key="AlarmIconBlack" Source="img/alarm_icon_black.png" Opacity="0.45" Margin="0 2"/>
+    
+    <Image x:Key="SetupIconWhite" Source="img/setup_icon_white.png" Margin="0 10"/>
+    <Image x:Key="SetupIconBlack" Source="img/setup_icon_black.png" Margin="0 10"/>
+
+    <Image x:Key="SetupMenuIconWhite" Source="img/setup_icon_white.png" Margin="10 5"/>
+
+    <Image x:Key="NisconLogoIcon" Source="img/niscon_logo.png" />
+
+    <Image x:Key="LockIconWhite" Source="img/lock_icon_white.png" Margin="10" />
+
+</ResourceDictionary>

@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Niscon.Raynok", "Niscon.Raynok\Niscon.Raynok.csproj", "{759AC0FA-1071-4FCC-A471-90ADF7BF1193}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nyscon.Raynok.Data", "Nyscon.Raynok.Data\Nyscon.Raynok.Data.csproj", "{DD66357A-A0AC-4F2F-8270-880D3A509EFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Niscon.Raynok.Shared", "Niscon.Raynok.Shared\Niscon.Raynok.Shared.csproj", "{192FB383-67D0-4AA5-85C8-72FDB6754EA7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{759AC0FA-1071-4FCC-A471-90ADF7BF1193}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{759AC0FA-1071-4FCC-A471-90ADF7BF1193}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{759AC0FA-1071-4FCC-A471-90ADF7BF1193}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{759AC0FA-1071-4FCC-A471-90ADF7BF1193}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD66357A-A0AC-4F2F-8270-880D3A509EFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD66357A-A0AC-4F2F-8270-880D3A509EFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD66357A-A0AC-4F2F-8270-880D3A509EFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD66357A-A0AC-4F2F-8270-880D3A509EFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{192FB383-67D0-4AA5-85C8-72FDB6754EA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{192FB383-67D0-4AA5-85C8-72FDB6754EA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{192FB383-67D0-4AA5-85C8-72FDB6754EA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{192FB383-67D0-4AA5-85C8-72FDB6754EA7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

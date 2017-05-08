@@ -1,0 +1,108 @@
+﻿<local:AxesDisplayControl x:Class="Niscon.Raynok.Controls.AxesGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Niscon.Raynok.Controls"
+            xmlns:mdls="clr-namespace:Niscon.Raynok.Models"
+             xmlns:mock="clr-namespace:Niscon.Raynok.Models.Mock"
+             mc:Ignorable="d" 
+             d:DesignHeight="900" d:DesignWidth="1200">
+    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:AxesGrid}}" d:DataContext ="{d:DesignInstance {x:Type mock:ProfilesMock}, IsDesignTimeCreatable=True}">
+
+        <DataGrid IsReadOnly="True" SelectionUnit="FullRow" SelectionMode="Extended" x:Name="CueAxesDataGrid" Margin="5 0" ItemsSource="{Binding Profiles}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" GridLinesVisibility="None">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Axis Name" Width="200" Binding="{Binding Axis.Name}" CellStyle="{StaticResource DataGridCellLeftAligned}"/>
+                <DataGridTemplateColumn Header="" Width="60">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="mdls:Profile">
+                            <Image x:Name="LockImage" Source="../Resources/img/lock_icon_white.png" Width="25" Height="25" PreviewMouseUp="UIElement_OnPreviewMouseUp" Visibility="Collapsed"/>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding State}" Value="Disabled">
+                                    <Setter TargetName="LockImage" Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Status" Width="150" Binding="{Binding Status}" />
+                <DataGridTemplateColumn Header="Dir." Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="mdls:Profile">
+                            <Grid HorizontalAlignment="Center">
+                                <Polygon x:Name="PolyDown" Points="0,0 50,0 25,25" VerticalAlignment="Center" Fill="White" Visibility="Collapsed"/>
+                                <Polygon x:Name="PolyUp" Points="0,25 50,25 25,0" VerticalAlignment="Center" Fill="White" Visibility="Collapsed"/>
+                            </Grid>
+                            <DataTemplate.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Direction}" Value="Up"/>
+                                        <Condition Binding="{Binding State}" Value="Active"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter TargetName="PolyUp" Property="Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Direction}" Value="Down"/>
+                                        <Condition Binding="{Binding State}" Value="Active"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter TargetName="PolyDown" Property="Visibility" Value="Visible"/>
+                                </MultiDataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Start" Width="*">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource InchesToFeetMultiConverter}" ConverterParameter="False">
+                            <Binding Path="StartValue"/>
+                            <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType=local:AxesGrid}" Path="AppSettings.Units" />
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn Header="Current" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="mdls:Profile">
+                            <Label PreviewMouseDoubleClick="Control_OnPreviewMouseDoubleClick" PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp" Cursor="Hand" VerticalAlignment="Center">
+                                <Label.Content>
+                                    <TextBlock FontSize="22" FontFamily="Lucida Sans">
+                                        <TextBlock.Text>
+                                            <MultiBinding Converter="{StaticResource InchesToFeetMultiConverter}" ConverterParameter="False">
+                                                <Binding Path="Axis.CurrentValue"/>
+                                                <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType=local:AxesGrid}" Path="AppSettings.Units" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </Label.Content>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!--<DataGridTextColumn Header="Current" Width="*">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource InchesToFeetMultiConverter}" ConverterParameter="False">
+                            <Binding Path="Axis.CurrentValue"/>
+                            <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType=local:AxesGrid}" Path="AppSettings.Units" />
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>-->
+                <DataGridTextColumn Header="Target" Width="*">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource InchesToFeetMultiConverter}" ConverterParameter="False">
+                            <Binding Path="TargetValue"/>
+                            <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType=local:AxesGrid}" Path="AppSettings.Units" />
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Velocity" Width="*" Binding="{Binding Velocity}"/>
+                <DataGridTextColumn Header="Duration" Width="*" Binding="{Binding Duration}"/>
+                <DataGridTextColumn Header="Accel." Width="*" Binding="{Binding Acceleration}"/>
+                <DataGridTextColumn Header="Decel." Width="*" Binding="{Binding Deceleration}"/>
+                <DataGridTextColumn Header="Delay" Width="*" Binding="{Binding Delay}"/>
+                <DataGridTextColumn Header="Load" Width="*" Binding="{Binding Load}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <local:LockPanel x:Name="LockPanel" Width="400" Height="200" Visibility="Collapsed"/>
+    </Grid>
+</local:AxesDisplayControl>

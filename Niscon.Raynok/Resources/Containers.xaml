@@ -1,0 +1,276 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:helpers="clr-namespace:Niscon.Raynok.Helpers"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xmlns:cmd="clr-namespace:Niscon.Raynok.Commands"
+                    mc:Ignorable="d">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Buttons.xaml"/>
+        <ResourceDictionary Source="Menus.xaml"/>
+        <ResourceDictionary Source="Converters.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style x:Key="RadioButtonListBox" TargetType="{x:Type ListBox}">
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="KeyboardNavigation.DirectionalNavigation" Value="Cycle" />
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type ListBoxItem}" >
+                    <Setter Property="Margin" Value="0" />
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Padding" Value="0"></Setter>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Border Background="Transparent">
+                                    <!--<ToggleButton
+                                    Content="{TemplateBinding ContentPresenter.Content}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                    IsChecked="{Binding Path=IsSelected,RelativeSource={RelativeSource TemplatedParent},Mode=TwoWay}" Style="{StaticResource MenuButton}"/>-->
+                                    <ToggleButton
+                                    Content="{Binding Name}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                    IsChecked="{Binding Path=IsSelected,RelativeSource={RelativeSource TemplatedParent},Mode=TwoWay}" Style="{StaticResource MenuButton}"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate >
+                    <VirtualizingStackPanel IsItemsHost="True" Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ListBoxItem" x:Key="UniformGridListBoxItem">
+        <Setter Property="Padding" Value="3" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="1"/>
+        <!--<Setter Property="TabNavigation" Value="Local" />-->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Grid Background="{TemplateBinding Background}" Margin="25 15">
+                        <ContentPresenter
+                              x:Name="contentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              Margin="{TemplateBinding Padding}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="UniformGridListBox" TargetType="{x:Type ListBox}">
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="KeyboardNavigation.DirectionalNavigation" Value="Cycle" />
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBox">
+                    <Grid>
+                        <Border CornerRadius="2" 
+			                BorderBrush="{TemplateBinding BorderBrush}"
+			                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="ScrollViewer" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" BorderBrush="Transparent" BorderThickness="0">
+                                <UniformGrid IsItemsHost="True" Columns="4" VerticalAlignment="{TemplateBinding VerticalAlignment}" />
+                            </ScrollViewer>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource UniformGridListBoxItem}"/>
+    </Style>
+
+    <Style TargetType="ListBoxItem" x:Key="StackListBoxItem">
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="1"/>
+        <!--<Setter Property="TabNavigation" Value="Local" />-->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Grid Background="{TemplateBinding Background}" Margin="8 0">
+                        <ContentPresenter
+                              x:Name="contentPresenter"
+                              Content="{TemplateBinding Content}"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              Margin="{TemplateBinding Padding}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="StackListBox" TargetType="{x:Type ListBox}">
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="KeyboardNavigation.DirectionalNavigation" Value="Cycle" />
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBox">
+                    <Grid>
+                        <Border CornerRadius="2" 
+			                BorderBrush="{TemplateBinding BorderBrush}"
+			                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="ScrollViewer" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled" BorderBrush="Transparent" BorderThickness="0">
+                                <StackPanel Orientation="Horizontal" IsItemsHost="True"/>
+                            </ScrollViewer>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource StackListBoxItem}"/>
+    </Style>
+
+    <!-- Tab control -->
+    <Style TargetType="TabControl">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="TabStripPlacement" Value="Top"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabControl">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border BorderThickness="0,0,0,0" Grid.Row="2">
+                            <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}">
+                                <Border Background="{TemplateBinding Background}">
+                                    <ContentPresenter ContentSource="SelectedContent"/>
+                                </Border>
+                            </Border>
+                        </Border>
+                        <Border BorderThickness="0 2 0 0" BorderBrush="Black"></Border>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" IsItemsHost="true" FlowDirection="LeftToRight" Margin="0 0 0 0"/>
+                        <!--<TabPanel IsItemsHost="True" Grid.Row="0" HorizontalAlignment="Stretch"></TabPanel>-->
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="TabItem">
+        <Setter Property="Background" Value="{StaticResource TabItemDefaultBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TabItem">
+                    <Grid ClipToBounds="True">
+                        <!-- TODO: implement overlapping tab items -->
+                        <!-- Workaround: each tab item is a path with improvised shadow and a rectangle visually representing a part of the next tab item -->
+                        <!-- This rectangle is visually the beginning of the next tab item. See used brush to look how it'a implemented. -->
+                        <Rectangle Fill="{StaticResource TabItemContinuationBrush}"></Rectangle>
+                        <!-- This is a shadow -->
+                        <Path Stretch="Fill" ClipToBounds="True" Data="M 0,0 H 60 C 70,3 70,20 80,20 H 0 V 0" Fill="Black">
+                            <Path.Effect>
+                                <BlurEffect KernelType="Box" Radius="10"></BlurEffect>
+                            </Path.Effect>
+                        </Path>
+                        <!-- This is an actual tab item -->
+                        <Path Stretch="Fill" ClipToBounds="True" Data="M 0,0 H 60 C 70,3 70,20 80,20 H 0 V 0" Fill="{TemplateBinding Background}"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Margin="15 0" Text="{TemplateBinding Header}" FontSize="14"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{StaticResource TabItemSelectedBrush}"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!-- /Tab control -->
+    
+    <!-- TreeView -->
+    <Style x:Key="{x:Type TreeView}" TargetType="TreeView">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TreeView">
+                    <Border Name="Border" CornerRadius="0" BorderThickness="0" BorderBrush="Transparent" Background="Transparent">
+                        <ScrollViewer Focusable="False" CanContentScroll="False" Padding="4" VerticalScrollBarVisibility="Hidden">
+                            <ItemsPresenter />
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="{x:Type TreeViewItem}" TargetType="{x:Type TreeViewItem}">
+        <Setter Property="Background" Value="{StaticResource CueTreeItemBackgroundBrush}" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Padding" Value="15 10" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+        <Setter Property="IsExpanded" Value="True"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{StaticResource TransparentBrush}"/>
+        <!--<Setter Property="FocusVisualStyle" Value="{StaticResource TreeViewItemFocusVisual}" />-->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TreeViewItem}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MaxWidth="50" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <!--TODO: take this part outside and implement template in cue tree control-->
+                        <Border HorizontalAlignment="Stretch" x:Name="Bd" Grid.Column="0" Grid.ColumnSpan="2" Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Margin="0 9 0 9">
+                            <TextBlock Text="{Binding Name}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Style="{StaticResource CueTreeItem}"/>
+                            <Border.ContextMenu>
+                                <ContextMenu ItemContainerStyle="{StaticResource FileMenuSubmenuButton}" Background="Transparent" Style="{StaticResource CueContextMenu}">
+                                    <MenuItem Header="Add Cue" ItemContainerStyle="{StaticResource FileMenuSubmenuButton}">
+                                        <MenuItem Header="Add Before" Command="cmd:CueCommands.AddBefore" CommandParameter="{Binding}"/>
+                                        <MenuItem Header="Add After" Command="cmd:CueCommands.AddAfter" CommandParameter="{Binding}"/>
+                                    </MenuItem>
+                                    <MenuItem Header="Make Cue Autofollow" Command="cmd:CueCommands.MakeAutofollow" CommandParameter="{Binding}"/>
+                                    <MenuItem Header="Rename Cue" Command="cmd:CueCommands.Rename" CommandParameter="{Binding}"/>
+                                    <MenuItem Header="Delete Cue" Command="cmd:CueCommands.Delete" CommandParameter="{Binding}"/>
+                                </ContextMenu>
+                            </Border.ContextMenu>
+                        </Border>
+                        <ItemsPresenter HorizontalAlignment="Stretch" x:Name="ItemsHost" Grid.Row="1" Grid.Column="1" Visibility="Visible" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{StaticResource ContainerItemSelectedBackgroundBrush}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource CueTreeItemBackgroundBrush}"/>
+                        </Trigger>
+                        
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- /TreeView -->
+
+</ResourceDictionary>

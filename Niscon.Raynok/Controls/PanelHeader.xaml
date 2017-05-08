@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="Niscon.Raynok.Controls.PanelHeader"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Niscon.Raynok.Controls"
+             xmlns:helpers="clr-namespace:Niscon.Raynok.Helpers"
+             mc:Ignorable="d" 
+             d:DesignHeight="45" d:DesignWidth="215" Height="45">
+    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:PanelHeader}}">
+        <Border BorderBrush="{StaticResource BottomBorderBrush}" CornerRadius="3 3 0 0" BorderThickness="2 2 2 0" Background="{StaticResource PanelHeaderBrush}"/>
+        <DockPanel>
+            <!--<Image DockPanel.Dock="Left" Source="{Binding  Path=Icon.Source}" Margin="10 5" VerticalAlignment="Center" Opacity="0.4" />-->
+            <Image DockPanel.Dock="Left" Margin="{Binding Icon.Margin}" VerticalAlignment="Center" Opacity="0.4" Source="{Binding Icon.Source}"/>
+            <TextBlock DockPanel.Dock="Left" Text="{Binding Path=Text}" Margin="5 0 0 0" VerticalAlignment="Center" TextAlignment="Left" />
+        </DockPanel>
+    </Grid>
+</UserControl>

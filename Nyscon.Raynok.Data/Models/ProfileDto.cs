@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+
+namespace Nyscon.Raynok.Data.Models
+{
+    public class ProfileDto
+    {
+        public Guid AxisId { get; set; }
+
+        public double StartValue { get; set; }
+
+        public double TargetValue { get; set; }
+
+        public double StartingVelocity { get; set; }
+        public double Velocity { get; set; }
+
+        public TimeSpan Duration { get; set; }
+        public double Acceleration { get; set; }
+        public double Deceleration { get; set; }
+        public TimeSpan Delay { get; set; }
+        public double Load { get; set; }
+    }
+}

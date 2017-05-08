@@ -1,0 +1,395 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:Niscon.Raynok.Controls">
+    
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Brushes.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="Icons.xaml"></ResourceDictionary>
+        <ResourceDictionary Source="Text.xaml"></ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+    
+    <!-- Corner buttons -->
+    <Style TargetType="{x:Type ToggleButton}" x:Key="CornerButton">
+        <Setter Property="Background" Value="{StaticResource CornerButtonDefaultBrush}"/>
+        <Setter Property="BorderThickness" Value="4"/>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="{StaticResource CornerButtonCheckedBrush}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource CornerButtonHoverBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type ToggleButton}" x:Key="TopLeftCornerButton" BasedOn="{StaticResource CornerButton}">
+        <Setter Property="BorderBrush" Value="{StaticResource TopLeftCornerBorderBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True">
+                        <!-- Base size 85x65, angle has 18 height and width -->
+                        <!-- Stretch=Fill allows us to control polygon size with control's width and height properties -->
+                        <Polygon Stretch="Fill" Points="0,0 85,0 85,47 67,65 0,65" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="{TemplateBinding BorderThickness}" StrokeLineJoin="Round"/>
+                        <DockPanel>
+                            <ContentPresenter x:Name="buttonContentPresenter" Content="{TemplateBinding Content}" Opacity="0.45" Margin="7"/>
+                        </DockPanel>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ToggleButton}" x:Key="TopRightCornerButton" BasedOn="{StaticResource CornerButton}">
+        <Setter Property="BorderBrush" Value="{StaticResource TopRightCornerBorderBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True">
+                        <Polygon Stretch="Fill" Points="85,0 85,65 18,65 0,47 0,0" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="{TemplateBinding BorderThickness}" StrokeLineJoin="Round"/>
+                        <DockPanel>
+                            <ContentPresenter x:Name="buttonContentPresenter" Content="{TemplateBinding Content}" Opacity="0.45" Margin="7"/>
+                        </DockPanel>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ToggleButton}" x:Key="BottomRightCornerButton" BasedOn="{StaticResource CornerButton}">
+        <Setter Property="BorderBrush" Value="{StaticResource BottomRightCornerBorderBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True">
+                        <Polygon Stretch="Fill" Points="85,65 0,65 0,18 18,0 85,0" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="{TemplateBinding BorderThickness}" StrokeLineJoin="Round"/>
+                        <DockPanel>
+                            <ContentPresenter x:Name="buttonContentPresenter" Content="{TemplateBinding Content}" Opacity="0.45" Margin="7"/>
+                        </DockPanel>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ToggleButton}" x:Key="BottomLeftCornerButton" BasedOn="{StaticResource CornerButton}">
+        <Setter Property="BorderBrush" Value="{StaticResource BottomLeftCornerBorderBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True">
+                        <Polygon Stretch="Fill" Points="0,0 67,0 85,18 85,65 0,65" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="{TemplateBinding BorderThickness}" StrokeLineJoin="Round"/>
+                        <DockPanel>
+                            <ContentPresenter x:Name="buttonContentPresenter" Content="{TemplateBinding Content}" Opacity="0.45" Margin="7"/>
+                        </DockPanel>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style TargetType="ToggleButton" x:Key="UserGroupCornerButton" BasedOn="{StaticResource BottomLeftCornerButton}">
+        <Setter Property="Content" Value="{StaticResource UserGroupIconBlack}"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Content" Value="{StaticResource UserGroupIconWhite}"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="ToggleButton" x:Key="DiskCornerButton" BasedOn="{StaticResource TopLeftCornerButton}">
+        <Setter Property="Content" Value="{StaticResource DiskIconBlack}"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Content" Value="{StaticResource DiskIconWhite}"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="ToggleButton" x:Key="MenuCornerButton" BasedOn="{StaticResource TopRightCornerButton}">
+        <Setter Property="Content" Value="{StaticResource MenuIconBlack}"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Content" Value="{StaticResource MenuIconWhite}"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="ToggleButton" x:Key="SettingsCornerButton" BasedOn="{StaticResource BottomLeftCornerButton}">
+        <Setter Property="Content" Value="{StaticResource SettingsIconBlack}"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Content" Value="{StaticResource SettingsIconWhite}"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="ToggleButton" x:Key="ViewsCornerButton" BasedOn="{StaticResource BottomRightCornerButton}">
+        <Setter Property="Content" Value="{StaticResource MenuIconBlack}"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Content" Value="{StaticResource MenuIconWhite}"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!-- /Corner buttons -->
+    
+    <!-- Footer buttons -->
+    <Style TargetType="ToggleButton" x:Key="FooterNarrowButton">
+        <Setter Property="Background" Value="{StaticResource FooterNarrowButtonDefaultBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="{StaticResource FooterNarrowButtonCheckedBrush}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource FooterNarrowButtonHoverBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="ToggleButton" x:Key="FooterLeftButton" BasedOn="{StaticResource FooterNarrowButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True">
+                        <Polygon Stretch="Fill" Points="0,65 0,0 300,0 300,65" Fill="{TemplateBinding Background}" StrokeThickness="0" />
+                        <Line X1="300" Y1="0" X2="300" Y2="65" HorizontalAlignment="Right" VerticalAlignment="Stretch" Stretch="Fill" Stroke="{StaticResource GreyBorderBrush}" StrokeThickness="1"></Line>
+                        <ContentPresenter x:Name="buttonContentPresenter" Content="{TemplateBinding Content}" Opacity="1" Margin="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ToggleButton" x:Key="FooterMiddleLeftButton" BasedOn="{StaticResource CornerButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True">
+                        <Polygon Stretch="Fill" Points="0,65 0,18 18,0 123,0 123,65" Fill="{TemplateBinding Background}" StrokeThickness="0" />
+                        <Line X1="300" Y1="18" X2="300" Y2="65" HorizontalAlignment="Left" Stretch="Fill" Margin="0 18 0 0" Stroke="{StaticResource BlackBorderBrush}" StrokeThickness="1"></Line>
+                        <Line X1="300" Y1="0" X2="300" Y2="65" HorizontalAlignment="Right" Stretch="Fill" Stroke="{StaticResource BlackBorderBrush}" StrokeThickness="2"></Line>
+                        <ContentPresenter x:Name="buttonContentPresenter" Content="{TemplateBinding Content}" Opacity="1" Margin="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ToggleButton" x:Key="FooterMiddleButton" BasedOn="{StaticResource CornerButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True">
+                        <Polygon Stretch="Fill" Points="0,65 0,0 123,0 123,65" Fill="{TemplateBinding Background}" StrokeThickness="0" />
+                        <Line X1="300" Y1="0" X2="300" Y2="65" HorizontalAlignment="Left" Stretch="Fill" Stroke="{StaticResource WhiteBorderBrush}" StrokeThickness="1"></Line>
+                        <Line X1="300" Y1="0" X2="300" Y2="65" HorizontalAlignment="Right" Stretch="Fill" Stroke="{StaticResource WhiteBorderBrush}" StrokeThickness="1"></Line>
+                        <ContentPresenter x:Name="buttonContentPresenter" Content="{TemplateBinding Content}" Opacity="1" Margin="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ToggleButton" x:Key="FooterMiddleRightButton" BasedOn="{StaticResource CornerButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True">
+                        <Polygon Stretch="Fill" Points="0,65 0,0 105,0 123,18 123,65" Fill="{TemplateBinding Background}" StrokeThickness="0" />
+                        <Line X1="300" Y1="0" X2="300" Y2="65" HorizontalAlignment="Left" Stretch="Fill" Stroke="{StaticResource BlackBorderBrush}" StrokeThickness="2"></Line>
+                        <Line X1="300" Y1="18" X2="300" Y2="65" HorizontalAlignment="Right" Stretch="Fill" Margin="0 18 0 0" Stroke="{StaticResource BlackBorderBrush}" StrokeThickness="1"></Line>
+                        <ContentPresenter x:Name="buttonContentPresenter" Content="{TemplateBinding Content}" Opacity="1" Margin="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ToggleButton" x:Key="FooterRightButton" BasedOn="{StaticResource FooterNarrowButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True">
+                        <Polygon Stretch="Fill" Points="0,65 0,0 300,0 300,65" Fill="{TemplateBinding Background}" StrokeThickness="0" />
+                        <Line X1="0" Y1="0" X2="0" Y2="65" HorizontalAlignment="Left" VerticalAlignment="Stretch" Stretch="Fill" Stroke="{StaticResource GreyBorderBrush}" StrokeThickness="1"></Line>
+                        <ContentPresenter x:Name="buttonContentPresenter" Content="{TemplateBinding Content}" Opacity="1" Margin="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style TargetType="ToggleButton" x:Key="AlarmFooterButton" BasedOn="{StaticResource FooterRightButton}">
+        <Setter Property="Content" Value="{StaticResource AlarmIconBlack}"/>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Content" Value="{StaticResource AlarmIconWhite}"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!-- /Footer buttons -->
+    
+    <!-- Header buttons -->
+    <Style TargetType="ToggleButton" x:Key="HeaderNarrowButton">
+        <Setter Property="Background" Value="{StaticResource HeaderNarrowButtonDefaultBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="{StaticResource HeaderNarrowButtonCheckedBrush}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource HeaderNarrowButtonHoverBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="ToggleButton" x:Key="HeaderLeftButton" BasedOn="{StaticResource HeaderNarrowButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True">
+                        <Polygon Stretch="Fill" Points="0,65 0,0 300,0 300,65" Fill="{TemplateBinding Background}" StrokeThickness="0" />
+                        <Line X1="300" Y1="0" X2="300" Y2="65" HorizontalAlignment="Right" VerticalAlignment="Stretch" Stretch="Fill" Stroke="{StaticResource GreyBorderBrush}" StrokeThickness="1"></Line>
+                        <ContentPresenter x:Name="buttonContentPresenter" Content="{TemplateBinding Content}" Opacity="1" Margin="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ToggleButton" x:Key="HeaderMiddleLeftButton" BasedOn="{StaticResource CornerButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True">
+                        <Polygon Stretch="Fill" Points="0,0 123,0 123,65 18,65 0,47" Fill="{TemplateBinding Background}" StrokeThickness="0" />
+                        <Line X1="300" Y1="18" X2="300" Y2="65" HorizontalAlignment="Left" Stretch="Fill" Margin="0 0 0 18" Stroke="{StaticResource BlackBorderBrush}" StrokeThickness="1"></Line>
+                        <Line X1="300" Y1="0" X2="300" Y2="65" HorizontalAlignment="Right" Stretch="Fill" Stroke="{StaticResource BlackBorderBrush}" StrokeThickness="2"></Line>
+                        <ContentPresenter x:Name="buttonContentPresenter" Content="{TemplateBinding Content}" Opacity="1" Margin="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="{StaticResource RaynokEditModeBrush}" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource CornerButtonHoverBrush}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="ToggleButton" x:Key="HeaderMiddleRightButton" BasedOn="{StaticResource CornerButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True">
+                        <Polygon Stretch="Fill" Points="0,0 123,0 123,47 105,65 0,65" Fill="{TemplateBinding Background}" StrokeThickness="0" />
+                        <Line X1="300" Y1="0" X2="300" Y2="65" HorizontalAlignment="Left" Stretch="Fill" Stroke="{StaticResource BlackBorderBrush}" StrokeThickness="2"></Line>
+                        <Line X1="300" Y1="18" X2="300" Y2="65" HorizontalAlignment="Right" Stretch="Fill" Margin="0 0 0 18" Stroke="{StaticResource BlackBorderBrush}" StrokeThickness="1"></Line>
+                        <ContentPresenter x:Name="buttonContentPresenter" Content="{TemplateBinding Content}" Opacity="1" Margin="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ToggleButton" x:Key="HeaderRightButton1" BasedOn="{StaticResource HeaderNarrowButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True">
+                        <Polygon Stretch="Fill" Points="0,65 0,0 170,0 170,65" Fill="{TemplateBinding Background}" StrokeThickness="0" />
+                        <Line X1="0" Y1="0" X2="0" Y2="65" HorizontalAlignment="Left" VerticalAlignment="Stretch" Stretch="Fill" Stroke="{StaticResource GreyBorderBrush}" StrokeThickness="1"/>
+                        <Line X1="170" Y1="0" X2="170" Y2="65" HorizontalAlignment="Right" VerticalAlignment="Stretch" Stretch="Fill" Stroke="{StaticResource GreyBorderBrush}" StrokeThickness="1"/>
+                        <ContentPresenter x:Name="buttonContentPresenter" Content="{TemplateBinding Content}" Opacity="1" Margin="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="ToggleButton" x:Key="HeaderRightButton2" BasedOn="{StaticResource HeaderNarrowButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True">
+                        <Polygon Stretch="Fill" Points="0,65 0,0 130,0 130,65" Fill="{TemplateBinding Background}" StrokeThickness="0" />
+                        <Line X1="0" Y1="0" X2="0" Y2="65" HorizontalAlignment="Left" VerticalAlignment="Stretch" Stretch="Fill" Stroke="{StaticResource BlackBorderBrush}" StrokeThickness="1"/>
+                        <ContentPresenter x:Name="buttonContentPresenter" Content="{TemplateBinding Content}" Opacity="1" Margin="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- /Header buttons -->
+    
+    <!-- Menu buttons -->
+    <Style TargetType="ToggleButton" x:Key="MenuButton">
+        <Setter Property="Background" Value="{StaticResource TransparentBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource GreyBorderBrush}"></Setter>
+        <Setter Property="Height" Value="43"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True" Background="{TemplateBinding Background}" Margin="0" ShowGridLines="False">
+                        <!--<ContentPresenter x:Name="buttonContentPresenter" Content="{TemplateBinding Content}" Opacity="1" Margin="10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                            <Setter Property="Fon"></Setter>
+                        </ContentPresenter>-->
+                        <Line X1="0" Y1="0" X2="210" Y2="0" Margin="0 1 0 0" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="Fill" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="2"/>
+                        <Line X1="0" Y1="0" X2="210" Y2="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Stretch="Fill" Stroke="{StaticResource BlackBorderBrush}" StrokeThickness="1"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Text="{TemplateBinding Content}" Margin="10 0 0 0" FontSize="22"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="{StaticResource MenuItemCheckedBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource TransparentBrush}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource MenuItemHoverBrush}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource TransparentBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!-- /Menu buttons -->
+
+    <!-- Regular buttons -->
+    <Style TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource DefaultButtonBackgroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DefaultButtonBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="Foreground" Value="#FFFFFF"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" ClipToBounds="True" Margin="0">
+                        <Rectangle Fill="{TemplateBinding Background}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" StrokeThickness="0" RadiusX="3" RadiusY="3"/>
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" CornerRadius="3"/>
+                        <TextBlock x:Name="ContentText" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{TemplateBinding Content}" Margin="10"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="ContentText" Property="Opacity" Value="0.4"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource DefaultButtonHoverBrush}"/>
+            </Trigger>
+            
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="controls:OnScreenKeyboardButton" BasedOn="{StaticResource {x:Type Button}}"/>
+    <!-- /Regular buttons -->
+
+</ResourceDictionary>

@@ -1,0 +1,103 @@
+﻿<local:AxesDisplayControl x:Class="Niscon.Raynok.Controls.AxesPresets"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Niscon.Raynok.Controls"
+             xmlns:mock="clr-namespace:Niscon.Raynok.Models.Mock"
+             xmlns:mdls="clr-namespace:Niscon.Raynok.Models"
+             mc:Ignorable="d" 
+             d:DesignHeight="900" d:DesignWidth="1600">
+    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:AxesPresets}}" d:DataContext ="{d:DesignInstance {x:Type mock:ProfilesMock}, IsDesignTimeCreatable=True}">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ListBox x:Name="CueAxisParametersListBox" Style="{StaticResource UniformGridListBox}" ItemsSource="{Binding Profiles}" HorizontalContentAlignment="Stretch" VerticalAlignment="Top">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Height="150" x:Name="ItemBorder" Background="{StaticResource RatioWidgetBackgroundBrush}" BorderBrush="{StaticResource WidgetBorderBrush}" BorderThickness="2" CornerRadius="2">
+                        <Border x:Name="SelectionBorder">
+                            <Grid Margin="7" x:Name="OuterGrid">
+                                <Grid x:Name="InnerGrid">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="7*"></ColumnDefinition>
+                                        <ColumnDefinition Width="4*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Axis.Name}" TextAlignment="Left" Style="{StaticResource RatioWidgetHeader}"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Velocity, StringFormat={}{0} FPM}" TextAlignment="Left" Style="{StaticResource RatioWidgetText}" Margin="0 5 0 0"/>
+                                    <ProgressBar Grid.Row="2" Grid.Column="0" Maximum="{Binding MaxVelocity}" Value="{Binding Velocity}" Margin="0 0 0 5" Height="15" />
+                                    <StackPanel Grid.Row="3" Grid.Column="0" FlowDirection="LeftToRight" Orientation="Horizontal" VerticalAlignment="Bottom">
+                                        <TextBlock Text="{Binding Load, StringFormat={}{0}}" TextAlignment="Left" Style="{StaticResource RatioWidgetText}"/>
+                                        <TextBlock Text="/" TextAlignment="Left" Style="{StaticResource RatioWidgetText}"/>
+                                        <TextBlock Text="{Binding Axis.MaxLoad, StringFormat={}{0} lbs}" TextAlignment="Left" Style="{StaticResource RatioWidgetText}"/>
+                                    </StackPanel>
+                                    <ProgressBar Grid.Row="4" Grid.Column="0" Maximum="{Binding Axis.MaxLoad}" Value="{Binding Load}" Margin="0 0 0 5" Height="15" />
+
+                                    <local:AxisValueIndicator Grid.Column="1" Grid.Row="0" Grid.RowSpan="5" AppSettings="{Binding AppSettings, RelativeSource={RelativeSource FindAncestor, AncestorType=local:AxesPresets}}" Profile="{Binding}" Margin="15 5 0 5"/>
+                                </Grid>
+                                <Grid Visibility="Collapsed" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="LockImage" PreviewMouseUp="LockImage_OnPreviewMouseUp">
+                                    <Rectangle Fill="Transparent"/>
+                                    <Image  Source="../Resources/img/lock_icon_white.png" Opacity="0.8" Margin="10"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Border>
+                    <DataTemplate.Triggers>
+                        <!-- Declaration order matters, last trigger declare will be processed last and will replace setters of the previously set properties -->
+                        <DataTrigger Binding="{Binding State}" Value="{x:Static mdls:AxisState.Error}">
+                            <Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource ContainerItemErrorBackgroundBrush}"/>
+                            <Setter TargetName="ItemBorder" Property="Effect" Value="{StaticResource HighlightedItemDropShadowEffect}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding State}" Value="{x:Static mdls:AxisState.Disabled}">
+                            <Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource ContainerItemDisabledBackgroundBrush}"/>
+                            <Setter TargetName="ItemBorder" Property="Effect" Value="{StaticResource HighlightedItemDropShadowEffect}"/>
+                            <Setter TargetName="InnerGrid" Property="Effect" Value="{StaticResource DisabledItemBlurEffect}"/>
+                            <Setter TargetName="LockImage" Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Axis.Selected}" Value="True">
+                            <Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource ContainerItemSelectedBackgroundBrush}"/>
+                            <Setter TargetName="ItemBorder" Property="Effect" Value="{StaticResource HighlightedItemDropShadowEffect}"/>
+                            <!--<Setter TargetName="SelectionBorder" Property="Background" Value="{StaticResource ContainerItemSelectedBorderGradientBrush}"/>-->
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="FirstCueButton" Content="Preset 1" Grid.Column="0" Grid.Row="0" Margin="5 10"/>
+            <Button x:Name="PreviousCueButton" Content="Preset 2" Grid.Column="1" Grid.Row="0" Margin="5 10"/>
+            <Button x:Name="NewCueButton" Content="Preset 3" Grid.Column="2" Grid.Row="0" Margin="5 10"/>
+            <Button x:Name="NextCueButton" Content="Preset 4" Grid.Column="3" Grid.Row="0" Margin="5 10" />
+            <Button x:Name="LastCueButton" Content="Preset 5" Grid.Column="4" Grid.Row="0" Margin="5 10" />
+            <Button x:Name="CopyProfileButton" Content="Preset 6" Grid.Column="0" Grid.Row="1" Margin="5 10"/>
+            <Button x:Name="PasteProfileButton" Content="Preset 7" Grid.Column="1" Grid.Row="1" Margin="5 10"/>
+            <Button x:Name="ClearCueProfileButton" Content="Preset 8" Grid.Column="2" Grid.Row="1" Margin="5 10"/>
+            <Button x:Name="AutoFollowButton" Content="Preset 9" Grid.Column="3" Grid.Row="1" Margin="5 10"/>
+            <Button x:Name="WarningMessageOptionsButton" Content="Preset 10" Grid.Column="4" Grid.Row="1" Margin="5 10"/>
+        </Grid>
+
+        <local:LockPanel Grid.Row="0" Grid.RowSpan="2" x:Name="LockPanel" Width="400" Height="200" Visibility="Collapsed"/>
+    </Grid>
+</local:AxesDisplayControl>

@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="Niscon.Raynok.Controls.CueTree"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Niscon.Raynok.Controls"
+             xmlns:mock="clr-namespace:Niscon.Raynok.Models.Mock"
+             xmlns:hlprs="clr-namespace:Niscon.Raynok.Helpers"
+             xmlns:mdl="clr-namespace:Niscon.Raynok.Models"
+             xmlns:cmd="clr-namespace:Niscon.Raynok.Commands"
+             mc:Ignorable="d" 
+             d:DesignHeight="900" d:DesignWidth="400">
+    <UserControl.CommandBindings>
+        <CommandBinding Command="cmd:CueCommands.AddAfter" CanExecute="CueCommand_CanExecute" Executed="AddAfter_Executed"/>
+        <CommandBinding Command="cmd:CueCommands.AddBefore" CanExecute="CueCommand_CanExecute" Executed="AddBefore_Executed"/>
+        <CommandBinding Command="cmd:CueCommands.Delete" CanExecute="CueCommand_CanExecute" Executed="Delete_Executed"/>
+        <CommandBinding Command="cmd:CueCommands.Rename" CanExecute="CueCommand_CanExecute" Executed="Rename_Executed"/>
+        <CommandBinding Command="cmd:CueCommands.MakeAutofollow" CanExecute="CueCommand_CanExecute" Executed="MakeAutofollow_Executed"/>
+    </UserControl.CommandBindings>
+    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:CueTree}}" d:DataContext ="{d:DesignInstance {x:Type mock:CueTreeMock}, IsDesignTimeCreatable=True}">
+        <Border BorderThickness="0 2 2 2" BorderBrush="{StaticResource CueTreeBorderBrush}" Background="{StaticResource PanelContentBrush}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+        
+                <TextBlock Grid.Row="0" Text="Cue Tree" HorizontalAlignment="Left" Margin="20 30 0 20" Style="{StaticResource CueTreeHeader}"/>
+                <hlprs:ExtendedTreeView x:Name="CueTreeView" Grid.Row="1" Margin="20 0 20 0" ItemsSource="{Binding Nodes}" Style="{StaticResource {x:Type TreeView}}" 
+                                        SelectedItem_="{Binding SelectedNode, Mode=TwoWay}">
+                    <TreeView.Resources>
+                        <HierarchicalDataTemplate DataType="{x:Type mdl:Cue}" ItemsSource="{Binding Children}"/>
+                    </TreeView.Resources>
+                    
+                </hlprs:ExtendedTreeView>
+                <!--<TreeView Grid.Row="1" Margin="20 0 20 0" ItemsSource="{Binding Nodes}">
+                    <TreeView.Resources>
+                        <HierarchicalDataTemplate DataType="{x:Type mdl:CueTreeNode}" ItemsSource="{Binding Children}"/>
+                    </TreeView.Resources>
+                </TreeView>-->
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

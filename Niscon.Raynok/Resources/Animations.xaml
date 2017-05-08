@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Niscon.Raynok.Resources">
+    
+    <!--<Storyboard x:Key="AnimatedMenu">
+        <Int32AnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.>
+            
+        </Int32AnimationUsingKeyFrames>
+    </Storyboard>-->
+    
+</ResourceDictionary>

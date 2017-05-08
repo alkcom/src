@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="Niscon.Raynok.Controls.ToolMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Niscon.Raynok.Controls"
+             xmlns:ctrl="clr-namespace:Niscon.Raynok.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="510" d:DesignWidth="215">
+    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ctrl:ToolMenu}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <ctrl:PanelHeader Icon="{Binding Icon}" Text="{Binding Header}"/>
+
+        <Border Background="{StaticResource PanelContentBrush}" Grid.Row="1" CornerRadius="0 0 3 3"></Border>
+        <Grid Grid.Row="1" ShowGridLines="False">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <ListBox Style="{StaticResource RadioButtonListBox}" SelectedValue="{Binding SelectedValue, Mode=TwoWay}" ItemsSource="{Binding AvailableItems}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionMode="Single" VerticalAlignment="Stretch">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" FontSize="22"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </Grid>
+</UserControl>
