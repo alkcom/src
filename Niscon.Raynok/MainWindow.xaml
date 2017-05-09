@@ -9,7 +9,7 @@
         xmlns:commands="clr-namespace:Niscon.Raynok.Commands"
         mc:Ignorable="d" x:Name="MainWindowName"
         Title="MainWindow" Height="1200" Width="1800" WindowStyle="None" MinWidth="1000" MinHeight="300" WindowStartupLocation="CenterScreen" WindowState="Maximized"
-        d:DataContext="{d:DesignInstance vmdsl:MainWindowViewModel}" ResizeMode="NoResize">
+        d:DataContext="{d:DesignInstance vmdsl:MainWindowViewModel}" ResizeMode="NoResize" AllowsTransparency="True">
     <Window.Resources>
         
     </Window.Resources>

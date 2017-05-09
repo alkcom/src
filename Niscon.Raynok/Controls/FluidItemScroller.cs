@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -105,7 +106,9 @@ namespace Niscon.Raynok.Controls
             double totalWidth = 0;
             
             int i = 0;
-            foreach (FrameworkElement child in GetChildren())
+            FrameworkElement[] children = GetChildren().ToArray();
+            int childrenCount = children.Length;
+            foreach (FrameworkElement child in children)
             {
                 if (child.Visibility != Visibility.Visible)
                 {
@@ -126,17 +129,12 @@ namespace Niscon.Raynok.Controls
                     break;
                 }
                 //stopped in a right half of control
-                else if (newOffset >= middle && newOffset < newWidth)
+                else if (newOffset >= middle && newOffset < newWidth && i < (childrenCount - 1))
                 {
                     newOffset = newWidth;
                     //this will only happen if current element is not the last one
                     //exception is not plausible
-                    try
-                    {
-                        selectedChild = (FrameworkElement)VisualTreeHelper.GetChild(grid, i + 1);
-                    }
-                    catch
-                    { }
+                    selectedChild = (FrameworkElement) VisualTreeHelper.GetChild(grid, i + 1);
 
                     break;
                 }

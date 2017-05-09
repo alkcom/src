@@ -7,13 +7,13 @@
         xmlns:controls="clr-namespace:Niscon.Raynok.Controls"
         xmlns:commands="clr-namespace:Niscon.Raynok.Commands"
         xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-        mc:Ignorable="d"
-        Title="EditViewWindow" Height="800" Width="800" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+        mc:Ignorable="d" Background="Transparent" BorderThickness="0"
+        Title="EditViewWindow" Height="800" Width="800" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" AllowsTransparency="True">
     <Window.CommandBindings>
         <CommandBinding Command="commands:ViewCommands.AddAxis" CanExecute="AddAxis_CanExecute" Executed="AddAxis_Executed"/>
         <CommandBinding Command="commands:ViewCommands.RemoveAxis" CanExecute="RemoveAxis_CanExecute" Executed="RemoveAxis_Executed"/>
     </Window.CommandBindings>
-    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:EditViewWindow}}">
+    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:EditViewWindow}}" Margin="0 0 10 10">
         <Grid.Resources>
             <CollectionViewSource Source="{Binding View.Axes}" x:Key="ViewAxesSource">
                 <CollectionViewSource.SortDescriptions>
@@ -22,7 +22,7 @@
             </CollectionViewSource>
         </Grid.Resources>
         <Grid.Effect>
-            <DropShadowEffect BlurRadius="10" Opacity="0.5"></DropShadowEffect>
+            <DropShadowEffect BlurRadius="20" ShadowDepth="10" Opacity="0.5"/>
         </Grid.Effect>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -42,54 +42,65 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="1" Margin="15 5" x:Name="ViewTypeGrid">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="Select View Type:" HorizontalAlignment="Left" Margin="0 5"/>
-                    <ListBox Grid.Row="1" DisplayMemberPath="Name" SelectedValuePath="Item" SelectedValue="{Binding View.Type, Mode=TwoWay}" ItemsSource="{Binding ViewTypes}" Style="{StaticResource RadioButtonListBox}"/>
-                </Grid>
 
-                <Grid Grid.Row="0" Margin="15 5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="Enter View Name:" HorizontalAlignment="Left"/>
-                    <TextBox Grid.Row="1" Margin="0 5" VerticalAlignment="Center" Text="{Binding View.Name, Mode=TwoWay}" />
-                </Grid>
+                <Border BorderThickness="2" BorderBrush="{StaticResource GridRowBorderBrush}" Margin="10 5">
+                    <Grid Grid.Row="0" Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Enter View Name:" HorizontalAlignment="Left" FontSize="20"/>
+                        <TextBox Grid.Row="1" Margin="0 5" VerticalAlignment="Center" Text="{Binding View.Name, Mode=TwoWay}" FontSize="22" TextAlignment="Left" />
+                    </Grid>
+                </Border>
+
+                <Border BorderThickness="2" BorderBrush="{StaticResource GridRowBorderBrush}" Margin="10 5" Grid.Row="1">
+                    <Grid Grid.Row="1" Margin="5" x:Name="ViewTypeGrid">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Select View Type:" HorizontalAlignment="Left" Margin="0 5" FontSize="20"/>
+                        <ListBox Grid.Row="1" DisplayMemberPath="Name" SelectedValuePath="Item" SelectedValue="{Binding View.Type, Mode=TwoWay}" ItemsSource="{Binding ViewTypes}" 
+                                 Style="{StaticResource RadioButtonListBox}" />
+                    </Grid>
+                </Border>
+                
             </Grid>
-            <Grid Grid.Row="1" Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+            <Border BorderThickness="2" BorderBrush="{StaticResource GridRowBorderBrush}" Margin="10" Grid.Row="1">
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-                <ListBox x:Name="AxesList" Grid.Column="0" Style="{StaticResource RadioButtonListBox}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedAxis}">
-                    <ListBox.ItemsSource>
-                        <MultiBinding Converter="{StaticResource AxesViewAxesConverter}">
-                            <Binding Path="Axes" />
-                            <Binding Path="View.Axes" />
-                            
-                            <!--Hack for multi binding to update-->
-                            <Binding Path="View.Axes.Count" />
-                        </MultiBinding>
-                    </ListBox.ItemsSource>
-                </ListBox>
+                    <ListBox x:Name="AxesList" Grid.Column="0" Style="{StaticResource RadioButtonListBox}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedAxis}">
+                        <ListBox.ItemsSource>
+                            <MultiBinding Converter="{StaticResource AxesViewAxesConverter}">
+                                <Binding Path="Axes" />
+                                <Binding Path="View.Axes" />
 
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Button Content="&gt;&gt;" Width="80" Height="40" Margin="5" Command="commands:ViewCommands.AddAxis"/>
-                    <Button Grid.Row="1" Content="&lt;&lt;" Width="80" Height="40" Margin="5" Command="commands:ViewCommands.RemoveAxis"/>
+                                <!--Hack for multi binding to update-->
+                                <Binding Path="View.Axes.Count" />
+                            </MultiBinding>
+                        </ListBox.ItemsSource>
+                    </ListBox>
+
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Button Content="&gt;&gt;" Width="80" Height="40" Margin="5" Command="commands:ViewCommands.AddAxis"/>
+                        <Button Grid.Row="1" Content="&lt;&lt;" Width="80" Height="40" Margin="5" Command="commands:ViewCommands.RemoveAxis"/>
+                    </Grid>
+
+                    <ListBox x:Name="ViewAxesList" Grid.Column="2" DisplayMemberPath="Name" ItemsSource="{Binding Source={StaticResource ViewAxesSource}}" Style="{StaticResource RadioButtonListBox}" 
+                             SelectedValue="{Binding SelectedViewAxis}"/>
                 </Grid>
-
-                <ListBox x:Name="ViewAxesList" Grid.Column="2" DisplayMemberPath="Name" ItemsSource="{Binding Source={StaticResource ViewAxesSource}}" Style="{StaticResource RadioButtonListBox}" SelectedValue="{Binding SelectedViewAxis}"/>
-            </Grid>
+            </Border>
+            
         </Grid>
 
         <Border Grid.Row="2"  Background="{StaticResource PanelContentBrush}" CornerRadius="0 0 3 3"/>

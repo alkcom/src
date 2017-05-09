@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Niscon.Raynok.Windows"
         xmlns:controls="clr-namespace:Niscon.Raynok.Controls"
-        mc:Ignorable="d"
-        Title="ConfirmationWindow" Height="300" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" WindowStyle="None" Background="{x:Null}">
-    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:ConfirmationWindow}}">
+        mc:Ignorable="d" AllowsTransparency="True" Background="Transparent"
+        Title="ConfirmationWindow" Height="300" Width="300" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterOwner">
+    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:ConfirmationWindow}}" Margin="0 0 10 10">
         <Grid.Effect>
-            <DropShadowEffect BlurRadius="10" Opacity="0.5"></DropShadowEffect>
+            <DropShadowEffect BlurRadius="20" ShadowDepth="10" Opacity="0.5"/>
         </Grid.Effect>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -20,7 +20,7 @@
         <controls:PanelHeader Text="{Binding Header}"></controls:PanelHeader>
 
         <Grid Grid.Row="1" Background="{StaticResource PanelContentBrush}">
-            <TextBlock Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Message}" TextWrapping="Wrap" />
+            <TextBlock Margin="10" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Message}" TextWrapping="Wrap" FontSize="20" />
         </Grid>
 
         <Border Grid.Row="2"  Background="{StaticResource PanelContentBrush}" CornerRadius="0 0 3 3"/>

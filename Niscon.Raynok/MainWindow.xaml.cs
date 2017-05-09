@@ -361,7 +361,8 @@ namespace Niscon.Raynok
                     Header = "Edit View",
                     Owner = this,
                     View = view.Clone(),
-                    Axes = new ObservableCollection<Axis>(ViewModel.Axes)
+                    Axes = new ObservableCollection<Axis>(ViewModel.Axes),
+                    AllowsTransparency = true
                 };
 
                 bool? result = viewSettingsWindow.ShowDialog();
