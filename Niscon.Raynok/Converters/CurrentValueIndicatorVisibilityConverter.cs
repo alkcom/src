@@ -15,16 +15,16 @@ namespace Niscon.Raynok.Converters
             Visibility result = Visibility.Collapsed;
             if (profile != null && profile.Axis != null)
             {
-                if (profile.State == AxisState.Active || profile.State == AxisState.Error)
-                {
+                //if (profile.State == AxisState.Active || profile.State == AxisState.Error)
+                //{
                     if ((profile.StartValue > profile.TargetValue && profile.Axis.CurrentValue < profile.StartValue &&
                          profile.Axis.CurrentValue > profile.TargetValue) ||
                         (profile.StartValue < profile.TargetValue && profile.Axis.CurrentValue > profile.StartValue &&
-                         profile.Axis.CurrentValue < profile.TargetValue))
+                         profile.Axis.CurrentValue < profile.TargetValue) || profile.IsFiller)
                     {
                         result = Visibility.Visible;
                     }
-                }
+                //}
             }
 
             return result;

@@ -265,8 +265,64 @@
                             <Setter Property="Background" Value="{StaticResource ContainerItemSelectedBackgroundBrush}"/>
                             <Setter Property="BorderBrush" Value="{StaticResource CueTreeItemBackgroundBrush}"/>
                         </Trigger>
-                        
+
                     </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SimpleTreeViewItem" TargetType="{x:Type TreeViewItem}">
+        <Setter Property="Background" Value="{StaticResource CueTreeItemBackgroundBrush}" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Padding" Value="15 10" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+        <Setter Property="IsExpanded" Value="True"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{StaticResource TransparentBrush}"/>
+        <!--<Setter Property="FocusVisualStyle" Value="{StaticResource TreeViewItemFocusVisual}" />-->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TreeViewItem}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MaxWidth="50" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <!--TODO: take this part outside and implement template in cue tree control-->
+                        <Border HorizontalAlignment="Stretch" x:Name="Bd" Grid.Column="0" Grid.ColumnSpan="2" Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Margin="0 9 0 9">
+                            <TextBlock Text="{Binding Name}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Style="{StaticResource CueTreeItem}"/>
+                        </Border>
+                        <ItemsPresenter HorizontalAlignment="Stretch" x:Name="ItemsHost" Grid.Row="1" Grid.Column="1" Visibility="Visible" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{StaticResource ContainerItemSelectedBackgroundBrush}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource CueTreeItemBackgroundBrush}"/>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SimpleTreeView" TargetType="TreeView">
+        <Setter Property="ItemContainerStyle" Value="{StaticResource SimpleTreeViewItem}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TreeView">
+                    <Border Name="Border" CornerRadius="0" BorderThickness="0" BorderBrush="Transparent" Background="Transparent">
+                        <ScrollViewer Focusable="False" CanContentScroll="False" Padding="4" VerticalScrollBarVisibility="Auto">
+                            <ItemsPresenter />
+                        </ScrollViewer>
+                    </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

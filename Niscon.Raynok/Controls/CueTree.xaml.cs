@@ -202,7 +202,7 @@ namespace Niscon.Raynok.Controls
             {
                 ItemNameWindow cueNameWindow = new ItemNameWindow
                 {
-                    Header = "Renaming Cue...",
+                    Header = "Cue Properties...",
                     NewValue = cue.Name,
                     Owner = Application.Current.MainWindow
                 };
@@ -228,40 +228,74 @@ namespace Niscon.Raynok.Controls
             Cue cue = e.Parameter as Cue;
             if (cue != null)
             {
-                ItemNameWindow cueNameWindow = new ItemNameWindow
+                MakeCueAutofollowWindow makeCueAutofollowWindow = new MakeCueAutofollowWindow
                 {
-                    Header = $"Make Autofollow for Cue '{cue.Name}'...",
-                    NewValue = "",
                     Owner = Application.Current.MainWindow,
-                    Width = 400
+                    Nodes = Nodes,
+                    SelectedNode = cue
                 };
 
-                bool? result = cueNameWindow.ShowDialog();
-
+                bool? result = makeCueAutofollowWindow.ShowDialog();
                 if (result == true)
                 {
-                    string fixedValue = cueNameWindow.NewValue.Replace("_", string.Empty).Replace("-", string.Empty);
-                    if (string.IsNullOrEmpty(fixedValue))
+                    Cue parent = makeCueAutofollowWindow.SelectedNode;
+
+                    if (parent == null)
                     {
-                        MessageBox.Show($"Invalid cue name: {fixedValue}");
+                        MessageBox.Show("You did not select a cue!");
                         return;
                     }
 
                     Cue newCue = new Cue
                     {
                         Id = Guid.NewGuid(),
-                        Name = fixedValue,
+                        Name = makeCueAutofollowWindow.CueName,
                         Profiles = new ObservableCollection<Profile>(cue.Profiles),
-                        Parent = cue
+                        Parent = parent
                     };
 
-                    if (cue.Children == null)
+                    if (parent.Children == null)
                     {
-                        cue.Children = new ObservableCollection<Cue>();
+                        parent.Children = new ObservableCollection<Cue>();
                     }
 
-                    cue.Children.Add(newCue);
+                    parent.Children.Add(newCue);
                 }
+
+                //ItemNameWindow cueNameWindow = new ItemNameWindow
+                //{
+                //    Header = $"Make Autofollow for Cue '{cue.Name}'...",
+                //    NewValue = "",
+                //    Owner = Application.Current.MainWindow,
+                //    Width = 400
+                //};
+
+                //bool? result = cueNameWindow.ShowDialog();
+
+                //if (result == true)
+                //{
+                //    string fixedValue = cueNameWindow.NewValue.Replace("_", string.Empty).Replace("-", string.Empty);
+                //    if (string.IsNullOrEmpty(fixedValue))
+                //    {
+                //        MessageBox.Show($"Invalid cue name: {fixedValue}");
+                //        return;
+                //    }
+
+                //    Cue newCue = new Cue
+                //    {
+                //        Id = Guid.NewGuid(),
+                //        Name = fixedValue,
+                //        Profiles = new ObservableCollection<Profile>(cue.Profiles),
+                //        Parent = cue
+                //    };
+
+                //    if (cue.Children == null)
+                //    {
+                //        cue.Children = new ObservableCollection<Cue>();
+                //    }
+
+                //    cue.Children.Add(newCue);
+                //}
             }
         }
     }

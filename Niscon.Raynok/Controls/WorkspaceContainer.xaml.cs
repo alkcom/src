@@ -241,7 +241,8 @@ namespace Niscon.Raynok.Controls
                 {
                     case ViewType.CueInfo:
                         element = new AxesGrid();
-                        
+                        ((AxesGrid) element).CurrentValueDialogRequested += AxesGrid_OnCurrentValueDialogRequested;
+
                         element.SetBinding(AxesGrid.AppSettingsProperty, appSettingsBinding);
                         element.SetBinding(AxesDisplayControl.ProfilesProperty, profilesBinding);
                         break;

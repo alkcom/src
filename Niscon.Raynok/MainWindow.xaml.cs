@@ -334,14 +334,32 @@ namespace Niscon.Raynok
         {
             if (ViewModel.CurrentShow?.SelectedView != null)
             {
-                ViewModel.CurrentShow.Views.Remove(ViewModel.CurrentShow.SelectedView);
-
-                ReloadViews();
-
-                View firstView = ViewModel.CurrentShow.Views.FirstOrDefault();
-                if (firstView != null)
+                if (ViewModel.CurrentShow.Views.Count <= 1)
                 {
-                    firstView.IsSelected = true;
+                    MessageBox.Show("Last view cannot be deleted!");
+                    return;
+                }
+
+                ConfirmationWindow confirmationWindow = new ConfirmationWindow
+                {
+                    Header = "Deleting view...",
+                    Message = $"Are you sure, you want to delete selected view - '{ViewModel.CurrentShow.SelectedView.Name}'?",
+                    Owner = this
+                };
+
+                bool? result = confirmationWindow.ShowDialog();
+
+                if (result == true)
+                {
+                    ViewModel.CurrentShow.Views.Remove(ViewModel.CurrentShow.SelectedView);
+
+                    ReloadViews();
+
+                    View firstView = ViewModel.CurrentShow.Views.FirstOrDefault();
+                    if (firstView != null)
+                    {
+                        firstView.IsSelected = true;
+                    }
                 }
             }
         }

@@ -170,8 +170,14 @@
     <Compile Include="Windows\EditViewWindow.xaml.cs">
       <DependentUpon>EditViewWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\CuePropertiesWindow.xaml.cs">
+      <DependentUpon>CuePropertiesWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ItemNameWindow.xaml.cs">
       <DependentUpon>ItemNameWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\MakeCueAutofollowWindow.xaml.cs">
+      <DependentUpon>MakeCueAutofollowWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\CurrentValueDialog.xaml">
       <SubType>Designer</SubType>
@@ -351,7 +357,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\CuePropertiesWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Windows\ItemNameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\MakeCueAutofollowWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -12,7 +12,9 @@
     <converters:AdminMenuItemRaynokModeConverter x:Key="AdminMenuItemRaynokModeConverter"/>
     <converters:InchesToFeetConverter x:Key="InchesToFeetConverter"/>
     <converters:InchesToFeetMultiConverter x:Key="InchesToFeetMultiConverter"/>
+    
     <converters:CueAxisValueIndicatorConverter x:Key="CueAxisValueIndicatorConverter"/>
+    
     <converters:BackgroundLogoVisibilityConverter x:Key="BackgroundLogoVisibilityConverter"/>
     <converters:EnumBooleanConverter x:Key="EnumBooleanConverter"/>
     <converters:NamedItemConverter x:Key="NamedItemConverter"/>

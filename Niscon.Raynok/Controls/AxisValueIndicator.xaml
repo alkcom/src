@@ -18,13 +18,57 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <!-- Using convereters and cue axis target/current values to control rows height -->
-                    <RowDefinition Height="{Binding Converter={StaticResource CueAxisValueIndicatorConverter}, ConverterParameter={x:Static converters:CueAxisValueIndicatorConverterParameter.Top}}"></RowDefinition>
+                    <!--<RowDefinition Height="{Binding Converter={StaticResource CueAxisValueIndicatorConverter}, ConverterParameter={x:Static converters:CueAxisValueIndicatorConverterParameter.Top}}"></RowDefinition>-->
+                    <RowDefinition>
+                        <RowDefinition.Height>
+                            <MultiBinding Converter="{StaticResource CueAxisValueIndicatorConverter}" ConverterParameter="{x:Static converters:CueAxisValueIndicatorConverterParameter.Top}">
+                                <Binding Path="StartValue"/>
+                                <Binding Path="TargetValue"/>
+                                <Binding Path="Axis.MinValue"/>
+                                <Binding Path="Axis.MaxValue"/>
+                                <Binding Path="Axis.CurrentValue"/>
+                            </MultiBinding>
+                        </RowDefinition.Height>
+                    </RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="{Binding Converter={StaticResource CueAxisValueIndicatorConverter}, ConverterParameter={x:Static converters:CueAxisValueIndicatorConverterParameter.TopMiddle}}"></RowDefinition>
+                    <!--<RowDefinition Height="{Binding Converter={StaticResource CueAxisValueIndicatorConverter}, ConverterParameter={x:Static converters:CueAxisValueIndicatorConverterParameter.TopMiddle}}"></RowDefinition>-->
+                    <RowDefinition>
+                        <RowDefinition.Height>
+                            <MultiBinding Converter="{StaticResource CueAxisValueIndicatorConverter}" ConverterParameter="{x:Static converters:CueAxisValueIndicatorConverterParameter.TopMiddle}">
+                                <Binding Path="StartValue"/>
+                                <Binding Path="TargetValue"/>
+                                <Binding Path="Axis.MinValue"/>
+                                <Binding Path="Axis.MaxValue"/>
+                                <Binding Path="Axis.CurrentValue"/>
+                            </MultiBinding>
+                        </RowDefinition.Height>
+                    </RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="{Binding Converter={StaticResource CueAxisValueIndicatorConverter}, ConverterParameter={x:Static converters:CueAxisValueIndicatorConverterParameter.BottomMiddle}}"></RowDefinition>
+                    <!--<RowDefinition Height="{Binding Converter={StaticResource CueAxisValueIndicatorConverter}, ConverterParameter={x:Static converters:CueAxisValueIndicatorConverterParameter.BottomMiddle}}"></RowDefinition>-->
+                    <RowDefinition>
+                        <RowDefinition.Height>
+                            <MultiBinding Converter="{StaticResource CueAxisValueIndicatorConverter}" ConverterParameter="{x:Static converters:CueAxisValueIndicatorConverterParameter.BottomMiddle}">
+                                <Binding Path="StartValue"/>
+                                <Binding Path="TargetValue"/>
+                                <Binding Path="Axis.MinValue"/>
+                                <Binding Path="Axis.MaxValue"/>
+                                <Binding Path="Axis.CurrentValue"/>
+                            </MultiBinding>
+                        </RowDefinition.Height>
+                    </RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition Height="{Binding Converter={StaticResource CueAxisValueIndicatorConverter}, ConverterParameter={x:Static converters:CueAxisValueIndicatorConverterParameter.Bottom}}"></RowDefinition>
+                    <!--<RowDefinition Height="{Binding Converter={StaticResource CueAxisValueIndicatorConverter}, ConverterParameter={x:Static converters:CueAxisValueIndicatorConverterParameter.Bottom}}"></RowDefinition>-->
+                    <RowDefinition>
+                        <RowDefinition.Height>
+                            <MultiBinding Converter="{StaticResource CueAxisValueIndicatorConverter}" ConverterParameter="{x:Static converters:CueAxisValueIndicatorConverterParameter.Bottom}">
+                                <Binding Path="StartValue"/>
+                                <Binding Path="TargetValue"/>
+                                <Binding Path="Axis.MinValue"/>
+                                <Binding Path="Axis.MaxValue"/>
+                                <Binding Path="Axis.CurrentValue"/>
+                            </MultiBinding>
+                        </RowDefinition.Height>
+                    </RowDefinition>
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" VerticalAlignment="Top" FontWeight="Bold" Margin="0 -5 10 0">

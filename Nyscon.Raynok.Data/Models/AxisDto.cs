@@ -16,6 +16,8 @@ namespace Nyscon.Raynok.Data.Models
 
         public double MaxLoad { get; set; }
 
+        public double CurrentValue { get; set; }
+
         #region Default values
 
         public double StartingVelocity { get; set; }
