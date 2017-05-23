@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Niscon.Raynok.Windows"
         xmlns:controls="clr-namespace:Niscon.Raynok.Controls"
+        xmlns:cmd="clr-namespace:Niscon.Raynok.Commands"
         mc:Ignorable="d" AllowsTransparency="True" Background="Transparent"
-        Title="ItemNameWindow" Height="300" Width="300" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+        Title="ItemNameWindow" Height="300" Width="500" MinWidth="500" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+    <Window.CommandBindings>
+        <CommandBinding Command="cmd:CueCommands.AfParameters" CanExecute="AfParameters_CanExecute" Executed="AfParameters_Executed"/>
+        <CommandBinding Command="cmd:AppCommands.Ok" CanExecute="Ok_CanExecute" Executed="Ok_Executed"/>
+        <CommandBinding Command="cmd:AppCommands.Cancel" Executed="Cancel_Executed"/>
+    </Window.CommandBindings>
     <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:CuePropertiesWindow}}" Margin="0 0 10 10">
         <Grid.Effect>
             <DropShadowEffect BlurRadius="20" ShadowDepth="10" Opacity="0.5"/>
@@ -17,20 +23,22 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <controls:PanelHeader Text="{Binding Header}"></controls:PanelHeader>
+        <controls:PanelHeader Text="Cue Properties"/>
 
         <Grid Grid.Row="1" Background="{StaticResource PanelContentBrush}">
-            <TextBox Height="40" Margin="15 0" Text="{Binding NewValue, Mode=TwoWay}" FontSize="22"/>
+            <TextBox Height="40" Margin="15 0" x:Name="CueNameText" FontSize="22"/>
         </Grid>
 
         <Border Grid.Row="2"  Background="{StaticResource PanelContentBrush}" CornerRadius="0 0 3 3"/>
         <Grid Grid.Row="2" Height="75">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Margin="15 10" Content="OK" x:Name="OkButton" PreviewMouseUp="OkButton_OnPreviewMouseUp" />
-            <Button Grid.Column="1" Margin="15 10" Content="Cancel" x:Name="CancelButton" PreviewMouseUp="CancelButton_OnPreviewMouseUp" />
+            <Button Grid.Column="0" Margin="15 10 30 10" Content="AF Paremeters" x:Name="AfParametersButton" Command="cmd:CueCommands.AfParameters" />
+            <Button Grid.Column="1" Margin="15 10" Width="100" Content="OK" x:Name="OkButton" Command="cmd:AppCommands.Ok" />
+            <Button Grid.Column="2" Margin="15 10" Width="100" Content="Cancel" x:Name="CancelButton" Command="cmd:AppCommands.Cancel" />
         </Grid>
     </Grid>
 </Window>

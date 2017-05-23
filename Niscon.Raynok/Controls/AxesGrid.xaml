@@ -63,7 +63,7 @@
                 <DataGridTemplateColumn Header="Current" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate DataType="mdls:Profile">
-                            <Label PreviewMouseDoubleClick="Control_OnPreviewMouseDoubleClick" PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp" Cursor="Hand" VerticalAlignment="Center">
+                            <Label PreviewMouseDoubleClick="CurrentValue_OnPreviewMouseDoubleClick" PreviewMouseLeftButtonUp="UIElement_OnPreviewMouseLeftButtonUp" VerticalAlignment="Center">
                                 <Label.Content>
                                     <TextBlock FontSize="22" FontFamily="Lucida Sans">
                                         <TextBlock.Text>
@@ -74,30 +74,115 @@
                                         </TextBlock.Text>
                                     </TextBlock>
                                 </Label.Content>
+                                <Label.Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding State}" Value="Disabled">
+                                                <Setter Property="Cursor" Value="Arrow"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
                             </Label>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <!--<DataGridTextColumn Header="Current" Width="*">
-                    <DataGridTextColumn.Binding>
-                        <MultiBinding Converter="{StaticResource InchesToFeetMultiConverter}" ConverterParameter="False">
-                            <Binding Path="Axis.CurrentValue"/>
-                            <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType=local:AxesGrid}" Path="AppSettings.Units" />
-                        </MultiBinding>
-                    </DataGridTextColumn.Binding>
-                </DataGridTextColumn>-->
-                <DataGridTextColumn Header="Target" Width="*">
-                    <DataGridTextColumn.Binding>
-                        <MultiBinding Converter="{StaticResource InchesToFeetMultiConverter}" ConverterParameter="False">
-                            <Binding Path="TargetValue"/>
-                            <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType=local:AxesGrid}" Path="AppSettings.Units" />
-                        </MultiBinding>
-                    </DataGridTextColumn.Binding>
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Velocity" Width="*" Binding="{Binding Velocity}"/>
+                <DataGridTemplateColumn Header="Target" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="mdls:Profile">
+                            <Label PreviewMouseDoubleClick="TargetValue_OnPreviewMouseDoubleClick" VerticalAlignment="Center">
+                                <Label.Content>
+                                    <TextBlock FontSize="22" FontFamily="Lucida Sans">
+                                        <TextBlock.Text>
+                                            <MultiBinding Converter="{StaticResource InchesToFeetMultiConverter}" ConverterParameter="False">
+                                                <Binding Path="TargetValue"/>
+                                                <Binding RelativeSource="{RelativeSource FindAncestor, AncestorType=local:AxesGrid}" Path="AppSettings.Units" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </Label.Content>
+                                <Label.Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding State}" Value="Disabled">
+                                                <Setter Property="Cursor" Value="Arrow"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!--<DataGridTextColumn Header="Velocity" Width="*" Binding="{Binding Velocity}"/>-->
+                <DataGridTemplateColumn Header="Velocity" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="mdls:Profile">
+                            <Label PreviewMouseDoubleClick="Velocity_OnPreviewMouseDoubleClick" VerticalAlignment="Center">
+                                <Label.Content>
+                                    <TextBlock FontSize="22" FontFamily="Lucida Sans" Text="{Binding Velocity}"/>
+                                </Label.Content>
+                                <Label.Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="Cursor" Value="Arrow"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding State}" Value="Active">
+                                                <Setter Property="Cursor" Value="Hand"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Duration" Width="*" Binding="{Binding Duration}"/>
-                <DataGridTextColumn Header="Accel." Width="*" Binding="{Binding Acceleration}"/>
-                <DataGridTextColumn Header="Decel." Width="*" Binding="{Binding Deceleration}"/>
+                <!--<DataGridTextColumn Header="Accel." Width="*" Binding="{Binding Acceleration}"/>
+                <DataGridTextColumn Header="Decel." Width="*" Binding="{Binding Deceleration}"/>-->
+                <DataGridTemplateColumn Header="Accel." Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="mdls:Profile">
+                            <Label PreviewMouseDoubleClick="Acceleration_OnPreviewMouseDoubleClick" VerticalAlignment="Center">
+                                <Label.Content>
+                                    <TextBlock FontSize="22" FontFamily="Lucida Sans" Text="{Binding Acceleration}"/>
+                                </Label.Content>
+                                <Label.Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="Cursor" Value="Arrow"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding State}" Value="Active">
+                                                <Setter Property="Cursor" Value="Hand"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Decel." Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="mdls:Profile">
+                            <Label PreviewMouseDoubleClick="Deceleration_OnPreviewMouseDoubleClick" VerticalAlignment="Center">
+                                <Label.Content>
+                                    <TextBlock FontSize="22" FontFamily="Lucida Sans" Text="{Binding Deceleration}"/>
+                                </Label.Content>
+                                <Label.Style>
+                                    <Style TargetType="Label">
+                                        <Setter Property="Cursor" Value="Arrow"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding State}" Value="Active">
+                                                <Setter Property="Cursor" Value="Hand"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Label.Style>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Delay" Width="*" Binding="{Binding Delay}"/>
                 <DataGridTextColumn Header="Load" Width="*" Binding="{Binding Load}"/>
             </DataGrid.Columns>

@@ -39,6 +39,15 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <Trigger
+                Property="Validation.HasError"
+                Value="true">
+                <Setter
+                    Property="ToolTip"
+                    Value="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={x:Static RelativeSource.Self}}" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

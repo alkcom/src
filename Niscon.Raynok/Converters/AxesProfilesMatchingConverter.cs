@@ -17,13 +17,16 @@ namespace Niscon.Raynok.Converters
                 return null;
             }
 
-            Dictionary<Guid, Profile> profiles = ((IList<Profile>)values[0]).ToDictionary(p => p.AxisId);
+            Dictionary<int, Profile> profiles = ((IList<Profile>)values[0]).ToDictionary(p => p.AxisId);
             IList<Axis> axes = (IList<Axis>) values[1];
 
             List<Profile> resultingProfiles = new List<Profile>();
             foreach (Axis axis in axes)
             {
-                resultingProfiles.Add(profiles[axis.Id]);
+                if (profiles.ContainsKey(axis.Id))
+                {
+                    resultingProfiles.Add(profiles[axis.Id]);
+                }
             }
 
             return resultingProfiles;

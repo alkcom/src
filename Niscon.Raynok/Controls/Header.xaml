@@ -30,7 +30,7 @@
 
             <ToggleButton Grid.Column="0" Margin="0 0 0 18" Style="{StaticResource HeaderLeftButton}">
                 <ToggleButton.Content>
-                    <TextBlock Text="{Binding CurrentShow.FullName}" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding CurrentShow.Name}" FontWeight="Bold" VerticalAlignment="Center"/>
                 </ToggleButton.Content>
             </ToggleButton>
 

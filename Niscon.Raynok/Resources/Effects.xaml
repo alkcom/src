@@ -3,6 +3,6 @@
                     xmlns:local="clr-namespace:Niscon.Raynok.Resources">
 
     <DropShadowEffect x:Key="HighlightedItemDropShadowEffect" BlurRadius="20" Color="Black" Opacity="0.8" Direction="-90"/>
-    <BlurEffect x:Key="DisabledItemBlurEffect" KernelType="Gaussian" Radius="10"/>
+    <BlurEffect x:Key="DisabledItemBlurEffect" KernelType="Gaussian" Radius="10" RenderingBias="Performance"/>
     
 </ResourceDictionary>

@@ -25,6 +25,11 @@ namespace Niscon.Raynok.Models
         //public static readonly HashSet<AxisState> Pr = new HashSet<AxisState> { AxisState.Active, AxisState.Inactive };
 
         private AxisState _state;
+        private double _targetValue;
+        private double _startValue;
+        private double _velocity;
+        private double _acceleration;
+        private double _deceleration;
         public Profile() { }
 
         public Profile(Axis axis, double? startValue = null, double? targetValue = null, double? velocity = null,
@@ -39,12 +44,16 @@ namespace Niscon.Raynok.Models
             Axis = axis;
             AxisId = axis.Id;
 
-            Axis.AddProfile(this);
+            //Axis.AddProfile(this);
 
-            StartValue = startValue ?? Axis.GetPreviousProfile(this)?.TargetValue ?? Axis.MinValue;
+            if (startValue.HasValue)
+            {
+                StartValue = startValue.Value;
+            }
+            //StartValue = startValue ?? Axis.GetPreviousProfile(this)?.TargetValue ?? Axis.MinValue;
             TargetValue = targetValue ?? StartValue;
             StartingVelocity = velocity ?? axis.Velocity;
-            Velocity = velocity ?? axis.Velocity;
+            Velocity = velocity ?? 0;
             Duration = duration ?? axis.Duration;
             Acceleration = acceleration ?? axis.Acceleration;
             Deceleration = deceleration ?? axis.Deceleration;
@@ -56,7 +65,7 @@ namespace Niscon.Raynok.Models
 
         public Guid Id { get; set; }
 
-        public Guid AxisId { get; set; }
+        public int AxisId { get; set; }
 
         [JsonIgnore]
         public Axis Axis { get; set; }
@@ -66,32 +75,89 @@ namespace Niscon.Raynok.Models
                 ? AxisDirection.Up
                 : TargetValue < StartValue ? AxisDirection.Down : AxisDirection.None;
 
-        public double StartValue { get; set; }
+        public double StartValue
+        {
+            get { return _startValue; }
+            set
+            {
+                if (value.Equals(_startValue)) return;
+                _startValue = value;
 
-        public double TargetValue { get; set; }
+                State = IsFiller ? AxisState.Inactive : AxisState.Active;
+
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Direction));
+                OnPropertyChanged(nameof(State));
+                OnPropertyChanged(nameof(IsFiller));
+            }
+        }
+
+        public double TargetValue
+        {
+            get { return _targetValue; }
+            set
+            {
+                if (value.Equals(_targetValue)) return;
+                _targetValue = value;
+
+                State = IsFiller ? AxisState.Inactive : AxisState.Active;
+
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Direction));
+                OnPropertyChanged(nameof(State));
+                OnPropertyChanged(nameof(IsFiller));
+            }
+        }
 
         public double StartingVelocity { get; set; }
-        public double Velocity { get; set; }
 
-        /// <summary>
-        /// Maximum velocity
-        /// Assuming that this value is a maximum possible velocity
-        /// In case of acceleration being greater than deceleration maximum velocity will be equal to velocity at the end of given duration
-        /// In case of deceleration being greater than acceleration maximum velocity will be equal to velocity at the start of given duration
-        /// </summary>
-        public double MaxVelocity
+        public double Velocity
         {
-            get
+            get { return _velocity; }
+            set
             {
-                return Acceleration > Deceleration
-                    ? Velocity + (Acceleration - Deceleration) * Duration.TotalMinutes
-                    : StartingVelocity;
+                if (value.Equals(_velocity)) return;
+                _velocity = value;
+                if (_velocity > Axis?.MaxVelocity)
+                {
+                    _velocity = Axis.MaxVelocity;
+                }
+                OnPropertyChanged();
             }
         }
 
         public TimeSpan Duration { get; set; }
-        public double Acceleration { get; set; }
-        public double Deceleration { get; set; }
+
+        public double Acceleration
+        {
+            get { return _acceleration; }
+            set
+            {
+                if (value.Equals(_acceleration)) return;
+                _acceleration = value;
+                if (_acceleration > Axis?.MaxAcceleration)
+                {
+                    _acceleration = Axis.MaxAcceleration;
+                }
+                OnPropertyChanged();
+            }
+        }
+
+        public double Deceleration
+        {
+            get { return _deceleration; }
+            set
+            {
+                if (value.Equals(_deceleration)) return;
+                _deceleration = value;
+                if (_deceleration > Axis?.MaxDeceleration)
+                {
+                    _deceleration = Axis.MaxDeceleration;
+                }
+                OnPropertyChanged();
+            }
+        }
+
         public TimeSpan Delay { get; set; }
         public double Load { get; set; }
 
@@ -126,7 +192,10 @@ namespace Niscon.Raynok.Models
             }
         }
 
-        public bool IsFiller { get; set; }
+        public bool IsFiller
+        {
+            get { return TargetValue == StartValue; }
+        }
 
         public void SetAxisState(AxisState? state)
         {
@@ -142,20 +211,6 @@ namespace Niscon.Raynok.Models
         public void ToggleAxisSelectedState()
         {
             Axis.Selected = !Axis.Selected;
-            //if (Axis.State.HasValue && Axis.State != AxisState.Selected)
-            //{
-            //    return;
-            //}
-
-            //if (!Axis.State.HasValue)
-            //{
-            //    SetAxisState(AxisState.Selected);
-            //}
-            //else if (Axis.State.Value == AxisState.Selected)
-            //{
-            //    SetAxisState(null);
-            //}
-
         }
 
         #region INotifyPropertyChanged

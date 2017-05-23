@@ -7,9 +7,17 @@
         xmlns:controls="clr-namespace:Niscon.Raynok.Controls"
         xmlns:helpers="clr-namespace:Niscon.Raynok.Helpers"
         xmlns:mdl="clr-namespace:Niscon.Raynok.Models"
+        xmlns:mock="clr-namespace:Niscon.Raynok.Models.Mock"
+        xmlns:cmd="clr-namespace:Niscon.Raynok.Commands"
         mc:Ignorable="d" AllowsTransparency="True" Background="Transparent"
         Title="MakeCueAutofollow" Height="600" Width="500" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
-    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:MakeCueAutofollowWindow}}" Margin="0 0 10 10">
+    <Window.CommandBindings>
+        <CommandBinding Command="cmd:CueCommands.AfParameters" CanExecute="AfParameters_CanExecute" Executed="AfParameters_Executed"/>
+        <CommandBinding Command="cmd:AppCommands.Ok" CanExecute="Ok_CanExecute" Executed="Ok_Executed"/>
+        <CommandBinding Command="cmd:AppCommands.Cancel" Executed="Cancel_Executed"/>
+    </Window.CommandBindings>
+    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:MakeCueAutofollowWindow}}" Margin="0 0 10 10"
+          d:DataContext ="{d:DesignInstance {x:Type mock:CueTreeMock}, IsDesignTimeCreatable=True}">
         <Grid.Effect>
             <DropShadowEffect BlurRadius="20" ShadowDepth="10" Opacity="0.5"/>
         </Grid.Effect>
@@ -22,19 +30,13 @@
         <controls:PanelHeader Text="Make Cue Autofollow"></controls:PanelHeader>
 
         <Grid Grid.Row="1" Background="{StaticResource PanelContentBrush}">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <helpers:ExtendedTreeView x:Name="CueTreeView" Margin="20 0 20 0" ItemsSource="{Binding Nodes}" Style="{StaticResource SimpleTreeView}" 
+            <helpers:ExtendedTreeView x:Name="CueTreeView" Margin="10 0 10 0" ItemsSource="{Binding Nodes}" Style="{StaticResource SimpleTreeView}" 
                                     SelectedItem_="{Binding SelectedNode, Mode=TwoWay}">
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type mdl:Cue}" ItemsSource="{Binding Children}"/>
                 </TreeView.Resources>
 
             </helpers:ExtendedTreeView>
-
-            <TextBox Grid.Row="1" Height="40" Margin="15" Text="{Binding CueName, Mode=TwoWay}" FontSize="22"/>
         </Grid>
 
         <Border Grid.Row="2"  Background="{StaticResource PanelContentBrush}" CornerRadius="0 0 3 3"/>
@@ -44,9 +46,9 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Margin="15 10 30 10" Content="AF Paremeters" x:Name="AfParametersButton" PreviewMouseUp="AfParametersButton_OnPreviewMouseUp" />
-            <Button Grid.Column="1" Margin="15 10" Width="100" Content="OK" x:Name="OkButton" PreviewMouseUp="OkButton_OnPreviewMouseUp" />
-            <Button Grid.Column="2" Margin="15 10" Width="100" Content="Cancel" x:Name="CancelButton" PreviewMouseUp="CancelButton_OnPreviewMouseUp" />
+            <Button Grid.Column="0" Margin="15 10 30 10" Content="AF Paremeters" x:Name="AfParametersButton" Command="cmd:CueCommands.AfParameters"/>
+            <Button Grid.Column="1" Margin="15 10" Width="100" Content="OK" x:Name="OkButton" Command="cmd:AppCommands.Ok" />
+            <Button Grid.Column="2" Margin="15 10" Width="100" Content="Cancel" x:Name="CancelButton" Command="cmd:AppCommands.Cancel" />
         </Grid>
     </Grid>
 </Window>

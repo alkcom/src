@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Niscon.Raynok", "Niscon.Raynok\Niscon.Raynok.csproj", "{759AC0FA-1071-4FCC-A471-90ADF7BF1193}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nyscon.Raynok.Data", "Nyscon.Raynok.Data\Nyscon.Raynok.Data.csproj", "{DD66357A-A0AC-4F2F-8270-880D3A509EFB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Niscon.Raynok.Data", "Niscon.Raynok.Data\Niscon.Raynok.Data.csproj", "{DD66357A-A0AC-4F2F-8270-880D3A509EFB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Niscon.Raynok.Shared", "Niscon.Raynok.Shared\Niscon.Raynok.Shared.csproj", "{192FB383-67D0-4AA5-85C8-72FDB6754EA7}"
 EndProject

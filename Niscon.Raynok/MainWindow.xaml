@@ -22,7 +22,7 @@
         </LinearGradientBrush>
     </Window.Background>
     <Window.CommandBindings>
-        <CommandBinding Command="ApplicationCommands.Stop" CanExecute="StopCommand_CanExecute" Executed="StopCommand_Executed"/>
+        <CommandBinding Command="commands:AppCommands.Close" CanExecute="CloseAppCommand_CanExecute" Executed="CloseAppCommand_Executed"/>
         
         <CommandBinding Command="commands:ShowCommands.Open" CanExecute="OpenShow_CanExecute" Executed="OpenShow_Executed"/>
         <CommandBinding Command="commands:ShowCommands.IncreaseRevision" CanExecute="ShowCommands_CanExecute" Executed="IncreaseRevision_Executed"/>
@@ -47,7 +47,8 @@
 
         <ctrls:WorkspaceContainer x:Name="WorkspaceContainer" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0 20 0 20" 
                                   AppSettings="{Binding AppSettings}" CurrentShow="{Binding CurrentShow}" SelectedView="{Binding CurrentShow.SelectedView, Mode=TwoWay}"
-                                  IsCueTreeVisible="{Binding IsCueTreeVisible, ElementName=Footer}" IsManualMode="{Binding IsManualMode, ElementName=Header, Mode=TwoWay}"/>
+                                  IsCueTreeVisible="{Binding IsCueTreeVisible, ElementName=Footer}" IsManualMode="{Binding IsManualMode, ElementName=Header, Mode=TwoWay}"
+                                  CuesUpdated="WorkspaceContainer_OnCuesUpdated" ProfilesUpdated="WorkspaceContainer_OnProfilesUpdated"/>
 
         <ctrls:AdminMenuContainer x:Name="AdminMenuContainer" Grid.Row="1" AppSettings="{Binding AppSettings, Mode=TwoWay}" Visibility="{Binding Source={x:Reference SettingsMenuButton}, Path=IsChecked, Converter={StaticResource BoolToVisConverter}}" Margin="3 20"/>
 
@@ -63,12 +64,12 @@
                     <MenuItem Header="New Show" Style="{StaticResource FileMenuSubmenuButton}" Command="commands:ShowCommands.New"/>
                     <MenuItem Header="Open Show" Style="{StaticResource FileMenuSubmenuButton}" ItemsSource="{Binding ShowsMenuItems}" ItemContainerStyle="{StaticResource FileMenuSubmenuButton}"/>
                     <MenuItem Header="Save" Style="{StaticResource FileMenuSubmenuButton}" IsEnabled="{Binding CurrentShow, Converter={StaticResource NotNullBooleanConverter}}" ItemContainerStyle="{StaticResource FileMenuSubmenuButton}">
-                        <MenuItem Header="{Binding CurrentShow.FullName}" Command="commands:ShowCommands.Save" />
+                        <MenuItem Header="{Binding CurrentShow.Name}" Command="commands:ShowCommands.Save" />
                         <MenuItem Header="Save As..." Command="commands:ShowCommands.SaveAs" />
                         <MenuItem Header="Increase Revision#" Command="commands:ShowCommands.IncreaseRevision" />
                     </MenuItem>
                     <MenuItem Header="Delete Current Show" Style="{StaticResource FileMenuSubmenuButton}" IsEnabled="{Binding CurrentShow, Converter={StaticResource NotNullBooleanConverter}}" Command="commands:ShowCommands.Delete"/>
-                    <MenuItem Header="Exit" Style="{StaticResource FileMenuSubmenuButton}" Command="ApplicationCommands.Stop" CommandTarget="{Binding ElementName=MainWindowName}"/>
+                    <MenuItem Header="Exit" Style="{StaticResource FileMenuSubmenuButton}" Command="commands:AppCommands.Close" CommandTarget="{Binding ElementName=MainWindowName}"/>
                 </MenuItem>
             </Menu>
             <ToggleButton IsEnabled="False" x:Name="RightMenuButton" Style="{StaticResource TopRightCornerButton}" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Width="85" Height="65"/>

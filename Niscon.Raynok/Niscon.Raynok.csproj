@@ -88,14 +88,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\AppCommands.cs" />
     <Compile Include="Commands\CueCommands.cs" />
+    <Compile Include="Commands\SceneCommands.cs" />
     <Compile Include="Commands\ShowCommands.cs" />
     <Compile Include="Commands\ViewCommands.cs" />
     <Compile Include="Controls\AdminMenuContainer.xaml.cs">
       <DependentUpon>AdminMenuContainer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\CurrentValueDialog.xaml.cs">
-      <DependentUpon>CurrentValueDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\FluidItemScroller.cs" />
     <Compile Include="Controls\AxesColumns.xaml.cs">
@@ -131,6 +130,7 @@
     <Compile Include="Converters\AxesViewAxesConverter.cs" />
     <Compile Include="Converters\BackgroundLogoVisibilityConverter.cs" />
     <Compile Include="Converters\CueAxisValueIndicatorConverter.cs" />
+    <Compile Include="Converters\CueTreeItemsConverter.cs" />
     <Compile Include="Converters\CurrentValueIndicatorVisibilityConverter.cs" />
     <Compile Include="Converters\EnumBooleanConverter.cs" />
     <Compile Include="Converters\InchesToFeetConverter.cs" />
@@ -141,14 +141,18 @@
     <Compile Include="Converters\ViewsSelectedViewConverter.cs" />
     <Compile Include="Converters\ViewsWorkspaceVisibilityConverter.cs" />
     <Compile Include="Extensions\ModelExtensions.cs" />
+    <Compile Include="Helpers\CuesUpdatedEventArgs.cs" />
     <Compile Include="Helpers\CurrentValueDialogRequestedEventArgs.cs" />
     <Compile Include="Helpers\EventHandlers.cs" />
     <Compile Include="Helpers\ExtendedTreeView.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Helpers\LockOptionsRequesetedEventArgs.cs" />
+    <Compile Include="Helpers\OnScreenKeyboardButtonValidateEventArgs.cs" />
+    <Compile Include="Helpers\ProfilesUpdatedEventArgs.cs" />
     <Compile Include="Helpers\ValueConfirmedEventArgs.cs" />
     <Compile Include="Models\AppSettings.cs" />
     <Compile Include="Models\CueParent.cs" />
+    <Compile Include="Models\Mock\MakeCueAutofollowWindowMock.cs" />
     <Compile Include="Models\Mock\ProfilesMock.cs" />
     <Compile Include="Models\Mock\AxisValueIndicatorMock.cs" />
     <Compile Include="Models\Mock\CueTreeMock.cs" />
@@ -161,11 +165,19 @@
     <Compile Include="Models\View.cs" />
     <Compile Include="Services\ShowsService.cs" />
     <Compile Include="Services\ViewsService.cs" />
+    <Compile Include="Validation\CueNameValidationRule.cs" />
+    <Compile Include="Validation\ViewNameValidationRule.cs" />
     <Compile Include="ViewModels\AdminMenuContainerViewModel.cs" />
     <Compile Include="ViewModels\WorkSpaceViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="Windows\AfParametersWindow.xaml.cs">
+      <DependentUpon>AfParametersWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\ConfirmationWindow.xaml.cs">
       <DependentUpon>ConfirmationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\EditValueWindow.xaml.cs">
+      <DependentUpon>EditValueWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\EditViewWindow.xaml.cs">
       <DependentUpon>EditViewWindow.xaml</DependentUpon>
@@ -179,10 +191,9 @@
     <Compile Include="Windows\MakeCueAutofollowWindow.xaml.cs">
       <DependentUpon>MakeCueAutofollowWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Controls\CurrentValueDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="Windows\MessageBoxWindow.xaml.cs">
+      <DependentUpon>MessageBoxWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Controls\LockPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -337,6 +348,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\Scrolls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\StaticElements.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -349,7 +364,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Windows\AfParametersWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\ConfirmationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EditValueWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -366,6 +389,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\MakeCueAutofollowWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\MessageBoxWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -398,13 +425,13 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Shows\0ee63dc35d354a7fbddf3f3c92ff283f-show1_1.json">
+    <None Include="Shows\show1_1.show">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Shows\8c70c362408b4064b34e2983c124e03c-show2_1.json">
+    <None Include="Shows\show2_1.show">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Shows\a466d7b01ef2407a88061fa8bca68624-show3_1.json">
+    <None Include="Shows\show3_1.show">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Shows\axes.json">
@@ -445,9 +472,9 @@
     <Resource Include="Resources\img\lock_icon_white.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Nyscon.Raynok.Data\Nyscon.Raynok.Data.csproj">
+    <ProjectReference Include="..\Niscon.Raynok.Data\Niscon.Raynok.Data.csproj">
       <Project>{dd66357a-a0ac-4f2f-8270-880d3a509efb}</Project>
-      <Name>Nyscon.Raynok.Data</Name>
+      <Name>Niscon.Raynok.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

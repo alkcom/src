@@ -14,8 +14,22 @@
         <CommandBinding Command="cmd:CueCommands.AddAfter" CanExecute="CueCommand_CanExecute" Executed="AddAfter_Executed"/>
         <CommandBinding Command="cmd:CueCommands.AddBefore" CanExecute="CueCommand_CanExecute" Executed="AddBefore_Executed"/>
         <CommandBinding Command="cmd:CueCommands.Delete" CanExecute="CueCommand_CanExecute" Executed="Delete_Executed"/>
-        <CommandBinding Command="cmd:CueCommands.Rename" CanExecute="CueCommand_CanExecute" Executed="Rename_Executed"/>
+        <CommandBinding Command="cmd:CueCommands.CueProperties" CanExecute="CueCommand_CanExecute" Executed="CueProperties_Executed"/>
         <CommandBinding Command="cmd:CueCommands.MakeAutofollow" CanExecute="CueCommand_CanExecute" Executed="MakeAutofollow_Executed"/>
+        <CommandBinding Command="cmd:CueCommands.AddAutofollow" CanExecute="CueCommand_CanExecute" Executed="AddAutofollow_Executed"/>
+        <CommandBinding Command="cmd:CueCommands.MoveUp" CanExecute="MoveUp_CanExecute" Executed="MoveUp_Executed"/>
+        <CommandBinding Command="cmd:CueCommands.MoveDown" CanExecute="MoveDown_CanExecute" Executed="MoveDown_Executed"/>
+        <CommandBinding Command="cmd:CueCommands.Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
+        <CommandBinding Command="cmd:CueCommands.Paste" CanExecute="Paste_CanExecute" Executed="Paste_Executed"/>
+        
+        <CommandBinding Command="cmd:SceneCommands.AddBefore" CanExecute="SceneCommand_CanExecute" Executed="AddBefore_Executed"/>
+        <CommandBinding Command="cmd:SceneCommands.AddAfter" CanExecute="SceneCommand_CanExecute" Executed="AddAfter_Executed"/>
+        <CommandBinding Command="cmd:SceneCommands.Delete" CanExecute="SceneCommand_CanExecute" Executed="Delete_Executed"/>
+        <CommandBinding Command="cmd:SceneCommands.AddCue" CanExecute="SceneCommand_CanExecute" Executed="AddAutofollow_Executed"/>
+        <CommandBinding Command="cmd:SceneCommands.MoveUp" CanExecute="MoveUp_CanExecute" Executed="MoveUp_Executed"/>
+        <CommandBinding Command="cmd:SceneCommands.MoveDown" CanExecute="MoveDown_CanExecute" Executed="MoveDown_Executed"/>
+        <CommandBinding Command="cmd:SceneCommands.Copy" CanExecute="SceneCommand_CanExecute" Executed="Copy_Executed"/>
+        <CommandBinding Command="cmd:SceneCommands.Paste" CanExecute="PasteScene_CanExecute" Executed="Paste_Executed"/>
     </UserControl.CommandBindings>
     <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:CueTree}}" d:DataContext ="{d:DesignInstance {x:Type mock:CueTreeMock}, IsDesignTimeCreatable=True}">
         <Border BorderThickness="0 2 2 2" BorderBrush="{StaticResource CueTreeBorderBrush}" Background="{StaticResource PanelContentBrush}">
@@ -23,21 +37,24 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-        
+
                 <TextBlock Grid.Row="0" Text="Cue Tree" HorizontalAlignment="Left" Margin="20 30 0 20" Style="{StaticResource CueTreeHeader}"/>
-                <hlprs:ExtendedTreeView x:Name="CueTreeView" Grid.Row="1" Margin="20 0 20 0" ItemsSource="{Binding Nodes}" Style="{StaticResource {x:Type TreeView}}" 
+
+                <hlprs:ExtendedTreeView x:Name="CueTreeView" Grid.Row="1" Margin="20 0 0 0" Style="{StaticResource {x:Type TreeView}}" 
                                         SelectedItem_="{Binding SelectedNode, Mode=TwoWay}">
                     <TreeView.Resources>
                         <HierarchicalDataTemplate DataType="{x:Type mdl:Cue}" ItemsSource="{Binding Children}"/>
                     </TreeView.Resources>
-                    
+                    <hlprs:ExtendedTreeView.ItemsSource>
+                        <MultiBinding Converter="{StaticResource CueTreeItemsConverter}">
+                            <Binding Path="Nodes"/>
+                            <Binding Path="SpecialNodes"/>
+                            <Binding Path="Nodes.Count"/>
+                        </MultiBinding>
+                    </hlprs:ExtendedTreeView.ItemsSource>
                 </hlprs:ExtendedTreeView>
-                <!--<TreeView Grid.Row="1" Margin="20 0 20 0" ItemsSource="{Binding Nodes}">
-                    <TreeView.Resources>
-                        <HierarchicalDataTemplate DataType="{x:Type mdl:CueTreeNode}" ItemsSource="{Binding Children}"/>
-                    </TreeView.Resources>
-                </TreeView>-->
             </Grid>
         </Border>
     </Grid>

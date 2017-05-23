@@ -12,6 +12,7 @@ using System.Windows.Input;
 using Niscon.Raynok.Commands;
 using Niscon.Raynok.Controls;
 using Niscon.Raynok.Extensions;
+using Niscon.Raynok.Helpers;
 using Niscon.Raynok.Models;
 using Niscon.Raynok.Services;
 using Niscon.Raynok.ViewModels;
@@ -60,12 +61,12 @@ namespace Niscon.Raynok
             //if you want to affect visual state of some control, use bindings - declarative approach; use programatic methods as a last resort
         }
 
-        private void StopCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        private void CloseAppCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
         }
 
-        private void StopCommand_Executed(object sender, ExecutedRoutedEventArgs e)
+        private void CloseAppCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
@@ -88,9 +89,9 @@ namespace Niscon.Raynok
             ViewModel.Axes = axes;
         }
 
-        private void LoadShow(Guid showId)
+        private void LoadShow(string name)
         {
-            Show show = _showsService.GetShow(showId);
+            Show show = _showsService.GetShow(name);
 
             SetShow(show);
 
@@ -190,7 +191,7 @@ namespace Niscon.Raynok
                 return;
             }
 
-            LoadShow(showFile.Id);
+            LoadShow(showFile.Name);
         }
 
         private void ShowCommands_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -214,7 +215,7 @@ namespace Niscon.Raynok
                 if (result == true)
                 {
                     Show show = _showsService.IncreaseShowRevision(ViewModel.CurrentShow);
-                    LoadShow(show.Id);
+                    LoadShow(show.Name);
                     ReloadShows();
                 }
             }
@@ -244,16 +245,24 @@ namespace Niscon.Raynok
 
                 if (result == true)
                 {
-                    string fixedValue = showNameWindow.NewValue.Replace("_", string.Empty).Replace("-", string.Empty);
-                    if (string.IsNullOrEmpty(fixedValue))
+                    if (string.IsNullOrEmpty(showNameWindow.NewValue))
                     {
-                        MessageBox.Show($"Invalid show name: {fixedValue}");
+                        MessageBoxWindow messageBox = new MessageBoxWindow
+                        {
+                            Header = "Show error",
+                            Message = "Empty show name",
+                            Owner = this,
+                            Width = 400,
+                            Height = 250
+                        };
+
+                        messageBox.ShowDialog();
                         return;
                     }
 
                     if (ViewModel.CurrentShow != null)
                     {
-                        Show savedShow = _showsService.SaveShowAs(ViewModel.CurrentShow, fixedValue);
+                        Show savedShow = _showsService.SaveShowAs(ViewModel.CurrentShow, showNameWindow.NewValue);
                         SetShow(savedShow);
                         ReloadShows();
                     }
@@ -300,7 +309,9 @@ namespace Niscon.Raynok
                     IsVisible = true,
                     Axes = new ObservableCollection<Axis>(ViewModel.Axes)
                 },
-                Axes = new ObservableCollection<Axis>(ViewModel.Axes)
+                Axes = new ObservableCollection<Axis>(ViewModel.Axes),
+                AllowsTransparency = true,
+                ExistingViews = ViewModel.CurrentShow.Views
             };
 
             bool? result = newViewWindow.ShowDialog();
@@ -309,7 +320,16 @@ namespace Niscon.Raynok
             {
                 if (string.IsNullOrEmpty(newViewWindow.View.Name))
                 {
-                    MessageBox.Show("Empty view name!");
+                    MessageBoxWindow messageBox = new MessageBoxWindow
+                    {
+                        Header = "View error",
+                        Message = $"Empty view name",
+                        Owner = this,
+                        Width = 400,
+                        Height = 250
+                    };
+
+                    messageBox.ShowDialog();
                     return;
                 }
 
@@ -336,7 +356,16 @@ namespace Niscon.Raynok
             {
                 if (ViewModel.CurrentShow.Views.Count <= 1)
                 {
-                    MessageBox.Show("Last view cannot be deleted!");
+                    MessageBoxWindow messageBox = new MessageBoxWindow
+                    {
+                        Header = "View deletion",
+                        Message = "Last view cannot be deleted!",
+                        Owner = this,
+                        Width = 400,
+                        Height = 250
+                    };
+
+                    messageBox.ShowDialog();
                     return;
                 }
 
@@ -380,7 +409,8 @@ namespace Niscon.Raynok
                     Owner = this,
                     View = view.Clone(),
                     Axes = new ObservableCollection<Axis>(ViewModel.Axes),
-                    AllowsTransparency = true
+                    AllowsTransparency = true,
+                    ExistingViews = ViewModel.CurrentShow.Views
                 };
 
                 bool? result = viewSettingsWindow.ShowDialog();
@@ -389,7 +419,16 @@ namespace Niscon.Raynok
                 {
                     if (string.IsNullOrEmpty(viewSettingsWindow.View.Name))
                     {
-                        MessageBox.Show("Empty view name!");
+                        MessageBoxWindow messageBox = new MessageBoxWindow
+                        {
+                            Header = "View error",
+                            Message = "Empty view name",
+                            Owner = this,
+                            Width = 400,
+                            Height = 250
+                        };
+
+                        messageBox.ShowDialog();
                         return;
                     }
 
@@ -407,6 +446,16 @@ namespace Niscon.Raynok
                     ReloadViews();
                 }
             }
+        }
+
+        private void WorkspaceContainer_OnCuesUpdated(object sender, CuesUpdatedEventArgs eventargs)
+        {
+            ViewModel.CurrentShow.Cues.FillCues(ViewModel.Axes);
+        }
+
+        private void WorkspaceContainer_OnProfilesUpdated(object sender, ProfilesUpdatedEventArgs eventargs)
+        {
+            ViewModel.CurrentShow.Cues.FillCues(ViewModel.Axes);
         }
     }
 }

@@ -20,7 +20,9 @@
                 <ResourceDictionary Source="Resources/ProgressBars.xaml"/>
                 <ResourceDictionary Source="Resources/Effects.xaml"/>
                 <ResourceDictionary Source="Resources/Menus.xaml"/>
+                <ResourceDictionary Source="Resources/Scrolls.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
+

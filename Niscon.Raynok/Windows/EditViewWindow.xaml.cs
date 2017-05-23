@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using Niscon.Raynok.Models;
+using Niscon.Raynok.Validation;
 
 namespace Niscon.Raynok.Windows
 {
@@ -29,6 +33,17 @@ namespace Niscon.Raynok.Windows
             }
 
             ViewTypes = viewTypes;
+
+            Loaded += EditViewWindow_Loaded; 
+        }
+
+        private void EditViewWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            //implementing binding programmatically, because declarative way does not work
+            Binding viewNameBinding = new Binding("View.Name") {Mode = BindingMode.TwoWay};
+            viewNameBinding.ValidationRules.Add(new ViewNameValidationRule { Views = ExistingViews});
+
+            ViewNameText.SetBinding(TextBox.TextProperty, viewNameBinding);
         }
 
         public static readonly DependencyProperty ViewTypesProperty = DependencyProperty.Register(
@@ -39,24 +54,6 @@ namespace Niscon.Raynok.Windows
             get { return (List<NamedItem>) GetValue(ViewTypesProperty); }
             set { SetValue(ViewTypesProperty, value); }
         }
-
-        //public static readonly DependencyProperty ViewTypeProperty = DependencyProperty.Register(
-        //    "ViewType", typeof(ViewType), typeof(EditViewWindow), new PropertyMetadata(default(ViewType)));
-
-        //public ViewType ViewType
-        //{
-        //    get { return (ViewType) GetValue(ViewTypeProperty); }
-        //    set { SetValue(ViewTypeProperty, value); }
-        //}
-
-        //public static readonly DependencyProperty ViewNameProperty = DependencyProperty.Register(
-        //    "ViewName", typeof(string), typeof(EditViewWindow), new PropertyMetadata(default(string)));
-
-        //public string ViewName
-        //{
-        //    get { return (string) GetValue(ViewNameProperty); }
-        //    set { SetValue(ViewNameProperty, value); }
-        //}
 
         public static readonly DependencyProperty ViewProperty = DependencyProperty.Register(
             "View", typeof(View), typeof(EditViewWindow), new PropertyMetadata(default(View)));
@@ -95,7 +92,7 @@ namespace Niscon.Raynok.Windows
         }
 
         public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(
-            "Header", typeof(string), typeof(ConfirmationWindow), new PropertyMetadata(default(string)));
+            "Header", typeof(string), typeof(EditViewWindow), new PropertyMetadata(default(string)));
 
         public string Header
         {
@@ -103,16 +100,13 @@ namespace Niscon.Raynok.Windows
             set { SetValue(HeaderProperty, value); }
         }
 
-        private void OkButton_OnPreviewMouseUp(object sender, MouseButtonEventArgs e)
-        {
-            DialogResult = true;
-            Close();
-        }
+        public static readonly DependencyProperty ExistingViewsProperty = DependencyProperty.Register(
+            "ExistingViews", typeof(ObservableCollection<View>), typeof(EditViewWindow), new PropertyMetadata(default(ObservableCollection<View>)));
 
-        private void CancelButton_OnPreviewMouseUp(object sender, MouseButtonEventArgs e)
+        public ObservableCollection<View> ExistingViews
         {
-            DialogResult = false;
-            Close();
+            get { return (ObservableCollection<View>) GetValue(ExistingViewsProperty); }
+            set { SetValue(ExistingViewsProperty, value); }
         }
 
         private void AddAxis_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -132,7 +126,6 @@ namespace Niscon.Raynok.Windows
             if (SelectedAxis != null)
             {
                 View.Axes.Add(SelectedAxis);
-                //View.Axes = new ObservableCollection<Axis>(View.Axes.OrderBy(a => a.OrderNumber));
             }
         }
 
@@ -147,6 +140,63 @@ namespace Niscon.Raynok.Windows
             {
                 View.Axes.Remove(SelectedViewAxis);
             }
+        }
+
+        private void ViewTypeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (View.Id == Guid.Empty)
+            {
+                string type = Extensions.Extensions.GetEnumDescription(View.Type);
+                int? viewsCount = ExistingViews?.Count;
+
+                View.Name = $"{type} {viewsCount}";
+            }
+        }
+
+        private void Ok_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void Ok_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ValidationError[] validationErrors = System.Windows.Controls.Validation.GetErrors(ViewNameText).Union(System.Windows.Controls.Validation.GetErrors(ViewTypesList)).ToArray();
+
+            if (validationErrors.Any())
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (ValidationError error in validationErrors)
+                {
+                    sb.AppendLine($"* {error.ErrorContent}");
+                }
+
+                MessageBoxWindow messageBox = new MessageBoxWindow
+                {
+                    Header = "View errors",
+                    Message = sb.ToString(),
+                    Owner = this,
+                    Height = 300,
+                    Width = 500
+                };
+
+                messageBox.ShowDialog();
+
+                return;
+            }
+
+            DialogResult = true;
+            Close();
+        }
+
+        private void Cancel_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void Cancel_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            DialogResult = false;
+            Close();
         }
     }
 }

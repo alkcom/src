@@ -211,7 +211,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="TreeView">
                     <Border Name="Border" CornerRadius="0" BorderThickness="0" BorderBrush="Transparent" Background="Transparent">
-                        <ScrollViewer Focusable="False" CanContentScroll="False" Padding="4" VerticalScrollBarVisibility="Hidden">
+                        <ScrollViewer Focusable="False" CanContentScroll="False" Padding="4" VerticalScrollBarVisibility="Auto">
                             <ItemsPresenter />
                         </ScrollViewer>
                     </Border>
@@ -235,37 +235,83 @@
                 <ControlTemplate TargetType="{x:Type TreeViewItem}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition MaxWidth="50" />
+                            <ColumnDefinition Width="50" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <!--TODO: take this part outside and implement template in cue tree control-->
-                        <Border HorizontalAlignment="Stretch" x:Name="Bd" Grid.Column="0" Grid.ColumnSpan="2" Background="{TemplateBinding Background}" 
+                        <Border HorizontalAlignment="Stretch" x:Name="Bd" Grid.Column="1" Background="{TemplateBinding Background}" 
                                 BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Margin="0 9 0 9">
-                            <TextBlock Text="{Binding Name}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Style="{StaticResource CueTreeItem}"/>
+                            <TextBlock Name="CueName"  Text="{Binding Name}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Style="{StaticResource CueTreeItem}"/>
                             <Border.ContextMenu>
                                 <ContextMenu ItemContainerStyle="{StaticResource FileMenuSubmenuButton}" Background="Transparent" Style="{StaticResource CueContextMenu}">
                                     <MenuItem Header="Add Cue" ItemContainerStyle="{StaticResource FileMenuSubmenuButton}">
                                         <MenuItem Header="Add Before" Command="cmd:CueCommands.AddBefore" CommandParameter="{Binding}"/>
                                         <MenuItem Header="Add After" Command="cmd:CueCommands.AddAfter" CommandParameter="{Binding}"/>
                                     </MenuItem>
-                                    <MenuItem Header="Make Cue Autofollow" Command="cmd:CueCommands.MakeAutofollow" CommandParameter="{Binding}"/>
-                                    <MenuItem Header="Rename Cue" Command="cmd:CueCommands.Rename" CommandParameter="{Binding}"/>
+                                    <MenuItem Header="Add Autofollow" Command="cmd:CueCommands.AddAutofollow" CommandParameter="{Binding}"/>
+                                    <MenuItem Header="Make Cue Autofollow of..." Command="cmd:CueCommands.MakeAutofollow" CommandParameter="{Binding}"/>
+                                    <MenuItem Header="Cue Properties" Command="cmd:CueCommands.CueProperties" CommandParameter="{Binding}"/>
                                     <MenuItem Header="Delete Cue" Command="cmd:CueCommands.Delete" CommandParameter="{Binding}"/>
+                                    <MenuItem Header="Move Cue Up" Command="cmd:CueCommands.MoveUp" CommandParameter="{Binding}"/>
+                                    <MenuItem Header="Move Cue Down" Command="cmd:CueCommands.MoveDown" CommandParameter="{Binding}"/>
+                                    <MenuItem Header="Copy Cue" Command="cmd:CueCommands.Copy" CommandParameter="{Binding}"/>
+                                    <MenuItem Header="Paste Cue" Command="cmd:CueCommands.Paste" CommandParameter="{Binding}"/>
                                 </ContextMenu>
                             </Border.ContextMenu>
                         </Border>
-                        <ItemsPresenter HorizontalAlignment="Stretch" x:Name="ItemsHost" Grid.Row="1" Grid.Column="1" Visibility="Visible" />
+                        <CheckBox Grid.Row="0" Grid.Column="0" Visibility="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource BoolToVisConverter}}"
+                                  IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" VerticalAlignment="Center"/>
+                        <Button x:Name="SettingsButton" Grid.Column="2" Grid.Row="0" Style="{StaticResource ViewsMenuSettingsButton}" Command="cmd:CueCommands.CueProperties" CommandParameter="{Binding}" Cursor="Hand" Height="50" Width="50" />
+                        <ItemsPresenter HorizontalAlignment="Stretch" x:Name="ItemsHost" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"  Visibility="Visible" />
                     </Grid>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded" Value="False">
+                            <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="Background" Value="{StaticResource ContainerItemSelectedBackgroundBrush}"/>
                             <Setter Property="BorderBrush" Value="{StaticResource CueTreeItemBackgroundBrush}"/>
                         </Trigger>
-
+                        <Trigger SourceName="SettingsButton" Property="IsEnabled" Value="False">
+                            <Setter TargetName="SettingsButton" Property="Visibility" Value="Hidden"/>
+                        </Trigger>
+                        <DataTrigger Binding="{Binding Type}" Value="ManualMove">
+                            <Setter TargetName="Bd" Property="ContextMenu" Value="{x:Null}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Type}" Value="Scene">
+                            <Setter TargetName="CueName" Property="FontWeight" Value="Bold"/>
+                            <Setter TargetName="Bd" Property="ContextMenu" >
+                                <Setter.Value>
+                                    <ContextMenu ItemContainerStyle="{StaticResource FileMenuSubmenuButton}" Background="Transparent" Style="{StaticResource CueContextMenu}">
+                                        <MenuItem Header="Add Scene" ItemContainerStyle="{StaticResource FileMenuSubmenuButton}">
+                                            <MenuItem Header="Add Before" Command="cmd:SceneCommands.AddBefore" CommandParameter="{Binding}"/>
+                                            <MenuItem Header="Add After" Command="cmd:SceneCommands.AddAfter" CommandParameter="{Binding}"/>
+                                        </MenuItem>
+                                        <MenuItem Header="Add Cue" Command="cmd:SceneCommands.AddCue" CommandParameter="{Binding}"/>
+                                        <MenuItem Header="Delete Scene" Command="cmd:SceneCommands.Delete" CommandParameter="{Binding}"/>
+                                        <MenuItem Header="Move Scene Up" Command="cmd:SceneCommands.MoveUp" CommandParameter="{Binding}"/>
+                                        <MenuItem Header="Move Scene Down" Command="cmd:SceneCommands.MoveDown" CommandParameter="{Binding}"/>
+                                        <MenuItem Header="Copy Scene" Command="cmd:SceneCommands.Copy" CommandParameter="{Binding}"/>
+                                        <MenuItem Header="Paste Scene" Command="cmd:SceneCommands.Paste" CommandParameter="{Binding}"/>
+                                    </ContextMenu>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Type}" Value="RecycleBin">
+                            <Setter TargetName="CueName" Property="FontWeight" Value="Bold"/>
+                            <Setter TargetName="Bd" Property="ContextMenu" >
+                                <Setter.Value>
+                                    <ContextMenu ItemContainerStyle="{StaticResource FileMenuSubmenuButton}" Background="Transparent" Style="{StaticResource CueContextMenu}">
+                                        <MenuItem Header="Empty Recycle Bin" Command="cmd:SceneCommands.EmptyRecycleBin" CommandParameter="{Binding}"/>
+                                    </ContextMenu>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -287,7 +333,7 @@
                 <ControlTemplate TargetType="{x:Type TreeViewItem}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition MaxWidth="50" />
+                            <ColumnDefinition Width="50" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -306,7 +352,6 @@
                             <Setter Property="Background" Value="{StaticResource ContainerItemSelectedBackgroundBrush}"/>
                             <Setter Property="BorderBrush" Value="{StaticResource CueTreeItemBackgroundBrush}"/>
                         </Trigger>
-
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

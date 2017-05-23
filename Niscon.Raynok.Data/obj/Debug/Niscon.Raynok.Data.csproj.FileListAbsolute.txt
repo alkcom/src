@@ -1,0 +1,9 @@
+D:\Niscon\Application\Niscon.Raynok_v13\Niscon.Raynok_v13\src\Niscon.Raynok.Data\obj\Debug\Niscon.Raynok.Data.csprojResolveAssemblyReference.cache
+D:\Niscon\Application\Niscon.Raynok_v13\Niscon.Raynok_v13\src\Niscon.Raynok.Data\bin\Debug\Niscon.Raynok.Data.dll
+D:\Niscon\Application\Niscon.Raynok_v13\Niscon.Raynok_v13\src\Niscon.Raynok.Data\bin\Debug\Niscon.Raynok.Data.pdb
+D:\Niscon\Application\Niscon.Raynok_v13\Niscon.Raynok_v13\src\Niscon.Raynok.Data\bin\Debug\Newtonsoft.Json.dll
+D:\Niscon\Application\Niscon.Raynok_v13\Niscon.Raynok_v13\src\Niscon.Raynok.Data\bin\Debug\Niscon.Raynok.Shared.dll
+D:\Niscon\Application\Niscon.Raynok_v13\Niscon.Raynok_v13\src\Niscon.Raynok.Data\bin\Debug\Niscon.Raynok.Shared.pdb
+D:\Niscon\Application\Niscon.Raynok_v13\Niscon.Raynok_v13\src\Niscon.Raynok.Data\bin\Debug\Newtonsoft.Json.xml
+D:\Niscon\Application\Niscon.Raynok_v13\Niscon.Raynok_v13\src\Niscon.Raynok.Data\obj\Debug\Niscon.Raynok.Data.dll
+D:\Niscon\Application\Niscon.Raynok_v13\Niscon.Raynok_v13\src\Niscon.Raynok.Data\obj\Debug\Niscon.Raynok.Data.pdb

@@ -25,4 +25,5 @@
     <converters:ViewsMenuItemsConverter x:Key="ViewsMenuItemsConverter"/>
     <converters:ViewsWorkspaceVisibilityConverter x:Key="ViewsWorkspaceVisibilityConverter"/>
     <converters:AxesViewAxesConverter x:Key="AxesViewAxesConverter"/>
+    <converters:CueTreeItemsConverter x:Key="CueTreeItemsConverter"/>
 </ResourceDictionary>

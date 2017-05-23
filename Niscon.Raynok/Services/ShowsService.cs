@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using Niscon.Raynok.Data;
+using Niscon.Raynok.Data.Models;
+using Niscon.Raynok.Extensions;
 using Niscon.Raynok.Models;
-using Nyscon.Raynok.Data;
-using Nyscon.Raynok.Data.Models;
 
 namespace Niscon.Raynok.Services
 {
@@ -40,21 +41,17 @@ namespace Niscon.Raynok.Services
             return _mapper.Map<List<ShowFile>>(showFilesDto);
         }
 
-        public Show GetShow(Guid id, int revision = int.MinValue)
+        public Show GetShow(string name)
         {
-            ShowDto showDto = _dataRepository.GetShow(id, revision);
+            ShowDto showDto = _dataRepository.GetShow(name);
 
             //TODO: implement axis-profile mapping inside automapper
             return _mapper.Map<Show>(showDto);
-
-            //FillCues(show.Cues, show.Axes);
-
-            //return show;
         }
 
         public Show IncreaseShowRevision(Show currentShow)
         {
-            return SaveShowInternal(currentShow, new ShowFileDto {Revision = currentShow.Revision + 1});
+            return SaveShowInternal(currentShow, currentShow.Name.UpdateRevision(currentShow.Revision+1));
         }
 
         public Show SaveShow(Show currentShow)
@@ -64,15 +61,15 @@ namespace Niscon.Raynok.Services
 
         public Show SaveShowAs(Show currentShow, string newName)
         {
-            return SaveShowInternal(currentShow, new ShowFileDto {Name = newName, Revision = 1, Id = Guid.NewGuid()});
+            return SaveShowInternal(currentShow, newName);
         }
 
-        public bool DeleteShow(ShowFile showFile, bool withAllRevisions = false)
+        public bool DeleteShow(ShowFile showFile)
         {
-            return _dataRepository.DeleteShow(_mapper.Map<ShowFileDto>(showFile), withAllRevisions);
+            return _dataRepository.DeleteShow(_mapper.Map<ShowFileDto>(showFile));
         }
 
-        private Show SaveShowInternal(Show currentShow, ShowFileDto newShowName = null)
+        private Show SaveShowInternal(Show currentShow, string newShowName = null)
         {
             ShowDto showDto = _mapper.Map<ShowDto>(currentShow);
 
@@ -80,10 +77,6 @@ namespace Niscon.Raynok.Services
 
             //TODO: implement axis-profile mapping inside automapper
             return _mapper.Map<Show>(resultingShowDto);
-
-            //FillCues(show.Cues, show.Axes);
-
-            //return show;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Niscon.Raynok.Windows
@@ -11,6 +12,13 @@ namespace Niscon.Raynok.Windows
         public ItemNameWindow()
         {
             InitializeComponent();
+
+            Loaded += OnLoaded;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
+        {
+            MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
         }
 
         public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(

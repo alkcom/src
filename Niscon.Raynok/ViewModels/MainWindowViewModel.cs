@@ -39,7 +39,6 @@ namespace Niscon.Raynok.ViewModels
                 _currentShow = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(CurrentShow.Name));
-                OnPropertyChanged(nameof(CurrentShow.FullName));
                 OnPropertyChanged(nameof(CurrentShow.Views));
             }
         }

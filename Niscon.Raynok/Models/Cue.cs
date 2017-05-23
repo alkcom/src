@@ -8,12 +8,21 @@ using Newtonsoft.Json;
 
 namespace Niscon.Raynok.Models
 {
+    public enum CueType
+    {
+        Default,
+        Scene,
+        ManualMove,
+        RecycleBin
+    }
+
     /// <summary>
     /// Cue tree node in a cue tree
     /// </summary>
     public class Cue : INotifyPropertyChanged
     {
         private string _name;
+        private ObservableCollection<Cue> _children;
         public Cue() { }
 
         //if axis paraemeter list was not passed, for all the axes, we must create dummy list with default parameters
@@ -55,12 +64,22 @@ namespace Niscon.Raynok.Models
             }
         }
 
-        [JsonIgnore]
         public Cue Parent { get; set; }
+
+        public CueType Type { get; set; }
 
         public ObservableCollection<Profile> Profiles { get; set; }
 
-        public ObservableCollection<Cue> Children { get; set; }
+        public ObservableCollection<Cue> Children
+        {
+            get { return _children; }
+            set
+            {
+                if (Equals(value, _children)) return;
+                _children = value;
+                OnPropertyChanged();
+            }
+        }
 
         public void AddChild(Cue node)
         {
@@ -82,6 +101,15 @@ namespace Niscon.Raynok.Models
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public Cue Clone()
+        {
+            return new Cue(Name, Profiles, Children, CueParent)
+            {
+                Parent = Parent,
+                Id = Id
+            };
         }
     }
 }

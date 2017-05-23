@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Niscon.Raynok.Models;
 
 namespace Niscon.Raynok.Windows
@@ -44,39 +33,43 @@ namespace Niscon.Raynok.Windows
             set { SetValue(SelectedNodeProperty, value); }
         }
 
-        public static readonly DependencyProperty CueNameProperty = DependencyProperty.Register(
-            "CueName", typeof(string), typeof(MakeCueAutofollowWindow), new PropertyMetadata(default(string)));
+        public static readonly DependencyProperty AutofollowNodeProperty = DependencyProperty.Register(
+            "AutofollowNode", typeof(Cue), typeof(MakeCueAutofollowWindow), new PropertyMetadata(default(Cue)));
 
-        public string CueName
+        public Cue AutofollowNode
         {
-            get { return (string) GetValue(CueNameProperty); }
-            set { SetValue(CueNameProperty, value); }
+            get { return (Cue) GetValue(AutofollowNodeProperty); }
+            set { SetValue(AutofollowNodeProperty, value); }
         }
 
-        private void AfParametersButton_OnPreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void AfParameters_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            MessageBox.Show("AF parameters");
+            e.CanExecute = AutofollowNode?.Parent != null && AutofollowNode.Parent.Type == CueType.Default;
         }
 
-        private void OkButton_OnPreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void AfParameters_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            if (SelectedNode == null)
+            AfParametersWindow window = new AfParametersWindow
             {
-                MessageBox.Show("You did not select a cue!");
-                return;
-            }
+                Cue = AutofollowNode,
+                Owner = this
+            };
 
-            if (string.IsNullOrEmpty(CueName))
-            {
-                MessageBox.Show("Please, specify cue name");
-                return;
-            }
+            window.ShowDialog();
+        }
 
+        private void Ok_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = SelectedNode != null;
+        }
+
+        private void Ok_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
             DialogResult = true;
             Close();
         }
 
-        private void CancelButton_OnPreviewMouseUp(object sender, MouseButtonEventArgs e)
+        private void Cancel_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             DialogResult = false;
             Close();

@@ -33,8 +33,13 @@
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Axis.Name}" TextAlignment="Left" Style="{StaticResource RatioWidgetHeader}"/>
-                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Velocity, StringFormat={}{0} FPM}" TextAlignment="Left" Style="{StaticResource RatioWidgetText}" Margin="0 5 0 0"/>
-                                    <ProgressBar Grid.Row="2" Grid.Column="0" Maximum="{Binding MaxVelocity}" Value="{Binding Velocity}" Margin="0 0 0 5" Height="15" />
+                                    <!--<TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Velocity, StringFormat={}{0} IPS}" TextAlignment="Left" Style="{StaticResource RatioWidgetText}" Margin="0 5 0 0"/>-->
+                                    <StackPanel Grid.Row="1" Grid.Column="0" Margin="0 5 0 0" FlowDirection="LeftToRight" Orientation="Horizontal" VerticalAlignment="Bottom">
+                                        <TextBlock Text="{Binding Velocity, StringFormat={}{0}}" TextAlignment="Left" Style="{StaticResource RatioWidgetText}"/>
+                                        <TextBlock Text="/" TextAlignment="Left" Style="{StaticResource RatioWidgetText}"/>
+                                        <TextBlock Text="{Binding Axis.MaxVelocity, StringFormat={}{0} IPS}" TextAlignment="Left" Style="{StaticResource RatioWidgetText}"/>
+                                    </StackPanel>
+                                    <ProgressBar Grid.Row="2" Grid.Column="0" Maximum="{Binding Axis.MaxVelocity}" Value="{Binding Velocity}" Margin="0 0 0 5" Height="15" />
                                     <StackPanel Grid.Row="3" Grid.Column="0" FlowDirection="LeftToRight" Orientation="Horizontal" VerticalAlignment="Bottom">
                                         <TextBlock Text="{Binding Load, StringFormat={}{0}}" TextAlignment="Left" Style="{StaticResource RatioWidgetText}"/>
                                         <TextBlock Text="/" TextAlignment="Left" Style="{StaticResource RatioWidgetText}"/>
@@ -61,6 +66,7 @@
                             <Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource ContainerItemDisabledBackgroundBrush}"/>
                             <Setter TargetName="ItemBorder" Property="Effect" Value="{StaticResource HighlightedItemDropShadowEffect}"/>
                             <Setter TargetName="InnerGrid" Property="Effect" Value="{StaticResource DisabledItemBlurEffect}"/>
+                            <!--<Setter TargetName="InnerGrid" Property="Visibility" Value="Hidden" />-->
                             <Setter TargetName="LockImage" Property="Visibility" Value="Visible"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding Axis.Selected}" Value="True">

@@ -26,9 +26,22 @@ namespace Niscon.Raynok.Models.Mock
                 }),
                 new Cue("End Show")
             });
+
+            ManualMoveCue = new Cue {Name = "Manual Move Cue", Type = CueType.ManualMove};
+            RecycleBinCue = new Cue {Name = "Recycle Bin Cue", Type = CueType.RecycleBin};
+
+            SpecialNodes = new List<Cue>
+            {
+                ManualMoveCue,
+                RecycleBinCue
+            };
         }
 
         public List<Cue> Nodes { get; private set; }
         public Cue SelectedNode { get; set; }
+        public List<Cue> SpecialNodes { get; private set; }
+
+        public Cue ManualMoveCue { get; }
+        public Cue RecycleBinCue { get; }
     }
 }

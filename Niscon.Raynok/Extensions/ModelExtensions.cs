@@ -2,13 +2,88 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Niscon.Raynok.Models;
 
 namespace Niscon.Raynok.Extensions
 {
     public static class ModelExtensions
     {
-        public static void FillCues(this IEnumerable<Cue> cues, List<Axis> axes, Cue parent = null)
+        public static void FillCues(this IEnumerable<Cue> cues, List<Axis> axes)
+        {
+            FillCuesInternal(cues);
+            FillProfiles(cues, axes);
+        }
+
+        public static void FillProfiles(this IEnumerable<Cue> cues, List<Axis> axes)
+        {
+            if (cues == null)
+            {
+                return;
+            }
+
+            if (cues.Any(c => c.Type == CueType.Scene))
+            {
+                foreach (Cue scene in cues)
+                {
+                    ObservableCollection<Profile> newProfiles = new ObservableCollection<Profile>();
+                    foreach (Axis axis in axes)
+                    {
+                        Profile newProfile = new Profile(axis) { State = AxisState.Inactive };
+                        newProfile.StartValue = axis.StartValue;
+                        newProfile.TargetValue = newProfile.StartValue;
+                        
+
+                        newProfile.Axis = axis;
+                        newProfiles.Add(newProfile);
+                    }
+
+                    scene.Profiles = newProfiles;
+
+                    FillProfiles(scene.Children, axes);
+                }
+
+                return;
+            }
+
+            IEnumerable<Cue> flattenCues = cues.Expand(c => c.Children);
+
+            Cue previousCue = null;
+            foreach (Cue cue in flattenCues)
+            {
+                Dictionary<int, Profile> profilesDict = cue.Profiles.ToDictionary(ap => ap.AxisId);
+                ObservableCollection<Profile> newProfiles = new ObservableCollection<Profile>();
+
+                foreach (Axis axis in axes)
+                {
+                    Profile newProfile;
+                    if (profilesDict.ContainsKey(axis.Id))
+                    {
+                        newProfile = profilesDict[axis.Id];
+                        newProfile.StartValue = previousCue != null
+                            ? previousCue.Profiles.First(p => p.AxisId == axis.Id).TargetValue
+                            : axis.StartValue;
+                    }
+                    else
+                    {
+                        newProfile = new Profile(axis) {State = AxisState.Inactive};
+                        newProfile.StartValue = previousCue != null
+                            ? previousCue.Profiles.First(p => p.AxisId == axis.Id).TargetValue
+                            : axis.StartValue;
+                        newProfile.TargetValue = newProfile.StartValue;
+                    }
+
+                    newProfile.Axis = axis;
+                    newProfiles.Add(newProfile);
+                }
+
+                cue.Profiles = newProfiles;
+
+                previousCue = cue;
+            }
+        }
+
+        private static void FillCuesInternal(this IEnumerable<Cue> cues, Cue parent = null)
         {
             foreach (Cue cue in cues)
             {
@@ -17,10 +92,10 @@ namespace Niscon.Raynok.Extensions
                     cue.Parent = parent;
                 }
 
-                cue.Profiles = cue.Profiles.FillEmptyAxes(axes);
+                //cue.Profiles = cue.Profiles.FillEmptyAxes(axes);
                 if (cue.Children != null && cue.Children.Any())
                 {
-                    FillCues(cue.Children, axes, cue);
+                    FillCuesInternal(cue.Children, cue);
                 }
             }
         }
@@ -38,7 +113,7 @@ namespace Niscon.Raynok.Extensions
                 enumerable.First().IsSelected = true;
             }
 
-            Dictionary<Guid, Axis> axesDict = axes.ToDictionary(a => a.Id);
+            Dictionary<int, Axis> axesDict = axes.ToDictionary(a => a.Id);
 
             foreach (View view in enumerable)
             {
@@ -56,36 +131,17 @@ namespace Niscon.Raynok.Extensions
             }
         }
 
-        public static List<Profile> ToDefaultParameters(this IEnumerable<Axis> axes)
+        public static string UpdateRevision(this string showName, int revision)
         {
-            List<Profile> axesParameters = new List<Profile>();
-
-            foreach (Axis axis in axes)
+            Regex revisionRegEx = new Regex(@"^(.+)_(\d+)$");
+            if (revisionRegEx.IsMatch(showName))
             {
-                axesParameters.Add(new Profile(axis));
+                return revisionRegEx.Replace(showName, $"$1_{revision}");
             }
-
-            return axesParameters;
-        }
-
-        public static ObservableCollection<Profile> FillEmptyAxes(this IEnumerable<Profile> profiles,
-            IEnumerable<Axis> cueAxes)
-        {
-            Dictionary<Guid, Profile> profilesDict = profiles.ToDictionary(ap => ap.AxisId);
-            ObservableCollection<Profile> newProfilesDict = new ObservableCollection<Profile>();
-
-            foreach (Axis axis in cueAxes)
+            else
             {
-                Profile newProfile = profilesDict.ContainsKey(axis.Id)
-                    ? profilesDict[axis.Id]
-                    : new Profile(axis) { IsFiller = true, State = AxisState.Inactive };
-
-                axis.AddProfile(newProfile);
-
-                newProfilesDict.Add(newProfile);
+                return $"{showName}_{revision}";
             }
-
-            return newProfilesDict;
         }
     }
 }

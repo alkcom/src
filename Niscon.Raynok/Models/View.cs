@@ -23,9 +23,21 @@ namespace Niscon.Raynok.Models
     {
         private bool _isVisible;
         private bool _isSelected;
+        private string _name;
 
         public Guid Id { get; set; }
-        public string Name { get; set; }
+
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                if (value == _name) return;
+                _name = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ViewType Type { get; set; }
 
         public bool IsVisible

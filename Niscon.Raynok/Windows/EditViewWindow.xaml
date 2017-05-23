@@ -7,11 +7,17 @@
         xmlns:controls="clr-namespace:Niscon.Raynok.Controls"
         xmlns:commands="clr-namespace:Niscon.Raynok.Commands"
         xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        xmlns:validation="clr-namespace:Niscon.Raynok.Validation"
+        xmlns:objectModel="clr-namespace:System.Collections.ObjectModel;assembly=System"
+        xmlns:models="clr-namespace:Niscon.Raynok.Models"
         mc:Ignorable="d" Background="Transparent" BorderThickness="0"
         Title="EditViewWindow" Height="800" Width="800" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" AllowsTransparency="True">
     <Window.CommandBindings>
         <CommandBinding Command="commands:ViewCommands.AddAxis" CanExecute="AddAxis_CanExecute" Executed="AddAxis_Executed"/>
         <CommandBinding Command="commands:ViewCommands.RemoveAxis" CanExecute="RemoveAxis_CanExecute" Executed="RemoveAxis_Executed"/>
+        
+        <CommandBinding Command="commands:AppCommands.Ok" CanExecute="Ok_CanExecute" Executed="Ok_Executed"/>
+        <CommandBinding Command="commands:AppCommands.Cancel" CanExecute="Cancel_CanExecute" Executed="Cancel_Executed"/>
     </Window.CommandBindings>
     <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:EditViewWindow}}" Margin="0 0 10 10">
         <Grid.Resources>
@@ -50,7 +56,19 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock Text="Enter View Name:" HorizontalAlignment="Left" FontSize="20"/>
-                        <TextBox Grid.Row="1" Margin="0 5" VerticalAlignment="Center" Text="{Binding View.Name, Mode=TwoWay}" FontSize="22" TextAlignment="Left" />
+                        <TextBox Grid.Row="1" Margin="0 5" VerticalAlignment="Center"  FontSize="22" TextAlignment="Left" x:Name="ViewNameText">
+                            <!--<Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <DockPanel>
+                                        <AdornedElementPlaceholder />
+                                        <TextBlock
+                                            Foreground="Red"
+                                            FontSize="20"><Run Text="!" />
+                                        </TextBlock>
+                                    </DockPanel>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>-->
+                        </TextBox>
                     </Grid>
                 </Border>
 
@@ -61,8 +79,8 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <TextBlock Text="Select View Type:" HorizontalAlignment="Left" Margin="0 5" FontSize="20"/>
-                        <ListBox Grid.Row="1" DisplayMemberPath="Name" SelectedValuePath="Item" SelectedValue="{Binding View.Type, Mode=TwoWay}" ItemsSource="{Binding ViewTypes}" 
-                                 Style="{StaticResource RadioButtonListBox}" />
+                        <ListBox x:Name="ViewTypesList" Grid.Row="1" DisplayMemberPath="Name" SelectedValuePath="Item" SelectedValue="{Binding View.Type, Mode=TwoWay}" ItemsSource="{Binding ViewTypes}" 
+                                 Style="{StaticResource RadioButtonListBox}" SelectionChanged="ViewTypeListBox_SelectionChanged" />
                     </Grid>
                 </Border>
                 
@@ -75,7 +93,10 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <ListBox x:Name="AxesList" Grid.Column="0" Style="{StaticResource RadioButtonListBox}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedAxis}">
+                    <ListBox x:Name="ViewAxesList" Grid.Column="0" DisplayMemberPath="Name" ItemsSource="{Binding Source={StaticResource ViewAxesSource}}" Style="{StaticResource RadioButtonListBox}" 
+                             SelectedValue="{Binding SelectedViewAxis}"/>
+                    
+                    <ListBox x:Name="AxesList" Grid.Column="2" Style="{StaticResource RadioButtonListBox}" DisplayMemberPath="Name" SelectedValue="{Binding SelectedAxis}">
                         <ListBox.ItemsSource>
                             <MultiBinding Converter="{StaticResource AxesViewAxesConverter}">
                                 <Binding Path="Axes" />
@@ -92,12 +113,9 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Button Content="&gt;&gt;" Width="80" Height="40" Margin="5" Command="commands:ViewCommands.AddAxis"/>
-                        <Button Grid.Row="1" Content="&lt;&lt;" Width="80" Height="40" Margin="5" Command="commands:ViewCommands.RemoveAxis"/>
+                        <Button Content="&gt;&gt;" Width="80" Height="40" Margin="5" Command="commands:ViewCommands.RemoveAxis"/>
+                        <Button Grid.Row="1" Content="&lt;&lt;" Width="80" Height="40" Margin="5" Command="commands:ViewCommands.AddAxis"/>
                     </Grid>
-
-                    <ListBox x:Name="ViewAxesList" Grid.Column="2" DisplayMemberPath="Name" ItemsSource="{Binding Source={StaticResource ViewAxesSource}}" Style="{StaticResource RadioButtonListBox}" 
-                             SelectedValue="{Binding SelectedViewAxis}"/>
                 </Grid>
             </Border>
             
@@ -109,8 +127,8 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Margin="15 10" Content="OK" x:Name="OkButton" PreviewMouseUp="OkButton_OnPreviewMouseUp" />
-            <Button Grid.Column="1" Margin="15 10" Content="Cancel" x:Name="CancelButton" PreviewMouseUp="CancelButton_OnPreviewMouseUp" />
+            <Button Grid.Column="0" Margin="15 10" Content="OK" x:Name="OkButton" Command="commands:AppCommands.Ok" />
+            <Button Grid.Column="1" Margin="15 10" Content="Cancel" x:Name="CancelButton" Command="commands:AppCommands.Cancel" />
         </Grid>
     </Grid>
 </Window>

@@ -7,15 +7,12 @@ namespace Niscon.Raynok.Models
 {
     /// <summary>
     /// ShowFile
-    /// By convention filename will consist of ID, Name and revision looking something like {Id}-{Name}-1.show
-    /// Example: {6127a138705841328086b8e6eb6435bb}-Show1-1.show (Id: {6127a138-7058-4132-8086-b8e6eb6435bb}, Name: Show1, Rev: 1)
     /// </summary>
     public class ShowFile : INotifyPropertyChanged
     {
-        private int _revision;
         private string _name;
+        private int? _revision;
 
-        public Guid Id { get; set; }
         public string Name
         {
             get { return _name; }
@@ -24,21 +21,20 @@ namespace Niscon.Raynok.Models
                 if (value == _name) return;
                 _name = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(FullName));
             }
         }
 
-        public string FullName => $"{Name}_{Revision}";
-
         public int Revision
         {
-            get { return _revision; }
-            set
+            get
             {
-                if (value == _revision) return;
-                _revision = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(FullName));
+                if (!_revision.HasValue)
+                {
+                    string[] parts = Name.Split('_');
+                    _revision = parts.Length > 1 ? int.Parse(parts[1]) : 1;
+                }
+
+                return _revision.Value;
             }
         }
         public DateTime CreatedAt { get; set; }

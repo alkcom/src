@@ -4,11 +4,14 @@ using System.Linq;
 using System.Windows;
 using Autofac;
 using AutoMapper;
+using Niscon.Raynok.Data;
+using Niscon.Raynok.Data.Models;
 using Niscon.Raynok.Models;
 using Niscon.Raynok.Properties;
 using Niscon.Raynok.Services;
-using Nyscon.Raynok.Data;
-using Nyscon.Raynok.Data.Models;
+using Niscon.Raynok.Windows;
+using UnitsNet;
+using UnitsNet.Units;
 using Profile = Niscon.Raynok.Models.Profile;
 
 namespace Niscon.Raynok
@@ -23,7 +26,15 @@ namespace Niscon.Raynok
             //global exception handling, for now just showing message box for debug purposes
             Dispatcher.UnhandledException += (sender, args) =>
             {
-                MessageBox.Show($"{args.Exception.Message.ToString()}\r\n\r\n{args.Exception.InnerException?.Message.ToString()}");
+                MessageBoxWindow messageBox = new MessageBoxWindow
+                {
+                    Header = "Critical error",
+                    Message = $"{args.Exception.Message.ToString()}\r\n\r\n{args.Exception.InnerException?.Message.ToString()}",
+                    Width = 700,
+                    Height = 500
+                };
+
+                messageBox.ShowDialog();
                 args.Handled = true;
 
                 Application.Current.Shutdown();
@@ -41,6 +52,8 @@ namespace Niscon.Raynok
             MainWindow mainWindow = container.Resolve<MainWindow>();
             mainWindow.Show();
 
+            Length.ToStringDefaultUnit = LengthUnit.Inch;
+
             base.OnStartup(e);
         }
 
@@ -52,7 +65,8 @@ namespace Niscon.Raynok
                 cfg.CreateMap<ShowFile, ShowFileDto>();
 
                 cfg.CreateMap<ShowDto, Show>();
-                cfg.CreateMap<Show, ShowDto>();
+                cfg.CreateMap<Show, ShowDto>()
+                    .BeforeMap((s, sd) => s.Cues = new ObservableCollection<Cue>(s.Cues.Where(c => c.Type == CueType.Default || c.Type == CueType.Scene)));
 
                 cfg.CreateMap<AxisDto, Axis>();
                 cfg.CreateMap<Axis, AxisDto>();

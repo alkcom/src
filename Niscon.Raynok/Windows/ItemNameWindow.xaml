@@ -20,7 +20,7 @@
         <controls:PanelHeader Text="{Binding Header}"></controls:PanelHeader>
 
         <Grid Grid.Row="1" Background="{StaticResource PanelContentBrush}">
-            <TextBox Height="40" Margin="15 0" Text="{Binding NewValue, Mode=TwoWay}" FontSize="22"/>
+            <TextBox x:Name="ItemNameTextBox" Height="40" Margin="15 0" Text="{Binding NewValue, Mode=TwoWay}" FontSize="22"/>
         </Grid>
 
         <Border Grid.Row="2"  Background="{StaticResource PanelContentBrush}" CornerRadius="0 0 3 3"/>

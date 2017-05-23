@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using Niscon.Raynok.Converters;
+using Niscon.Raynok.Extensions;
 using Niscon.Raynok.Helpers;
 using Niscon.Raynok.Models;
 using Niscon.Raynok.ViewModels;
@@ -40,19 +41,21 @@ namespace Niscon.Raynok.Controls
             DependencyPropertyDescriptor isManualModeDescriptor = DependencyPropertyDescriptor.FromProperty(IsManualModeProperty, typeof(WorkspaceContainer));
             isManualModeDescriptor.AddValueChanged(this, (sender, args) =>
             {
-                if (IsManualMode && !SelectedNode.Equals(CurrentShow.Cues.First()))
-                {
-                    _previousItem = CueTree.SelectedNode;
-                    CueTree.Nodes.First().Profiles = CueTree.SelectedNode.Profiles;
+                CueTree.SetManualMode(IsManualMode);
 
-                    CueTree.SelectedNode = CurrentShow.Cues.FirstOrDefault();
-                }
-                else if (!IsManualMode && SelectedNode.Equals(CurrentShow.Cues.First()))
-                {
-                    CueTree.SelectedNode = _previousItem;
-                    //CueTree.Nodes.First().Profiles = _previousItem.Profiles;
-                    //_previousItem = null;
-                }
+                //if (IsManualMode && !SelectedNode.Equals(CurrentShow.Cues.First()))
+                //{
+                //    _previousItem = CueTree.SelectedNode;
+                //    CueTree.Nodes.First().Profiles = CueTree.SelectedNode.Profiles;
+
+                //    CueTree.SelectedNode = CurrentShow.Cues.FirstOrDefault();
+                //}
+                //else if (!IsManualMode && SelectedNode.Equals(CurrentShow.Cues.First()))
+                //{
+                //    CueTree.SelectedNode = _previousItem;
+                //    //CueTree.Nodes.First().Profiles = _previousItem.Profiles;
+                //    //_previousItem = null;
+                //}
             });
 
             DependencyPropertyDescriptor cueTreeSelectedValueDescriptor = DependencyPropertyDescriptor.FromProperty(Controls.CueTree.SelectedNodeProperty, typeof(CueTree));
@@ -63,18 +66,30 @@ namespace Niscon.Raynok.Controls
                     return;
                 }
 
-                if (SelectedNode.Equals(CurrentShow.Cues.First()))
+                if (SelectedNode.Type == CueType.ManualMove)
                 {
                     IsManualMode = true;
                 }
                 else
                 {
                     IsManualMode = false;
-                    _previousItem = SelectedNode;
-                    CurrentShow.Cues.First().Profiles = SelectedNode.Profiles;
                 }
+
+                //if (SelectedNode.Equals(CurrentShow.Cues.First()))
+                //{
+                //    IsManualMode = true;
+                //}
+                //else
+                //{
+                //    IsManualMode = false;
+                //    _previousItem = SelectedNode;
+                //    CurrentShow.Cues.First().Profiles = SelectedNode.Profiles;
+                //}
             });
         }
+
+        public event CuesUpdatedEventHandler CuesUpdated;
+        public event ProfilesUpdatedEventHandler ProfilesUpdated;
 
         //private void NextCueButton_Click(object sender, RoutedEventArgs e)
         //{
@@ -241,7 +256,7 @@ namespace Niscon.Raynok.Controls
                 {
                     case ViewType.CueInfo:
                         element = new AxesGrid();
-                        ((AxesGrid) element).CurrentValueDialogRequested += AxesGrid_OnCurrentValueDialogRequested;
+                        ((AxesGrid)element).ProfilesUpdated += AxesGrid_ProfilesUpdated;
 
                         element.SetBinding(AxesGrid.AppSettingsProperty, appSettingsBinding);
                         element.SetBinding(AxesDisplayControl.ProfilesProperty, profilesBinding);
@@ -280,6 +295,11 @@ namespace Niscon.Raynok.Controls
                     AxesWorkspaces.Children.Add(element);
                 }
             }
+        }
+
+        private void AxesGrid_ProfilesUpdated(object o, ProfilesUpdatedEventArgs eventArgs)
+        {
+            OnProfilesUpdated(eventArgs);
         }
 
         private void RemoveViews(IList<View> views, int startIndex)
@@ -331,11 +351,19 @@ namespace Niscon.Raynok.Controls
             e.Handled = true;
         }
 
-        private void AxesGrid_OnCurrentValueDialogRequested(object sender, CurrentValueDialogRequestedEventArgs eventargs)
+        private void CueTree_OnCuesUpdated(object sender, CuesUpdatedEventArgs eventArgs)
         {
-            CurrentValueDialog.Axis = eventargs.Axis;
+            OnCuesUpdated(eventArgs);
+        }
 
-            CurrentValueDialog.Show();
+        protected virtual void OnCuesUpdated(CuesUpdatedEventArgs eventargs)
+        {
+            CuesUpdated?.Invoke(this, eventargs);
+        }
+
+        protected virtual void OnProfilesUpdated(ProfilesUpdatedEventArgs eventargs)
+        {
+            ProfilesUpdated?.Invoke(this, eventargs);
         }
     }
 }

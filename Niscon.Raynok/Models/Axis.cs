@@ -33,6 +33,9 @@ namespace Niscon.Raynok.Models
 
         private double _currentValue;
         private bool _selected;
+        private double _maxVelocity;
+        private double _maxAcceleration;
+        private double _maxDeceleration;
 
         public static readonly HashSet<AxisState> AxisStates = new HashSet<AxisState> { AxisState.Error, AxisState.Disabled/*, AxisState.Selected*/};
 
@@ -42,7 +45,7 @@ namespace Niscon.Raynok.Models
         }
 
         public Axis(string name, double currentValue, double minValue, double maxValue, double maxLoad, double velocity,
-            TimeSpan duration, double acceleration, double deceleration, TimeSpan delay, double load, Guid? id = null, AxisState? state = null, bool selected = false)
+            TimeSpan duration, double acceleration, double deceleration, TimeSpan delay, double load, int id, AxisState? state = null, bool selected = false, double? maxVelocity = null, double? maxAcceleration = null, double? maxDeceleration = null)
         {
             Name = name;
             CurrentValue = currentValue;
@@ -60,10 +63,25 @@ namespace Niscon.Raynok.Models
             Delay = delay;
             Load = load;
 
-            Id = id ?? Guid.NewGuid();
+            Id = id;
+
+            if (maxVelocity.HasValue)
+            {
+                MaxVelocity = maxVelocity.Value;
+            }
+
+            if (maxAcceleration.HasValue)
+            {
+                MaxAcceleration = maxAcceleration.Value;
+            }
+
+            if (maxDeceleration.HasValue)
+            {
+                MaxDeceleration = maxDeceleration.Value;
+            }
         }
 
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
@@ -79,6 +97,7 @@ namespace Niscon.Raynok.Models
             }
         }
 
+        public double StartValue { get; set; }
         public double MaxValue { get; set; }
         public double MinValue { get; set; }
 
@@ -98,30 +117,37 @@ namespace Niscon.Raynok.Models
             }
         }
 
-        [JsonIgnore]
-        public List<Profile> Profiles { get; } = new List<Profile>();
-
-        public void AddProfile(Profile profile)
+        public double MaxVelocity
         {
-            if (!Profiles.Contains(profile))
+            get { return _maxVelocity; }
+            set
             {
-                Profiles.Add(profile);
-                profile.Axis = this;
+                if (value.Equals(_maxVelocity)) return;
+                _maxVelocity = value;
+                OnPropertyChanged();
             }
         }
 
-        public Profile GetPreviousProfile(Profile profile)
+        public double MaxAcceleration
         {
-            int index = Profiles.IndexOf(profile);
-
-            return Profiles.ElementAtOrDefault(index - 1);
+            get { return _maxAcceleration; }
+            set
+            {
+                if (value.Equals(_maxAcceleration)) return;
+                _maxAcceleration = value;
+                OnPropertyChanged();
+            }
         }
 
-        public Profile GetNextProfile(Profile profile)
+        public double MaxDeceleration
         {
-            int index = Profiles.IndexOf(profile);
-
-            return Profiles.ElementAtOrDefault(index + 1);
+            get { return _maxDeceleration; }
+            set
+            {
+                if (value.Equals(_maxDeceleration)) return;
+                _maxDeceleration = value;
+                OnPropertyChanged();
+            }
         }
 
         #region Default values

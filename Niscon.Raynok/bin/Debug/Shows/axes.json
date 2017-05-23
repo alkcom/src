@@ -1,8 +1,9 @@
 ﻿[
   {
-    "Id": "85ed1076-0f7f-45cd-85d6-2e7d3124d936",
+    "Id": 1,
     "Name": "Grand Border",
-    "CurrentValue": 20.0,
+    "CurrentValue": 100,
+    "StartValue": 10,
     "MaxValue": 400.0,
     "MinValue": 0.0,
     "MaxLoad": 1800.0,
@@ -15,12 +16,16 @@
     "Deceleration": 18.0,
     "Delay": "00:00:10",
     "Load": 500.0,
-    "OrderNumber": 1
+    "OrderNumber": 1,
+    "MaxVelocity": 60,
+    "MaxAcceleration": 30,
+    "MaxDeceleration": 30
   },
   {
-    "Id": "f09a0da9-63df-4f80-af15-ba4eab0827ea",
+    "Id": 2,
     "Name": "Grand Drape",
-    "CurrentValue": 5.0,
+    "CurrentValue": 100,
+    "StartValue": 10,
     "MaxValue": 350.0,
     "MinValue": 0.0,
     "MaxLoad": 1500.0,
@@ -33,12 +38,16 @@
     "Deceleration": 18.0,
     "Delay": "00:00:10",
     "Load": 500.0,
-    "OrderNumber": 2 
+    "OrderNumber": 2,
+    "MaxVelocity": 60,
+    "MaxAcceleration": 30,
+    "MaxDeceleration": 30
   },
   {
-    "Id": "31bb72eb-59d7-4df6-a2a8-ef64333b1ce0",
+    "Id": 3,
     "Name": "Electric #1",
     "CurrentValue": 50.0,
+    "StartValue": 240,
     "MaxValue": 500.0,
     "MinValue": 10.0,
     "MaxLoad": 2200.0,
@@ -51,12 +60,16 @@
     "Deceleration": 18.0,
     "Delay": "00:00:10",
     "Load": 500.0,
-    "OrderNumber": 3
+    "OrderNumber": 3,
+    "MaxVelocity": 60,
+    "MaxAcceleration": 30,
+    "MaxDeceleration": 30
   },
   {
-    "Id": "9ee4e1a9-561a-4be3-b02b-03b9fb0357ab",
+    "Id": 4,
     "Name": "Scenery",
     "CurrentValue": 220.0,
+    "StartValue": 240,
     "MaxValue": 300.0,
     "MinValue": 20.0,
     "MaxLoad": 900.0,
@@ -69,12 +82,16 @@
     "Deceleration": 18.0,
     "Delay": "00:00:10",
     "Load": 500.0,
-    "OrderNumber": 4
+    "OrderNumber": 4,
+    "MaxVelocity": 60,
+    "MaxAcceleration": 30,
+    "MaxDeceleration": 30
   },
   {
-    "Id": "fefcadc9-7c2c-4ea3-8309-92d6b2c7c7b8",
+    "Id": 5,
     "Name": "Border",
     "CurrentValue": 10.0,
+    "StartValue": 340,
     "MaxValue": 500.0,
     "MinValue": 5.0,
     "MaxLoad": 1500.0,
@@ -87,16 +104,20 @@
     "Deceleration": 18.0,
     "Delay": "00:00:10",
     "Load": 500.0,
-    "OrderNumber": 5
+    "OrderNumber": 5,
+    "MaxVelocity": 60,
+    "MaxAcceleration": 30,
+    "MaxDeceleration": 30
   },
   {
-    "Id": "6a22ea8e-9b83-489f-a8a3-7c790134e99a",
+    "Id": 6,
     "Name": "Electric #2",
     "CurrentValue": 450.0,
+    "StartValue": 340,
     "MaxValue": 500.0,
     "MinValue": 50.0,
     "MaxLoad": 2200.0,
-    "State": 3,
+    "State": "Disabled",
     "Selected": false,
     "StartingVelocity": 36.0,
     "Velocity": 36.0,
@@ -105,12 +126,16 @@
     "Deceleration": 18.0,
     "Delay": "00:00:10",
     "Load": 500.0,
-    "OrderNumber": 6
+    "OrderNumber": 6,
+    "MaxVelocity": 60,
+    "MaxAcceleration": 30,
+    "MaxDeceleration": 30
   },
   {
-    "Id": "174d47ad-d07e-4fcb-8c97-5f73b35be808",
+    "Id": 7,
     "Name": "Scrim",
     "CurrentValue": 11.0,
+    "StartValue": 340,
     "MaxValue": 250.0,
     "MinValue": 10.0,
     "MaxLoad": 1500.0,
@@ -123,12 +148,16 @@
     "Deceleration": 18.0,
     "Delay": "00:00:10",
     "Load": 500.0,
-    "OrderNumber": 7
+    "OrderNumber": 7,
+    "MaxVelocity": 60,
+    "MaxAcceleration": 30,
+    "MaxDeceleration": 30
   },
   {
-    "Id": "f0e86147-66b4-4e5c-a462-26df37b7008f",
+    "Id": 8,
     "Name": "Electric #3",
     "CurrentValue": 450.0,
+    "StartValue": 50,
     "MaxValue": 500.0,
     "MinValue": 50.0,
     "MaxLoad": 2200.0,
@@ -141,12 +170,16 @@
     "Deceleration": 18.0,
     "Delay": "00:00:10",
     "Load": 500.0,
-    "OrderNumber": 8
+    "OrderNumber": 8,
+    "MaxVelocity": 60,
+    "MaxAcceleration": 30,
+    "MaxDeceleration": 30
   },
   {
-    "Id": "a428633f-e7a4-4575-8100-cf34b07efd60",
+    "Id": 9,
     "Name": "Dark Magic",
     "CurrentValue": 5.0,
+    "StartValue": 340,
     "MaxValue": 700.0,
     "MinValue": 5.0,
     "MaxLoad": 1900.0,
@@ -159,16 +192,20 @@
     "Deceleration": 18.0,
     "Delay": "00:00:10",
     "Load": 500.0,
-    "OrderNumber": 9
+    "OrderNumber": 9,
+    "MaxVelocity": 60,
+    "MaxAcceleration": 30,
+    "MaxDeceleration": 30
   },
   {
-    "Id": "1292aa1c-f652-41ca-ba3f-19b143aa0091",
+    "Id": 10,
     "Name": "Worshippers",
     "CurrentValue": 190.0,
+    "StartValue": 50,
     "MaxValue": 200.0,
     "MinValue": 60.0,
     "MaxLoad": 1100.0,
-    "State": 2,
+    "State": "Error",
     "Selected": false,
     "StartingVelocity": 36.0,
     "Velocity": 36.0,
@@ -177,12 +214,16 @@
     "Deceleration": 18.0,
     "Delay": "00:00:10",
     "Load": 500.0,
-    "OrderNumber": 10
+    "OrderNumber": 10,
+    "MaxVelocity": 60,
+    "MaxAcceleration": 30,
+    "MaxDeceleration": 30
   },
   {
-    "Id": "22a7a292-c1e1-4100-8759-6a454974d787",
+    "Id": 11,
     "Name": "Summoning Circle",
     "CurrentValue": 0.0,
+    "StartValue": 0,
     "MaxValue": 200.0,
     "MinValue": 0.0,
     "MaxLoad": 1200.0,
@@ -195,12 +236,16 @@
     "Deceleration": 18.0,
     "Delay": "00:00:10",
     "Load": 500.0,
-    "OrderNumber": 11
+    "OrderNumber": 11,
+    "MaxVelocity": 60,
+    "MaxAcceleration": 30,
+    "MaxDeceleration": 30
   },
   {
-    "Id": "99829ece-5ea6-4ea9-a120-b33f2a7fbc83",
+    "Id": 12,
     "Name": "Ocean Floor",
     "CurrentValue": 800.0,
+    "StartValue": 100,
     "MaxValue": 810.0,
     "MinValue": 100.0,
     "MaxLoad": 2500.0,
@@ -213,12 +258,16 @@
     "Deceleration": 18.0,
     "Delay": "00:00:10",
     "Load": 500.0,
-    "OrderNumber": 12
+    "OrderNumber": 12,
+    "MaxVelocity": 60,
+    "MaxAcceleration": 30,
+    "MaxDeceleration": 30
   },
   {
-    "Id": "d8007642-3920-4c1d-9bf8-c29c652067fa",
+    "Id": 13,
     "Name": "Electric #4",
     "CurrentValue": 450.0,
+    "StartValue": 60,
     "MaxValue": 500.0,
     "MinValue": 40.0,
     "MaxLoad": 2200.0,
@@ -231,12 +280,16 @@
     "Deceleration": 18.0,
     "Delay": "00:00:10",
     "Load": 500.0,
-    "OrderNumber": 13
+    "OrderNumber": 13,
+    "MaxVelocity": 60,
+    "MaxAcceleration": 30,
+    "MaxDeceleration": 30
   },
   {
-    "Id": "6bdfe3b0-d974-40f0-8471-bdc6c3c9ab7a",
+    "Id": 14,
     "Name": "End of the World",
     "CurrentValue": 0.0,
+    "StartValue": 0,
     "MaxValue": 1200.0,
     "MinValue": 0.0,
     "MaxLoad": 2000.0,
@@ -249,12 +302,16 @@
     "Deceleration": 18.0,
     "Delay": "00:00:10",
     "Load": 500.0,
-    "OrderNumber": 14
+    "OrderNumber": 14,
+    "MaxVelocity": 60,
+    "MaxAcceleration": 30,
+    "MaxDeceleration": 30
   },
   {
-    "Id": "b51616d1-29b0-44c5-8ed2-8611684bd9dc",
+    "Id": 15,
     "Name": "Dark Lord Cthulu",
     "CurrentValue": 0.0,
+    "StartValue": 0,
     "MaxValue": 500.0,
     "MinValue": 0.0,
     "MaxLoad": 2500.0,
@@ -267,10 +324,13 @@
     "Deceleration": 18.0,
     "Delay": "00:00:10",
     "Load": 500.0,
-    "OrderNumber": 15
+    "OrderNumber": 15,
+    "MaxVelocity": 60,
+    "MaxAcceleration": 30,
+    "MaxDeceleration": 30
   },
   {
-    "Id": "4060f1aa-1d29-4f97-b310-64cff6bb70b8",
+    "Id": 16,
     "Name": "Demonic gathering",
     "CurrentValue": 0.0,
     "MaxValue": 500.0,
@@ -285,6 +345,9 @@
     "Deceleration": 18.0,
     "Delay": "00:00:10",
     "Load": 500.0,
-    "OrderNumber": 16
+    "OrderNumber": 16,
+    "MaxVelocity": 60,
+    "MaxAcceleration": 30,
+    "MaxDeceleration": 30
   }
 ]

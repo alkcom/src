@@ -96,7 +96,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition>
                                 <RowDefinition.Height>
-                                    <MultiBinding Converter="{StaticResource CueAxisValueIndicatorConverter}" ConverterParameter="{x:Static converters:CueAxisValueIndicatorConverterParameter.Top}">
+                                    <MultiBinding Converter="{StaticResource CueAxisValueIndicatorConverter}" ConverterParameter="{x:Static converters:CueAxisValueIndicatorConverterParameter.BoundsTop}">
                                         <Binding Path="StartValue"/>
                                         <Binding Path="TargetValue"/>
                                         <Binding Path="Axis.MinValue"/>
@@ -108,7 +108,7 @@
                             <RowDefinition Height="Auto"></RowDefinition>
                             <RowDefinition>
                                 <RowDefinition.Height>
-                                    <MultiBinding Converter="{StaticResource CueAxisValueIndicatorConverter}" ConverterParameter="{x:Static converters:CueAxisValueIndicatorConverterParameter.TopMiddle}">
+                                    <MultiBinding Converter="{StaticResource CueAxisValueIndicatorConverter}" ConverterParameter="{x:Static converters:CueAxisValueIndicatorConverterParameter.BoundsMiddle}">
                                         <Binding Path="StartValue"/>
                                         <Binding Path="TargetValue"/>
                                         <Binding Path="Axis.MinValue"/>
@@ -120,19 +120,7 @@
                             <RowDefinition Height="Auto"></RowDefinition>
                             <RowDefinition>
                                 <RowDefinition.Height>
-                                    <MultiBinding Converter="{StaticResource CueAxisValueIndicatorConverter}" ConverterParameter="{x:Static converters:CueAxisValueIndicatorConverterParameter.BottomMiddle}">
-                                        <Binding Path="StartValue"/>
-                                        <Binding Path="TargetValue"/>
-                                        <Binding Path="Axis.MinValue"/>
-                                        <Binding Path="Axis.MaxValue"/>
-                                        <Binding Path="Axis.CurrentValue"/>
-                                    </MultiBinding>
-                                </RowDefinition.Height>
-                            </RowDefinition>
-                            <RowDefinition Height="Auto"></RowDefinition>
-                            <RowDefinition>
-                                <RowDefinition.Height>
-                                    <MultiBinding Converter="{StaticResource CueAxisValueIndicatorConverter}" ConverterParameter="{x:Static converters:CueAxisValueIndicatorConverterParameter.Bottom}">
+                                    <MultiBinding Converter="{StaticResource CueAxisValueIndicatorConverter}" ConverterParameter="{x:Static converters:CueAxisValueIndicatorConverterParameter.BoundsBottom}">
                                         <Binding Path="StartValue"/>
                                         <Binding Path="TargetValue"/>
                                         <Binding Path="Axis.MinValue"/>
@@ -143,7 +131,7 @@
                             </RowDefinition>
                         </Grid.RowDefinitions>
 
-                        <Rectangle Grid.Row="2" Grid.RowSpan="3" Fill="#25AAE1">
+                        <Rectangle Grid.Row="2" Fill="#25AAE1">
                             <Rectangle.Style>
                                 <Style>
                                     <Setter Property="Control.Visibility" Value="Collapsed"/>
@@ -155,7 +143,7 @@
                                 </Style>
                             </Rectangle.Style>
                         </Rectangle>
-                        <Rectangle Grid.Row="2" Grid.RowSpan="3" Fill="{StaticResource AxisColumnValueIndicatorUpDirectionBrush}" Width="30" Opacity="0.2">
+                        <Rectangle Grid.Row="2" Fill="{StaticResource AxisColumnValueIndicatorUpDirectionBrush}" Width="30" Opacity="0.2">
                             <Rectangle.Style>
                                 <Style>
                                     <Setter Property="Control.Visibility" Value="Collapsed"/>
@@ -171,7 +159,7 @@
                                 </Style>
                             </Rectangle.Style>
                         </Rectangle>
-                        <Rectangle Grid.Row="2" Grid.RowSpan="3" Fill="{StaticResource AxisColumnValueIndicatorDownDirectionBrush}" Width="30" Opacity="0.2">
+                        <Rectangle Grid.Row="2" Fill="{StaticResource AxisColumnValueIndicatorDownDirectionBrush}" Width="30" Opacity="0.2">
                             <Rectangle.Style>
                                 <Style>
                                     <Setter Property="Control.Visibility" Value="Collapsed"/>
@@ -243,26 +231,7 @@
                             </TextBlock>
                         </Border>
 
-                        <Border x:Name="CurrentValue" Grid.Row="3" Height="40" Visibility="{Binding Converter={StaticResource CurrentValueIndicatorVisibilityConverter}}">
-                            <Border.Style>
-                                <Style>
-                                    <Setter Property="Control.Background" Value="{StaticResource WidgetCurrentValueLabelBrush}"/>
-                                </Style>
-                            </Border.Style>
-                            <Border.Effect>
-                                <DropShadowEffect Color="Black" Opacity="1" Direction="-90" BlurRadius="20"></DropShadowEffect>
-                            </Border.Effect>
-                            <TextBlock FontSize="28" FontWeight="Bold" VerticalAlignment="Center" Foreground="Black">
-                                <TextBlock.Text>
-                                    <MultiBinding Converter="{StaticResource InchesToFeetMultiConverter}" ConverterParameter="True">
-                                        <Binding Path="Axis.CurrentValue"/>
-                                        <Binding Path="AppSettings.Units" RelativeSource="{RelativeSource FindAncestor, AncestorType=local:AxisColumnValueIndicator}"/>
-                                    </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
-                        </Border>
-
-                        <Border x:Name="TargetValueBottom" Grid.Row="5" Height="40">
+                        <Border x:Name="TargetValueBottom" Grid.Row="3" Height="40">
                             <Border.Style>
                                 <Style>
                                     <Setter Property="Control.Background" Value="{StaticResource WidgetTargetValueLabelBrush}"/>
@@ -289,7 +258,7 @@
                                 </TextBlock.Text>
                             </TextBlock>
                         </Border>
-                        <Border x:Name="StartValueBottom" Grid.Row="5" Height="40">
+                        <Border x:Name="StartValueBottom" Grid.Row="3" Height="40">
                             <Border.Style>
                                 <Style>
                                     <Setter Property="Control.Visibility" Value="Collapsed"/>
@@ -318,6 +287,52 @@
                         </Border>
                     </Grid>
 
+                    <Grid Grid.Row="4" VerticalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition>
+                                <RowDefinition.Height>
+                                    <MultiBinding Converter="{StaticResource CueAxisValueIndicatorConverter}" ConverterParameter="{x:Static converters:CueAxisValueIndicatorConverterParameter.CurrentTop}">
+                                        <Binding Path="StartValue"/>
+                                        <Binding Path="TargetValue"/>
+                                        <Binding Path="Axis.MinValue"/>
+                                        <Binding Path="Axis.MaxValue"/>
+                                        <Binding Path="Axis.CurrentValue"/>
+                                    </MultiBinding>
+                                </RowDefinition.Height>
+                            </RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition>
+                                <RowDefinition.Height>
+                                    <MultiBinding Converter="{StaticResource CueAxisValueIndicatorConverter}" ConverterParameter="{x:Static converters:CueAxisValueIndicatorConverterParameter.CurrentBottom}">
+                                        <Binding Path="StartValue"/>
+                                        <Binding Path="TargetValue"/>
+                                        <Binding Path="Axis.MinValue"/>
+                                        <Binding Path="Axis.MaxValue"/>
+                                        <Binding Path="Axis.CurrentValue"/>
+                                    </MultiBinding>
+                                </RowDefinition.Height>
+                            </RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Border x:Name="CurrentValue" Grid.Row="1" Height="40" Visibility="Visible">
+                            <Border.Style>
+                                <Style>
+                                    <Setter Property="Control.Background" Value="{StaticResource WidgetCurrentValueLabelBrush}"/>
+                                </Style>
+                            </Border.Style>
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" Opacity="1" Direction="-90" BlurRadius="20"></DropShadowEffect>
+                            </Border.Effect>
+                            <TextBlock FontSize="28" FontWeight="Bold" VerticalAlignment="Center" Foreground="Black">
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource InchesToFeetMultiConverter}" ConverterParameter="True">
+                                        <Binding Path="Axis.CurrentValue"/>
+                                        <Binding Path="AppSettings.Units" RelativeSource="{RelativeSource FindAncestor, AncestorType=local:AxisColumnValueIndicator}"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </Border>
+                    </Grid>
 
                     <Border Grid.Row="5" BorderThickness="0 2 0 0" BorderBrush="White" Margin="0 10 0 0">
                         <Border.Style>
@@ -339,7 +354,7 @@
                 </Grid>
             </Border>
 
-            <TextBlock Grid.Row="1" Text="{Binding Velocity, StringFormat={}{0}FPM}" DataContext="{Binding}" Margin="0 5">
+            <TextBlock Grid.Row="1" Text="{Binding Velocity, StringFormat={}{0}IPS}" DataContext="{Binding}" Margin="0 5">
                 <TextBlock.Style>
                     <Style>
                         <Setter Property="TextBlock.Foreground" Value="White"/>

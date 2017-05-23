@@ -8,77 +8,18 @@ namespace Niscon.Raynok.Converters
 {
     public enum CueAxisValueIndicatorConverterParameter
     {
-        Top,
-        TopMiddle,
-        BottomMiddle,
-        Bottom
+        BoundsTop,
+        BoundsMiddle,
+        BoundsBottom,
+        CurrentTop,
+        CurrentBottom
     }
 
     public class CueAxisValueIndicatorConverter : IValueConverter, IMultiValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Profile profile = value as Profile;
-            CueAxisValueIndicatorConverterParameter? indicatorParameter = parameter as CueAxisValueIndicatorConverterParameter?;
-
-            if (profile != null && indicatorParameter.HasValue)
-            {
-                double upperValue = double.MaxValue;
-                double lowerValue = double.MinValue;
-
-                // settings upper and lower bounds from start and target values
-                if (profile.Direction == AxisDirection.Down)
-                {
-                    upperValue = profile.StartValue;
-                    lowerValue = profile.TargetValue;
-                }
-                else if (profile.Direction == AxisDirection.Up)
-                {
-                    upperValue = profile.TargetValue;
-                    lowerValue = profile.StartValue;
-                }
-
-                if (upperValue != double.MaxValue && lowerValue != double.MinValue)
-                {
-                    double resultValue = 1;
-                    double length = profile.Axis.MaxValue - profile.Axis.MinValue;
-                    switch (indicatorParameter.Value)
-                    {
-                        case CueAxisValueIndicatorConverterParameter.Top:
-                            resultValue = (profile.Axis.MaxValue - upperValue) / length;
-                            break;
-                        case CueAxisValueIndicatorConverterParameter.TopMiddle:
-                            //if current value is out of bounds of (upper;lower), set height of the upper middle portion to half of distance between upper and lower value
-                            if (profile.Axis.CurrentValue > lowerValue && profile.Axis.CurrentValue < upperValue)
-                            {
-                                resultValue = (upperValue - profile.Axis.CurrentValue) / length;
-                            }
-                            else
-                            {
-                                resultValue = (upperValue - lowerValue) / (length*2);
-                            }
-                            break;
-                        case CueAxisValueIndicatorConverterParameter.BottomMiddle:
-                            //if current value is out of bounds of (upper;lower), set height of the lower middle portion to half of distance between upper and lower value
-                            if (profile.Axis.CurrentValue > lowerValue && profile.Axis.CurrentValue < upperValue)
-                            {
-                                resultValue = (profile.Axis.CurrentValue - lowerValue) / length;
-                            }
-                            else
-                            {
-                                resultValue = (upperValue - lowerValue) / (length * 2);
-                            }
-                            break;
-                        case CueAxisValueIndicatorConverterParameter.Bottom:
-                            resultValue = (lowerValue - profile.Axis.MinValue) / length;
-                            break;
-                    }
-
-                    return new GridLength(resultValue, GridUnitType.Star);
-                }
-            }
-
-            return new GridLength(1, GridUnitType.Star);
+            throw new NotImplementedException();
         }
 
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
@@ -107,44 +48,37 @@ namespace Niscon.Raynok.Converters
                     lowerValue = startValue;
                 }
 
-                if (upperValue != double.MaxValue && lowerValue != double.MinValue)
+                double resultValue = 1;
+                double length = maxValue - minValue;
+                switch (indicatorParameter.Value)
                 {
-                    double resultValue = 1;
-                    double length = maxValue - minValue;
-                    switch (indicatorParameter.Value)
-                    {
-                        case CueAxisValueIndicatorConverterParameter.Top:
+                    case CueAxisValueIndicatorConverterParameter.BoundsTop:
+                        if (upperValue != double.MaxValue)
+                        {
                             resultValue = (maxValue - upperValue) / length;
-                            break;
-                        case CueAxisValueIndicatorConverterParameter.TopMiddle:
-                            //if current value is out of bounds of (upper;lower), set height of the upper middle portion to half of distance between upper and lower value
-                            if (currentValue > lowerValue && currentValue < upperValue)
-                            {
-                                resultValue = (upperValue - currentValue) / length;
-                            }
-                            else
-                            {
-                                resultValue = (upperValue - lowerValue) / (length * 2);
-                            }
-                            break;
-                        case CueAxisValueIndicatorConverterParameter.BottomMiddle:
-                            //if current value is out of bounds of (upper;lower), set height of the lower middle portion to half of distance between upper and lower value
-                            if (currentValue > lowerValue && currentValue < upperValue)
-                            {
-                                resultValue = (currentValue - lowerValue) / length;
-                            }
-                            else
-                            {
-                                resultValue = (upperValue - lowerValue) / (length * 2);
-                            }
-                            break;
-                        case CueAxisValueIndicatorConverterParameter.Bottom:
+                        }
+                        break;
+                    case CueAxisValueIndicatorConverterParameter.BoundsMiddle:
+                        if (upperValue != double.MaxValue && lowerValue != double.MinValue)
+                        {
+                            resultValue = (upperValue - lowerValue) / length;
+                        }
+                        break;
+                    case CueAxisValueIndicatorConverterParameter.BoundsBottom:
+                        if (lowerValue != double.MinValue)
+                        {
                             resultValue = (lowerValue - minValue) / length;
-                            break;
-                    }
-
-                    return new GridLength(resultValue, GridUnitType.Star);
+                        }
+                        break;
+                    case CueAxisValueIndicatorConverterParameter.CurrentTop:
+                        resultValue = (maxValue - currentValue) / length;
+                        break;
+                    case CueAxisValueIndicatorConverterParameter.CurrentBottom:
+                        resultValue = (currentValue - minValue) / length;
+                        break;
                 }
+
+                return new GridLength(resultValue, GridUnitType.Star);
             }
 
             return new GridLength(1, GridUnitType.Star);
