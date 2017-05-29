@@ -56,8 +56,9 @@
 
         <local:FluidItemScroller x:Name="AxesWorkspacesScroller" Grid.Column="1" VerticalScrollBarVisibility="Disabled" Padding="0" HorizontalScrollBarVisibility="Hidden"
                                  SelectedValue="{Binding SelectedView, Mode=TwoWay}">
-            <Grid x:Name="AxesWorkspaces" Margin="0">
-            </Grid>
+            <!--<Grid x:Name="AxesWorkspaces" Margin="0">
+            </Grid>-->
+            <DockPanel x:Name="AxesWorkspaces" Margin="0"/>
         </local:FluidItemScroller>
 
         <Grid Grid.Column="1" x:Name="SizingGrid" Margin="40 0"/>

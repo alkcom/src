@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using Niscon.Raynok.ViewModels;
 
 namespace Niscon.Raynok.Models
 {

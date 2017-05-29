@@ -197,13 +197,24 @@ namespace Niscon.Raynok.Controls
             if (oldShow?.Views != null && container != null)
             {
                 oldShow.Views.CollectionChanged -= container.ViewsOnCollectionChanged;
+                oldShow.PropertyChanged -= container.ViewsChanged;
                 container.AxesWorkspaces.Children.RemoveRange(0, container.AxesWorkspaces.Children.Count);
             }
 
             if (show?.Views != null && container != null)
             {
                 show.Views.CollectionChanged += container.ViewsOnCollectionChanged;
+                show.PropertyChanged += container.ViewsChanged;
                 container.AddViews(show.Views);
+            }
+        }
+
+        private void ViewsChanged(object o, PropertyChangedEventArgs eventArgs)
+        {
+            if (eventArgs.PropertyName == nameof(Show.Views))
+            {
+                RemoveAllViews();
+                AddViews(CurrentShow.Views);
             }
         }
 
@@ -224,8 +235,8 @@ namespace Niscon.Raynok.Controls
         {
             foreach (View view in views)
             {
-                int newColumnIndex = AxesWorkspaces.ColumnDefinitions.Count;
-                AxesWorkspaces.ColumnDefinitions.Add(new ColumnDefinition());
+                //int newColumnIndex = AxesWorkspaces.ColumnDefinitions.Count;
+                //AxesWorkspaces.ColumnDefinitions.Add(new ColumnDefinition());
 
                 Binding widthBinding = new Binding
                 {
@@ -280,7 +291,7 @@ namespace Niscon.Raynok.Controls
                         throw new Exception("Unknown view type");
                 }
 
-                Grid.SetColumn(element, newColumnIndex);
+                //Grid.SetColumn(element, newColumnIndex);
                 element.SetBinding(VisibilityProperty, visibilityBinding);
                 element.SetBinding(WidthProperty, widthBinding);
                 FluidItemScroller.SetItemValue(element, view);
@@ -307,6 +318,15 @@ namespace Niscon.Raynok.Controls
             foreach (View view in views)
             {
                 AxesWorkspaces.Children.RemoveAt(startIndex);
+            }
+        }
+
+        private void RemoveAllViews()
+        {
+            for (int i = 0; i < AxesWorkspaces.Children.Count; i++)
+            {
+                AxesWorkspaces.Children.RemoveAt(i);
+                i--;
             }
         }
 

@@ -28,14 +28,14 @@ namespace Niscon.Raynok.Controls
 
         private void FluidItemScroller_Loaded(object sender, RoutedEventArgs routedEventArgs)
         {
-            Grid grid = (Grid)VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(this, 0), 1), 0);
-            if (grid != null)
+            DockPanel dockPanel = (DockPanel)VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(this, 0), 1), 0);
+            if (dockPanel != null)
             {
-                grid.SizeChanged += Grid_SizeChanged;
+                dockPanel.SizeChanged += DockPanel_SizeChanged;
             }
         }
 
-        private void Grid_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void DockPanel_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             AlignScrollOffset(HorizontalOffset, TimeSpan.Zero, false);
         }
@@ -99,7 +99,7 @@ namespace Niscon.Raynok.Controls
                 duration = TimeSpan.FromMilliseconds(300);
             }
 
-            Grid grid = (Grid)VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(this, 0), 1), 0);
+            DockPanel dockPanel = (DockPanel)VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(this, 0), 1), 0);
 
             FrameworkElement selectedChild = null;
 
@@ -134,7 +134,7 @@ namespace Niscon.Raynok.Controls
                     newOffset = newWidth;
                     //this will only happen if current element is not the last one
                     //exception is not plausible
-                    selectedChild = (FrameworkElement) VisualTreeHelper.GetChild(grid, i + 1);
+                    selectedChild = (FrameworkElement) VisualTreeHelper.GetChild(dockPanel, i + 1);
 
                     break;
                 }
@@ -160,12 +160,12 @@ namespace Niscon.Raynok.Controls
 
         private IEnumerable<FrameworkElement> GetChildren()
         {
-            Grid grid = (Grid)VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(this, 0), 1), 0);
-            int childrenCount = VisualTreeHelper.GetChildrenCount(grid);
+            DockPanel dockPanel = (DockPanel)VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(VisualTreeHelper.GetChild(this, 0), 1), 0);
+            int childrenCount = VisualTreeHelper.GetChildrenCount(dockPanel);
 
             for (int i = 0; i < childrenCount; i++)
             {
-                yield return (FrameworkElement) VisualTreeHelper.GetChild(grid, i);
+                yield return (FrameworkElement) VisualTreeHelper.GetChild(dockPanel, i);
             }
         }
 

@@ -139,7 +139,7 @@ namespace Niscon.Raynok
                     Header = view.Name,
                     CommandParameter = view,
                     IsViewVisible = view.IsVisible,
-                    OpenSettingsCommand = ViewCommands.OpenSettings,
+                    OpenSettingsCommand = ViewCommands.Edit,
                     Style = (Style)FindResource("ViewsMenuSubmenuButton")
                 };
 
@@ -291,108 +291,6 @@ namespace Niscon.Raynok
             }
         }
 
-        private void NewView_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = ViewModel.CurrentShow != null;
-        }
-
-        private void NewView_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            //lack of ID in view will mean that this is a new view
-            //for example, this will help to determine if we should display view types list box
-            EditViewWindow newViewWindow = new EditViewWindow
-            {
-                Header = "Add New View",
-                Owner = this,
-                View = new View
-                {
-                    IsVisible = true,
-                    Axes = new ObservableCollection<Axis>(ViewModel.Axes)
-                },
-                Axes = new ObservableCollection<Axis>(ViewModel.Axes),
-                AllowsTransparency = true,
-                ExistingViews = ViewModel.CurrentShow.Views
-            };
-
-            bool? result = newViewWindow.ShowDialog();
-
-            if (result == true)
-            {
-                if (string.IsNullOrEmpty(newViewWindow.View.Name))
-                {
-                    MessageBoxWindow messageBox = new MessageBoxWindow
-                    {
-                        Header = "View error",
-                        Message = $"Empty view name",
-                        Owner = this,
-                        Width = 400,
-                        Height = 250
-                    };
-
-                    messageBox.ShowDialog();
-                    return;
-                }
-
-                if (ViewModel.CurrentShow.Views == null)
-                {
-                    ViewModel.CurrentShow.Views = new ObservableCollection<View>();
-                }
-
-                newViewWindow.View.Id = Guid.NewGuid();
-                ViewModel.CurrentShow.Views.Add(newViewWindow.View);
-
-                ReloadViews();
-            }
-        }
-
-        private void DeleteView_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = ViewModel.CurrentShow?.SelectedView != null;
-        }
-
-        private void DeleteView_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            if (ViewModel.CurrentShow?.SelectedView != null)
-            {
-                if (ViewModel.CurrentShow.Views.Count <= 1)
-                {
-                    MessageBoxWindow messageBox = new MessageBoxWindow
-                    {
-                        Header = "View deletion",
-                        Message = "Last view cannot be deleted!",
-                        Owner = this,
-                        Width = 400,
-                        Height = 250
-                    };
-
-                    messageBox.ShowDialog();
-                    return;
-                }
-
-                ConfirmationWindow confirmationWindow = new ConfirmationWindow
-                {
-                    Header = "Deleting view...",
-                    Message = $"Are you sure, you want to delete selected view - '{ViewModel.CurrentShow.SelectedView.Name}'?",
-                    Owner = this
-                };
-
-                bool? result = confirmationWindow.ShowDialog();
-
-                if (result == true)
-                {
-                    ViewModel.CurrentShow.Views.Remove(ViewModel.CurrentShow.SelectedView);
-
-                    ReloadViews();
-
-                    View firstView = ViewModel.CurrentShow.Views.FirstOrDefault();
-                    if (firstView != null)
-                    {
-                        firstView.IsSelected = true;
-                    }
-                }
-            }
-        }
-
         private void OpenViewSettings_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
@@ -456,6 +354,26 @@ namespace Niscon.Raynok
         private void WorkspaceContainer_OnProfilesUpdated(object sender, ProfilesUpdatedEventArgs eventargs)
         {
             ViewModel.CurrentShow.Cues.FillCues(ViewModel.Axes);
+        }
+
+        private void ViewsSettings_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            EditViewsWindow viewsSettingsWindow = new EditViewsWindow(ViewModel.CurrentShow.Views, ViewModel.Axes)
+            {
+                Owner = this
+            };
+
+            bool? result = viewsSettingsWindow.ShowDialog();
+            if (result == true)
+            {
+                ViewModel.CurrentShow.Views = viewsSettingsWindow.Views;
+                ReloadViews();
+            }
+        }
+
+        private void ViewsSettings_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = ViewModel?.CurrentShow?.Views != null;
         }
     }
 }

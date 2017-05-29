@@ -1,0 +1,505 @@
+{
+  "Cues": [
+    {
+      "Id": "2daedd9b-6cbe-4d6f-a9c7-97dac3829f6f",
+      "Name": "Main Drape Out",
+      "Profiles": [
+        {
+          "AxisId": 1,
+          "TargetValue": 340.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        },
+        {
+          "AxisId": 2,
+          "TargetValue": 320.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        }
+      ],
+      "Children": []
+    },
+    {
+      "Id": "df9203b0-de2f-473b-abbf-26df2c53ec13",
+      "Name": "Drop In",
+      "Profiles": [
+        {
+          "AxisId": 3,
+          "TargetValue": 340.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        },
+        {
+          "AxisId": 4,
+          "TargetValue": 300.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        },
+        {
+          "AxisId": 5,
+          "TargetValue": 450.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        }
+      ],
+      "Children": [
+        {
+          "Id": "d9301784-6e53-4c8a-abc5-2c1425d45784",
+          "Name": "Practical In",
+          "Profiles": [
+            {
+              "AxisId": 6,
+              "TargetValue": 50.0,
+              "StartingVelocity": 36.0,
+              "Velocity": 36.0,
+              "Duration": "00:00:20",
+              "Acceleration": 18.0,
+              "Deceleration": 18.0,
+              "Delay": "00:00:10",
+              "Load": 500.0
+            },
+            {
+              "AxisId": 7,
+              "TargetValue": 240.0,
+              "StartingVelocity": 36.0,
+              "Velocity": 36.0,
+              "Duration": "00:00:20",
+              "Acceleration": 18.0,
+              "Deceleration": 18.0,
+              "Delay": "00:00:10",
+              "Load": 500.0
+            }
+          ],
+          "Children": []
+        }
+      ]
+    },
+    {
+      "Id": "09c10501-aa60-438d-9fe6-3aa370d442db",
+      "Name": "Scene Change 4",
+      "Profiles": [
+        {
+          "AxisId": 3,
+          "TargetValue": 360.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        },
+        {
+          "AxisId": 4,
+          "TargetValue": 220.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        },
+        {
+          "AxisId": 5,
+          "TargetValue": 150.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        }
+      ],
+      "Children": [
+        {
+          "Id": "b49bffb3-47f9-4c14-b76e-50b21de977a5",
+          "Name": "Show Reveal",
+          "Profiles": [
+            {
+              "AxisId": 8,
+              "TargetValue": 150.0,
+              "StartingVelocity": 36.0,
+              "Velocity": 36.0,
+              "Duration": "00:00:20",
+              "Acceleration": 18.0,
+              "Deceleration": 18.0,
+              "Delay": "00:00:10",
+              "Load": 500.0
+            },
+            {
+              "AxisId": 9,
+              "TargetValue": 500.0,
+              "StartingVelocity": 36.0,
+              "Velocity": 36.0,
+              "Duration": "00:00:20",
+              "Acceleration": 18.0,
+              "Deceleration": 18.0,
+              "Delay": "00:00:10",
+              "Load": 500.0
+            },
+            {
+              "AxisId": 13,
+              "TargetValue": 160.0,
+              "StartingVelocity": 36.0,
+              "Velocity": 36.0,
+              "Duration": "00:00:20",
+              "Acceleration": 18.0,
+              "Deceleration": 18.0,
+              "Delay": "00:00:10",
+              "Load": 500.0
+            }
+          ],
+          "Children": []
+        }
+      ]
+    },
+    {
+      "Id": "60c78de4-8371-4430-a8f8-19253a8854be",
+      "Name": "Intermission",
+      "Profiles": [
+        {
+          "AxisId": 3,
+          "TargetValue": 500.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        },
+        {
+          "AxisId": 4,
+          "TargetValue": 30.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        },
+        {
+          "AxisId": 5,
+          "TargetValue": 5.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        },
+        {
+          "AxisId": 6,
+          "TargetValue": 500.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        },
+        {
+          "AxisId": 8,
+          "TargetValue": 500.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        },
+        {
+          "AxisId": 13,
+          "TargetValue": 500.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        }
+      ],
+      "Children": []
+    },
+    {
+      "Id": "ecdac9ed-978f-497c-9bb6-95a92d322ce1",
+      "Name": "Act II",
+      "Profiles": [
+        {
+          "AxisId": 3,
+          "TargetValue": 52.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        },
+        {
+          "AxisId": 4,
+          "TargetValue": 300.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        },
+        {
+          "AxisId": 5,
+          "TargetValue": 450.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        },
+        {
+          "AxisId": 6,
+          "TargetValue": 53.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        },
+        {
+          "AxisId": 8,
+          "TargetValue": 54.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        },
+        {
+          "AxisId": 13,
+          "TargetValue": 55.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        }
+      ],
+      "Children": [
+        {
+          "Id": "61c2e242-1bb3-4824-b20c-45026b55385f",
+          "Name": "AutoFollow 1",
+          "Profiles": [
+            {
+              "AxisId": 9,
+              "TargetValue": 300.0,
+              "StartingVelocity": 36.0,
+              "Velocity": 36.0,
+              "Duration": "00:00:20",
+              "Acceleration": 18.0,
+              "Deceleration": 18.0,
+              "Delay": "00:00:10",
+              "Load": 500.0
+            }
+          ],
+          "Children": []
+        },
+        {
+          "Id": "701184d8-2dd3-45c0-88d4-17a8a8a09269",
+          "Name": "AutoFollow 2",
+          "Profiles": [
+            {
+              "AxisId": 9,
+              "TargetValue": 500.0,
+              "StartingVelocity": 36.0,
+              "Velocity": 36.0,
+              "Duration": "00:00:20",
+              "Acceleration": 18.0,
+              "Deceleration": 18.0,
+              "Delay": "00:00:10",
+              "Load": 500.0
+            },
+            {
+              "AxisId": 10,
+              "TargetValue": 300.0,
+              "StartingVelocity": 36.0,
+              "Velocity": 36.0,
+              "Duration": "00:00:20",
+              "Acceleration": 18.0,
+              "Deceleration": 18.0,
+              "Delay": "00:00:10",
+              "Load": 500.0
+            }
+          ],
+          "Children": []
+        }
+      ]
+    },
+    {
+      "Id": "7a007f1c-638f-4abd-ad2f-fe3b39835974",
+      "Name": "End Show",
+      "Profiles": [
+        {
+          "AxisId": 1,
+          "TargetValue": 0.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        },
+        {
+          "AxisId": 2,
+          "TargetValue": 0.0,
+          "StartingVelocity": 36.0,
+          "Velocity": 36.0,
+          "Duration": "00:00:20",
+          "Acceleration": 18.0,
+          "Deceleration": 18.0,
+          "Delay": "00:00:10",
+          "Load": 500.0
+        }
+      ],
+      "Children": []
+    }
+  ],
+  "Views": [
+    {
+      "Id": "60786cce-4a5a-48d5-a6af-17f001663427",
+      "Name": "Cue Info 1",
+      "Type": "CueInfo",
+      "IsVisible": true,
+      "AxesIds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    },
+    {
+      "Id": "4f391a34-ea56-4236-b153-e2f588d3710c",
+      "Name": "Presets 1",
+      "Type": "Preset",
+      "IsVisible": true,
+      "AxesIds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    },
+    {
+      "Id": "657e203e-b1c6-468c-bc3b-74818bdc48e0",
+      "Name": "Sections 1",
+      "Type": "Section",
+      "IsVisible": true,
+      "AxesIds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    },
+    {
+      "Id": "1725e54d-2102-42c4-9394-89d8df76368d",
+      "Name": "Cue Info 2",
+      "Type": "CueInfo",
+      "IsVisible": true,
+      "AxesIds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    {
+      "Id": "4b2d5aea-7cd0-46ea-98d4-3cdaa01b5e81",
+      "Name": "Cue Info 3",
+      "Type": "CueInfo",
+      "IsVisible": true,
+      "AxesIds": [
+        1,
+        2,
+        3
+      ]
+    }
+  ]
+}

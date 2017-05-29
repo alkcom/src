@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Niscon\Application\Niscon.Raynok_v13\Niscon.Raynok_v13\src\Niscon.Raynok\obj\Debug\
+D:\Niscon\Application\Niscon.Raynok_v14\src\Niscon.Raynok\obj\Debug\
 Niscon.Raynok
 none
 false
 DEBUG;TRACE
-D:\Niscon\Application\Niscon.Raynok_v13\Niscon.Raynok_v13\src\Niscon.Raynok\App.xaml
-41-505094161
+D:\Niscon\Application\Niscon.Raynok_v14\src\Niscon.Raynok\App.xaml
+422113458265
 
-1011363742304
-221968766189
-Controls\LockPanel.xaml;Controls\ToolMenu.xaml;Controls\AdminMenuContainer.xaml;Controls\AxesColumns.xaml;Controls\AxesGrid.xaml;Controls\AxesPresets.xaml;Controls\AxisColumnValueIndicator.xaml;Controls\AxisValueIndicator.xaml;Controls\CueTree.xaml;Controls\FilePanel.xaml;Controls\Footer.xaml;Controls\Header.xaml;Controls\PanelHeader.xaml;Controls\SetupPanel.xaml;Controls\WorkspaceContainer.xaml;Controls\WorkspaceSelector.xaml;MainWindow.xaml;Resources\Animations.xaml;Resources\Brushes.xaml;Resources\Buttons.xaml;Resources\Containers.xaml;Resources\Converters.xaml;Resources\DataGrids.xaml;Resources\DesignTimeData.xaml;Resources\Effects.xaml;Resources\Icons.xaml;Resources\CheckBoxes.xaml;Resources\Menus.xaml;Resources\ProgressBars.xaml;Resources\Scrolls.xaml;Resources\StaticElements.xaml;Resources\Text.xaml;Resources\TextBoxes.xaml;Windows\AfParametersWindow.xaml;Windows\ConfirmationWindow.xaml;Windows\EditValueWindow.xaml;Windows\EditViewWindow.xaml;Windows\CuePropertiesWindow.xaml;Windows\ItemNameWindow.xaml;Windows\MakeCueAutofollowWindow.xaml;Windows\MessageBoxWindow.xaml;
+102-207213515
+22873731260
+Controls\LockPanel.xaml;Controls\ToolMenu.xaml;Controls\AdminMenuContainer.xaml;Controls\AxesColumns.xaml;Controls\AxesGrid.xaml;Controls\AxesPresets.xaml;Controls\AxisColumnValueIndicator.xaml;Controls\AxisValueIndicator.xaml;Controls\CueTree.xaml;Controls\FilePanel.xaml;Controls\Footer.xaml;Controls\Header.xaml;Controls\PanelHeader.xaml;Controls\SetupPanel.xaml;Controls\WorkspaceContainer.xaml;Controls\WorkspaceSelector.xaml;MainWindow.xaml;Resources\Animations.xaml;Resources\Brushes.xaml;Resources\Buttons.xaml;Resources\Containers.xaml;Resources\Converters.xaml;Resources\DataGrids.xaml;Resources\DesignTimeData.xaml;Resources\Effects.xaml;Resources\Icons.xaml;Resources\CheckBoxes.xaml;Resources\Menus.xaml;Resources\ProgressBars.xaml;Resources\Scrolls.xaml;Resources\StaticElements.xaml;Resources\Text.xaml;Resources\TextBoxes.xaml;Windows\AfParametersWindow.xaml;Windows\ConfirmationWindow.xaml;Windows\EditValueWindow.xaml;Windows\EditViewsWindow.xaml;Windows\EditViewWindow.xaml;Windows\CuePropertiesWindow.xaml;Windows\ItemNameWindow.xaml;Windows\MakeCueAutofollowWindow.xaml;Windows\MessageBoxWindow.xaml;
 
 True
 

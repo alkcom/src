@@ -1,0 +1,78 @@
+﻿<Window x:Class="Niscon.Raynok.Windows.EditViewsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Niscon.Raynok.Windows"
+        xmlns:controls="clr-namespace:Niscon.Raynok.Controls"
+        xmlns:cmd="clr-namespace:Niscon.Raynok.Commands"
+        mc:Ignorable="d" AllowsTransparency="True" Background="Transparent"
+        Title="EditViewsWindow" Height="600" Width="500" ResizeMode="NoResize" WindowStyle="None" WindowStartupLocation="CenterOwner">
+    <Window.CommandBindings>
+        <CommandBinding Command="cmd:AppCommands.Ok" CanExecute="Ok_CanExecute" Executed="Ok_Executed"/>
+        <CommandBinding Command="cmd:AppCommands.Cancel" Executed="Cancel_Executed"/>
+
+        <CommandBinding Command="cmd:ViewCommands.New" Executed="New_Executed"/>
+        <CommandBinding Command="cmd:ViewCommands.Edit" CanExecute="ViewItem_CanExecute" Executed="Edit_Executed"/>
+        <CommandBinding Command="cmd:ViewCommands.Delete" CanExecute="ViewItem_CanExecute" Executed="Delete_Executed"/>
+
+        <CommandBinding Command="cmd:ViewCommands.ResetChanges" CanExecute="ResetChanges_CanExecute" Executed="ResetChanges_Executed"/>
+
+        <CommandBinding Command="cmd:ViewCommands.MoveUp" CanExecute="MoveUp_CanExecute" Executed="MoveUp_Executed"/>
+        <CommandBinding Command="cmd:ViewCommands.MoveDown" CanExecute="MoveDown_CanExecute" Executed="MoveDown_Executed"/>
+    </Window.CommandBindings>
+    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:EditViewsWindow}}" Margin="0 0 10 10">
+        <Grid.Effect>
+            <DropShadowEffect BlurRadius="20" ShadowDepth="10" Opacity="0.5"/>
+        </Grid.Effect>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <controls:PanelHeader Text="Edit Views"/>
+
+        <Border Grid.Row="1" Background="{StaticResource PanelContentBrush}">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Border BorderThickness="2" BorderBrush="{StaticResource GridRowBorderBrush}" Margin="0 0 10 0">
+                    <ListBox Style="{StaticResource RadioButtonListBox}" Margin="5" ItemsSource="{Binding Views}" SelectedValue="{Binding SelectedView, Mode=TwoWay}"
+                             DisplayMemberPath="Name"/>
+                </Border>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Button Grid.Row="0" Margin="5" Content="Add" Width="120" HorizontalAlignment="Left" Command="cmd:ViewCommands.New"/>
+                    <Button Grid.Row="1" Margin="5" Content="Modify" Width="120" HorizontalAlignment="Left" Command="cmd:ViewCommands.Edit"/>
+                    <Button Grid.Row="2" Margin="5" Content="Remove" Width="120" HorizontalAlignment="Left" Command="cmd:ViewCommands.Delete"/>
+                    
+                    <Button Grid.Row="3" Margin="5 10" Content="Reset Changes" Width="150" HorizontalAlignment="Left" VerticalAlignment="Center" Command="cmd:ViewCommands.ResetChanges"/>
+
+                    <Button Grid.Row="4" Margin="5" Content="Move Up" Width="120" HorizontalAlignment="Left" Command="cmd:ViewCommands.MoveUp"/>
+                    <Button Grid.Row="5" Margin="5" Content="Move Down" Width="120" HorizontalAlignment="Left" Command="cmd:ViewCommands.MoveDown"/>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2"  Background="{StaticResource PanelContentBrush}" CornerRadius="0 0 3 3"/>
+        <Grid Grid.Row="2" Height="75">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Margin="15 10" Content="OK" x:Name="OkButton" Command="cmd:AppCommands.Ok" />
+            <Button Grid.Column="1" Margin="15 10" Content="Cancel" x:Name="CancelButton" Command="cmd:AppCommands.Cancel" />
+        </Grid>
+    </Grid>
+</Window>

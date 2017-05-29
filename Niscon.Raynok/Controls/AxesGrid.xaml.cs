@@ -95,9 +95,11 @@ namespace Niscon.Raynok.Controls
                             break;
                     }
                 }
+
+                InvertProfileSelection(profile);
             }
 
-            e.Handled = true;
+            //e.Handled = true;
         }
 
         private void UIElement_OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -143,9 +145,11 @@ namespace Niscon.Raynok.Controls
 
                     OnProfilesUpdated(new ProfilesUpdatedEventArgs(new List<Profile> {profile}));
                 }
+
+                InvertProfileSelection(profile);
             }
 
-            e.Handled = true;
+            //e.Handled = true;
         }
 
         protected virtual void OnProfilesUpdated(ProfilesUpdatedEventArgs eventargs)
@@ -189,9 +193,11 @@ namespace Niscon.Raynok.Controls
                             break;
                     }
                 }
+
+                InvertProfileSelection(profile);
             }
 
-            e.Handled = true;
+            //e.Handled = true;
         }
 
         private void Acceleration_OnPreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -230,9 +236,11 @@ namespace Niscon.Raynok.Controls
                             break;
                     }
                 }
+
+                InvertProfileSelection(profile);
             }
 
-            e.Handled = true;
+            //e.Handled = true;
         }
 
         private void Deceleration_OnPreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -271,9 +279,19 @@ namespace Niscon.Raynok.Controls
                             break;
                     }
                 }
+
+                InvertProfileSelection(profile);
             }
 
-            e.Handled = true;
+            //e.Handled = true;
+        }
+
+        private void InvertProfileSelection(Profile profile)
+        {
+            if (profile != null)
+            {
+                profile.Axis.Selected = !profile.Axis.Selected;
+            }
         }
     }
 }

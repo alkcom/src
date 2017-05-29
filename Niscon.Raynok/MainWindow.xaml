@@ -30,10 +30,11 @@
         <CommandBinding Command="commands:ShowCommands.SaveAs" CanExecute="ShowCommands_CanExecute" Executed="SaveShowAs_Executed"/>
         <CommandBinding Command="commands:ShowCommands.Delete" CanExecute="ShowCommands_CanExecute" Executed="DeleteShow_Executed"/>
 
-        <CommandBinding Command="commands:ViewCommands.New" CanExecute="NewView_CanExecute" Executed="NewView_Executed"/>
-        <CommandBinding Command="commands:ViewCommands.Delete" CanExecute="DeleteView_CanExecute" Executed="DeleteView_Executed"/>
+        <!--<CommandBinding Command="commands:ViewCommands.New" CanExecute="NewView_CanExecute" Executed="NewView_Executed"/>
+        <CommandBinding Command="commands:ViewCommands.Delete" CanExecute="DeleteView_CanExecute" Executed="DeleteView_Executed"/>-->
         <!--<CommandBinding Command="commands:ViewCommands.Select" CanExecute="SelectView_CanExecute" Executed="SelectView_Executed"/>-->
-        <CommandBinding Command="commands:ViewCommands.OpenSettings" CanExecute="OpenViewSettings_CanExecute" Executed="OpenViewSettings_Executed"/>
+        <CommandBinding Command="commands:ViewCommands.Edit" CanExecute="OpenViewSettings_CanExecute" Executed="OpenViewSettings_Executed"/>
+        <CommandBinding Command="commands:ViewCommands.Settings" CanExecute="ViewsSettings_CanExecute" Executed="ViewsSettings_Executed"/>
     </Window.CommandBindings>
     <Grid HorizontalAlignment="Stretch" Width="Auto">
         <Grid.ColumnDefinitions>
@@ -89,8 +90,9 @@
                     <MenuItem.ItemsSource>
                         <CompositeCollection>
                             <CollectionContainer x:Name="ViewsContainer" />
-                            <MenuItem Header="Add New View" Command="commands:ViewCommands.New"/>
-                            <MenuItem Header="Delete Current View" Command="commands:ViewCommands.Delete"/>
+                            <MenuItem Header="Edit Views" Command="commands:ViewCommands.Settings"/>
+                            <!--<MenuItem Header="Add New View" Command="commands:ViewCommands.New"/>
+                            <MenuItem Header="Delete Current View" Command="commands:ViewCommands.Delete"/>-->
                         </CompositeCollection>
                     </MenuItem.ItemsSource>
                 </MenuItem>

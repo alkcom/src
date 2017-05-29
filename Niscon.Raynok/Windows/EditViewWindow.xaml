@@ -57,17 +57,6 @@
                         </Grid.RowDefinitions>
                         <TextBlock Text="Enter View Name:" HorizontalAlignment="Left" FontSize="20"/>
                         <TextBox Grid.Row="1" Margin="0 5" VerticalAlignment="Center"  FontSize="22" TextAlignment="Left" x:Name="ViewNameText">
-                            <!--<Validation.ErrorTemplate>
-                                <ControlTemplate>
-                                    <DockPanel>
-                                        <AdornedElementPlaceholder />
-                                        <TextBlock
-                                            Foreground="Red"
-                                            FontSize="20"><Run Text="!" />
-                                        </TextBlock>
-                                    </DockPanel>
-                                </ControlTemplate>
-                            </Validation.ErrorTemplate>-->
                         </TextBox>
                     </Grid>
                 </Border>

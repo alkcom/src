@@ -179,6 +179,9 @@
     <Compile Include="Windows\EditValueWindow.xaml.cs">
       <DependentUpon>EditValueWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\EditViewsWindow.xaml.cs">
+      <DependentUpon>EditViewsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\EditViewWindow.xaml.cs">
       <DependentUpon>EditViewWindow.xaml</DependentUpon>
     </Compile>
@@ -373,6 +376,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\EditValueWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\EditViewsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
